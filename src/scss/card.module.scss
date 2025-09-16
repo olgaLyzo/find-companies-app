@@ -1,0 +1,66 @@
+@use './variables.module.scss' as vars;
+
+.card{
+	border-radius: 11px;
+	border: 3px solid vars.$orange;
+	margin-bottom: 45px;
+
+	.card_header{
+		display: flex;
+		flex-direction: column;
+		background-color: vars.$orange;
+		border-radius: -6px 10px 0 0;
+		height: 111px;
+	}
+
+		.card_title{
+			display: flex;
+			h2{
+				@extend .font-h2;
+			}
+			img{
+				width: 59px;
+				height: 53.18px;
+				margin: 0 10px 0 auto;
+			}
+		}
+
+
+	.card_content{
+		.price{
+			.actual_price, .previous_price, h3{
+				@extend .font-h2;
+			}
+			.actual_price{
+				font-size: 30px;
+				margin-right: 20px;
+			}
+			.previous_price{
+				font-size: 25px;
+				color: grey;
+				text-decoration: line-through;
+			}
+		}
+		.conditions{
+			li{
+				list-style: url('images/list-item-icon.svg');
+				@extend .font-main;
+			}
+		}
+		.go_to_account_btn{
+			width: 286.57px;
+			height: 59px;
+			background-color: #D2D2D2;
+			border: none;
+			border-radius: 5px;
+		}
+	}
+
+	p, li, .go_to_account_btn{
+		@extend .font-main;
+		}
+
+	.card_header, .card_content{
+		padding: 20px;
+	}
+}

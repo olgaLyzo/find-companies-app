@@ -1,0 +1,9 @@
+// @use './variables.module.scss' as vars;
+
+.container {
+	border: 1px solid black;
+	font-family: Inter, sans serif;
+	overflow: auto;
+	height: 100vh;
+}
+

@@ -1,0 +1,16 @@
+.header{
+	display:flex;
+	padding: 10px;
+	.logo{
+		background-image: url('images/logo.svg');
+		background-repeat: no-repeat;
+		width: 111px;
+		height: 111px;
+		flex-grow: 1;
+	}
+	
+	.statistic{
+		background-color: blue;
+		flex-grow: 2;
+	}
+}
