@@ -7,8 +7,6 @@ import BurgerMenu from './components/BurgerMenu';
 import MainBlock from './components/MainBlock';
 import Card from './components/Card';
 import Statistic from './components/Statistic';
-import Image from './components/Image';
-// import SliderCard from './components/SliderCard';
 const rootElement = document.getElementById('root');
 if (rootElement) {
     const root = createRoot(rootElement);

@@ -2,7 +2,7 @@
 export interface tarif{
 		title: string;
 		сlient: string;
-		conUrl: string;
+		iconUrl: string;
 		price: number;
 		previousPrice: number;
 		description: string;

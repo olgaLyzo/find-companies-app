@@ -1,18 +1,19 @@
+import { useState } from "react";
 import css from "../scss/main.module.scss";
 import Card from "./Card";
-import Image from "./Image";
 import { tarifRequest } from "./tarifRequest";
-
+import Slider from "./Slider";
+import SliderCard from "./SliderCard";
 export interface MainBlockProps {
   сardComponent: React.ElementType;
-	imageComponent: React.ElementType;
+	sliderComponent: React.ElementType;
 }
 
 const MainBlock: React.FC<MainBlockProps> = ({ 
-	сardComponent, 
-	imageComponent, 
+	сardComponent,
+	sliderComponent
 }) => {
-	console.log(tarifRequest[0].title)
+
   return (
     <div className={css.main_block}>
       <h2 className={css.title}>
@@ -23,14 +24,24 @@ const MainBlock: React.FC<MainBlockProps> = ({
         электронную почту.
       </p>
       <button className={css.get_info_btn}>Запросить данные</button>
-			<Image/>
+			<img src='images/search-service.svg'/>
 			<h2 className={css.title}>
         Почему именно мы
       </h2>
+			<Slider sliderCardComponent = {sliderComponent}/>
+			<img src='images/wy-choose.svg'/>
+			<h2 className={css.title}>
+        Наши тарифы
+      </h2>
 			{
+				
 				tarifRequest.map((tarif, index)=>{
+					
 					return(
-						<Card key={index} {...tarif}/>
+						<Card 
+							key={index} 
+							{...tarif} 
+						/>
 					)
 				})
 			}

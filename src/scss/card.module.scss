@@ -2,16 +2,27 @@
 
 .card{
 	border-radius: 11px;
-	border: 3px solid vars.$orange;
 	margin-bottom: 45px;
+	box-shadow: 2px 4px 21px rgba(0,0,0,0.3);
+	&.beginer{
+		border: 2px solid vars.$orange;
+	}
+	&.pro{
+		border: 2px solid vars.$light-green;
+	}
+	&.business{
+		border: 2px solid vars.$black;
+	}
+	
+
 
 	.card_header{
 		display: flex;
 		flex-direction: column;
-		background-color: vars.$orange;
 		border-radius: -6px 10px 0 0;
 		height: 111px;
-	}
+		border-top-left-radius: 10px;
+  	border-top-right-radius: 10px;
 
 		.card_title{
 			display: flex;
@@ -25,6 +36,24 @@
 			}
 		}
 
+		.client{
+			margin: 0;
+		}
+
+		&.beginer{
+			background-color: vars.$orange;
+		}
+		&.pro{
+			background-color: vars.$light-green;
+		}
+
+		&.business{
+			background-color: vars.$black;
+			.card_title, .client{
+			color: white;
+		}
+		}
+	}
 
 	.card_content{
 		.price{
@@ -53,6 +82,15 @@
 			background-color: #D2D2D2;
 			border: none;
 			border-radius: 5px;
+		}
+
+		.get_info_btn{
+			width: 286.57px;
+			height: 59px;
+			background-color: vars.$blue;
+			border: none;
+			border-radius: 5px;
+			color: white;
 		}
 	}
 
