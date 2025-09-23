@@ -3,7 +3,6 @@ import css from "../scss/main.module.scss";
 import Card from "./Card";
 import { tarifRequest } from "./tarifRequest";
 import Slider from "./Slider";
-import SliderCard from "./SliderCard";
 export interface MainBlockProps {
   сardComponent: React.ElementType;
 	sliderComponent: React.ElementType;

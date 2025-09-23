@@ -1,9 +1,11 @@
-// @use './variables.module.scss' as vars;
-
 .container {
 	border: 1px solid black;
 	font-family: Inter, sans serif;
-	overflow: auto;
-	height: 100vh;
+  display: flex;
+  flex-direction: column;
+	overflow: hidden;
+	a {        /* ваш желаемый цвет, например чёрный */
+  text-decoration: none; /* убирает подчеркивание */
+	}
 }
 

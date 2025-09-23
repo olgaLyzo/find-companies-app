@@ -8,6 +8,8 @@ import BurgerMenu from './components/BurgerMenu';
 import MainBlock from './components/MainBlock';
 import Card from './components/Card';
 import Statistic from './components/Statistic';
+import Footer from './components/Footer';
+import Slider from './components/Slider';
 
 const rootElement = document.getElementById('root');
 
@@ -25,9 +27,11 @@ if (rootElement) {
 				mainComponent={
 					<MainBlock 
 						сardComponent={Card}
-						imageComponent={Image}
-						
+						sliderComponent={Slider}
 					/>
+				}
+				footerComponent={
+					<Footer/>
 				}
 			/>
     </StrictMode>

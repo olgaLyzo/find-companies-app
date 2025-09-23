@@ -1,0 +1,37 @@
+@use './variables.module.scss' as vars;
+
+.footer{
+	display: flex;
+	align-items: center;
+	padding: 15px;
+	height: 137px;
+  bottom: 0;
+	background-color: vars.$green;
+	color:white;
+
+	.logo{
+		background-image: url('images/logo_footer.svg');
+		background-repeat: no-repeat;
+		width: 111px;
+		height: 111px;
+		flex-grow: 1;
+	}
+
+	.info{
+		display:flex;
+		flex-direction: column;
+		align-items: self-end;
+		justify-content: baseline;
+		
+		.mail, .phone_number{
+			cursor: pointer;
+		}
+		.rights{
+			margin-top: 20px;
+		}
+		
+		a{
+			color:white;
+		}
+	}
+}

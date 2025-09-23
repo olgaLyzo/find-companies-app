@@ -7,6 +7,7 @@
 	flex-direction: column;
 	width: 335px;
 	margin: 0 auto;
+	flex: 1;
 
 	.title{
 		@extend .font-h1;

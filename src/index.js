@@ -7,8 +7,10 @@ import BurgerMenu from './components/BurgerMenu';
 import MainBlock from './components/MainBlock';
 import Card from './components/Card';
 import Statistic from './components/Statistic';
+import Footer from './components/Footer';
+import Slider from './components/Slider';
 const rootElement = document.getElementById('root');
 if (rootElement) {
     const root = createRoot(rootElement);
-    root.render(_jsx(StrictMode, { children: _jsx(App, { headerComponent: _jsx(Header, { burgerMenuComponent: BurgerMenu, statisticComponent: Statistic }), mainComponent: _jsx(MainBlock, { "\u0441ardComponent": Card, imageComponent: Image }) }) }));
+    root.render(_jsx(StrictMode, { children: _jsx(App, { headerComponent: _jsx(Header, { burgerMenuComponent: BurgerMenu, statisticComponent: Statistic }), mainComponent: _jsx(MainBlock, { "\u0441ardComponent": Card, sliderComponent: Slider }), footerComponent: _jsx(Footer, {}) }) }));
 }
