@@ -24,29 +24,22 @@ const MainBlock: React.FC<MainBlockProps> = ({
         электронную почту.
       </p>
       <button className={css.get_info_btn}>Запросить данные</button>
-			<img src='images/search-service.svg'/>
+			<img className={css.image} src='images/search-service.svg'/>
 			<h2 className={css.title}>
         Почему именно мы
       </h2>
 			<Slider sliderCardComponent = {sliderComponent}/>
-			<img src='images/wy-choose.svg'/>
+			<img className={css.image} src='images/wy-choose.svg'/>
 			<h2 className={css.title}>
         Наши тарифы
       </h2>
 			{
-				
 				tarifRequest.map((tarif, index)=>{
-					
 					return(
-						<Card 
-							key={index} 
-							{...tarif} 
-						/>
+						<Card key={index} {...tarif} />
 					)
 				})
 			}
-      
-			
     </div>
   );
 };
