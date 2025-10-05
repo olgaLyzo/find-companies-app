@@ -1,23 +1,14 @@
-import { useState } from "react";
 import css from "../scss/main.module.scss";
 import Card from "./Card";
 import { tarifRequest } from "./tarifRequest";
 import Slider from "./Slider";
-export interface MainBlockProps {
-  сardComponent: React.ElementType;
-	sliderComponent: React.ElementType;
-}
 
-const MainBlock: React.FC<MainBlockProps> = ({ 
-	сardComponent,
-	sliderComponent
-}) => {
+
+const MainBlock: React.FC = () => {
 
   return (
     <div className={css.main_block}>
-      <h2 className={css.title}>
-        Cервис по поиску публикаций о компании по его ИНН
-      </h2>
+      <h2 className={css.title}>Cервис по поиску публикаций о компании по его ИНН</h2>
       <p>
         Комплексный анализ публикаций, получение данных в формате PDF на
         электронную почту.
@@ -27,11 +18,9 @@ const MainBlock: React.FC<MainBlockProps> = ({
 			<h2 className={css.title}>
         Почему именно мы
       </h2>
-			<Slider sliderCardComponent = {sliderComponent}/>
+			<Slider />
 			<img className={css.image} src='images/wy-choose.svg'/>
-			<h2 className={css.title}>
-        Наши тарифы
-      </h2>
+			<h2 className={css.title}>Наши тарифы</h2>
 			{
 				tarifRequest.map((tarif, index)=>{
 					return(

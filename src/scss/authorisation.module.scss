@@ -1,6 +1,6 @@
-.container {
-	min-width: 380px;
-	border: 1px solid black;
+
+	.auth{
+  min-width: 380px;
 	font-family: Inter, sans serif;
   display: flex;
   flex-direction: column;
@@ -8,5 +8,4 @@
 	a {        /* ваш желаемый цвет, например чёрный */
   text-decoration: none; /* убирает подчеркивание */
 	}
-}
-
+	}

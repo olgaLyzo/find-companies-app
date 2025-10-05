@@ -3,14 +3,11 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import Header from './components/Header';
-import BurgerMenu from './components/BurgerMenu';
 import MainBlock from './components/MainBlock';
-import Card from './components/Card';
-import Statistic from './components/Statistic';
 import Footer from './components/Footer';
-import Slider from './components/Slider';
+import AuthorisationPage from './components/AuthorisationPage';
 const rootElement = document.getElementById('root');
 if (rootElement) {
     const root = createRoot(rootElement);
-    root.render(_jsx(StrictMode, { children: _jsx(App, { headerComponent: _jsx(Header, { burgerMenuComponent: BurgerMenu, statisticComponent: Statistic }), mainComponent: _jsx(MainBlock, { "\u0441ardComponent": Card, sliderComponent: Slider }), footerComponent: _jsx(Footer, {}) }) }));
+    root.render(_jsx(StrictMode, { children: _jsx(App, { headerComponent: _jsx(Header, {}), authorisationComponent: _jsx(AuthorisationPage, {}), mainComponent: _jsx(MainBlock, {}), footerComponent: _jsx(Footer, {}) }) }));
 }

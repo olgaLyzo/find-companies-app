@@ -10,6 +10,7 @@ import Card from './components/Card';
 import Statistic from './components/Statistic';
 import Footer from './components/Footer';
 import Slider from './components/Slider';
+import AuthorisationPage from './components/AuthorisationPage';
 
 const rootElement = document.getElementById('root');
 
@@ -18,22 +19,11 @@ if (rootElement) {
   root.render(
     <StrictMode>
       <App 
-				headerComponent = {
-					<Header 
-						burgerMenuComponent={BurgerMenu} 
-						statisticComponent={Statistic} 
-					/>
-				} 
-				mainComponent={
-					<MainBlock 
-						сardComponent={Card}
-						sliderComponent={Slider}
-					/>
-				}
-				footerComponent={
-					<Footer/>
-				}
-			/>
+				headerComponent={<Header />} 
+				authorisationComponent={<AuthorisationPage />} 
+				mainComponent={<MainBlock />} 
+				footerComponent={<Footer/>}>
+			</App>
     </StrictMode>
   );
 }
