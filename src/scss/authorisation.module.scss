@@ -1,11 +1,16 @@
 
 	.auth{
-  min-width: 380px;
-	font-family: Inter, sans serif;
-  display: flex;
-  flex-direction: column;
-	overflow: hidden;
-	a {        /* ваш желаемый цвет, например чёрный */
-  text-decoration: none; /* убирает подчеркивание */
+		font-family: Inter, sans serif;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		padding: 15px;
+
+		.people_with_key{
+    	margin: 0px auto 40px auto;
+		}
 	}
+
+	@media (min-width: 769px){
+
 	}
