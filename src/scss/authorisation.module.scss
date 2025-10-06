@@ -1,6 +1,9 @@
-
+@use './variables.module.scss';
+	
+	
 	.auth{
-		font-family: Inter, sans serif;
+		@extend .font-h1;
+		font-size: 35px;
 		display: flex;
 		flex-direction: column;
 		overflow: hidden;
@@ -11,6 +14,38 @@
 		}
 	}
 
-	@media (min-width: 769px){
+	@media (min-width: 601px){
+		.auth{
+			flex-direction: row;
+			h1{
+				font-size: 29px;
+			}
 
+			.people_with_key{
+				position: absolute;
+				top: 408px;
+				width: 279px;
+			}
+		}
+	}
+
+	@media (min-width: 769px){
+		.auth{
+			h1{
+				font-size: 35px;
+			}
+			.people_with_key{
+				width: 335px;
+				top: 350px;
+			}
+		}
+	}
+
+	@media (min-width: 1025px){
+		.auth{
+			.people_with_key{
+				width: 380px;
+				top: 320px;
+			}
+		}
 	}
