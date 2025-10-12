@@ -60,7 +60,7 @@ const Card: React.FC<cardProps> = ({
       >
         <div className={css.card_title}>
           <h2>{title}</h2>
-          <img src={iconUrl} alt={""} />
+          <img src={iconUrl} alt={"icon"} />
         </div>
         <p className={css.client}>{client}</p>
       </div>
@@ -72,18 +72,23 @@ const Card: React.FC<cardProps> = ({
           <span className={css.previous_price}>
             {previousPrice.toLocaleString("ru-RU")} ₽
           </span>
+					<p>{description}</p>
         </div>
-        <p>{description}</p>
-        <h3>{tarif}</h3>
-        <ul className={css.conditions}>
-          {services.map((elem, index) => (
-            <li key={index}>{elem}</li>
-          ))}
-        </ul>
+       
+				
+					<h3>{tarif}</h3>
+        	<ul className={css.conditions}>
+						{services.map((elem, index) => (
+							<li key={index}>{elem}</li>
+						))}
+					</ul>
+				
         <button 
-					className={`${css.go_to_account_btn} ${clicked ? css.go_to_account_btn : css.get_info_btn}`}
+					className={`${css.go_to_account_btn} ${clicked 
+						? css.go_to_account_btn 
+						: css.get_info_btn}`}
 					onClick = {handleClick}
-					>
+				>
           {clicked ? 'Перейти в личный кабинет' : 'Подробнее'}
         </button>
       </div>

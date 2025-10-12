@@ -1,26 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from '../scss/slider.module.scss';
 import SliderCard  from './SliderCard';
 import { sliderInfo } from './sliderCardResponse';
 
 
 const Slider: React.FC = ()=>{	
-	const [currentIndex, setCurrentIndex] = useState(0);
-  const handlePrev = () => {
-    setCurrentIndex(prev => (prev === 0 ? sliderInfo.length - 1 : prev - 1));
-  };
-  const handleNext = () => {
-    setCurrentIndex(prev => (prev === sliderInfo.length - 1 ? 0 : prev + 1));
+	const length = sliderInfo.length;  
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 769);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth < 769);
   };
 
-	return(
-		<div className = {css.slider_container}>
-			<div className={css.back_arrow} onClick={handlePrev}></div>
-			{
-				<SliderCard {...sliderInfo[currentIndex]} />			
-			}
-			<div className={css.forward_arrow} onClick={handleNext}></div>
-		</div>
-	)
-}
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handlePrev = () => {
+    setCurrentIndex(prev => (prev - 1 + length) % length);
+  };
+  const handleNext = () => {
+    setCurrentIndex(prev => (prev + 1) % length);
+  };
+
+  const getCards = () => {
+    const cards = [];
+    for (let i = 0; i < (isMobile ? 1 : 3); i++) {
+      const index = (currentIndex + i) % length; 
+      cards.push(sliderInfo[index]);
+    }
+    return cards;
+  };
+
+  const cardsToShow = getCards();
+
+  return (
+    <div className={css.slider_wrapper}>
+      <div className={css.back_arrow} onClick={handlePrev}></div>
+				<SliderCard currentIndex={currentIndex} isMobile={isMobile}/>
+      <div className={css.forward_arrow} onClick={handleNext}></div>
+    </div>
+  );
+};
+
 export default Slider;

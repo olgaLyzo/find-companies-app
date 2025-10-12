@@ -1,104 +1,121 @@
 @use './variables.module.scss' as vars;
-
-.card{
-	border-radius: 11px;
-	margin-bottom: 45px;
-	box-shadow: 2px 4px 21px rgba(0,0,0,0.3);
-	&.beginer{
-		border: 2px solid vars.$orange;
-	}
-	&.pro{
-		border: 2px solid vars.$light-green;
-	}
-	&.business{
-		border: 2px solid vars.$black;
-	}
 	
-
-
-	.card_header{
+	.card{
 		display: flex;
 		flex-direction: column;
-		border-radius: -6px 10px 0 0;
-		height: 111px;
-		border-top-left-radius: 10px;
-  	border-top-right-radius: 10px;
-
-		.card_title{
-			display: flex;
-			h2{
-				@extend .font-h2;
-			}
-			img{
-				width: 59px;
-				height: 53.18px;
-				margin: 0 10px 0 auto;
-			}
-		}
-
-		.client{
-			margin: 0;
-		}
-
+		border-radius: 11px;
+		margin-bottom: 45px;
+		box-shadow: 2px 4px 21px rgba(0,0,0,0.3);
 		&.beginer{
-			background-color: vars.$orange;
+			border: 2px solid vars.$orange;
 		}
 		&.pro{
-			background-color: vars.$light-green;
+			border: 2px solid vars.$light-green;
 		}
-
 		&.business{
-			background-color: vars.$black;
-			.card_title, .client{
-			color: white;
+			border: 2px solid vars.$black;
 		}
-		}
-	}
+		
+		.card_header{
+			display: flex;
+			flex-direction: column;
+			border-radius: -6px 10px 0 0;
+			height: 135px;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			
+			.card_title{
+				display: flex;
+				h2{
+					@extend .font-h2;
+				}
+				img{
+					margin: 0 10px 0 auto;
+				}
+			}
 
-	.card_content{
-		.price{
-			.actual_price, .previous_price, h3{
-				@extend .font-h2;
+			.client{
+				margin: 0;
 			}
-			.actual_price{
-				font-size: 30px;
-				margin-right: 20px;
+
+			&.beginer{
+				background-color: vars.$orange;
 			}
-			.previous_price{
-				font-size: 25px;
-				color: grey;
-				text-decoration: line-through;
+			&.pro{
+				background-color: vars.$light-green;
 			}
-		}
-		.conditions{
-			li{
-				list-style: url('images/list-item-icon.svg');
-				@extend .font-main;
+			&.business{
+				background-color: vars.$black;
+				.card_title, .client{
+					color: white;
+				}
 			}
 		}
+
+		.card_content{
+			display: flex;
+			flex: 1;
+			width: -webkit-fill-available;
+    	flex-direction: column;
+
+			.price{
+				flex: 1;
+				.actual_price, .previous_price, h3{
+					@extend .font-h2;
+				}
+				.actual_price{
+					font-size: 30px;
+					margin-right: 20px;
+				}
+				.previous_price{
+					font-size: 25px;
+					color: grey;
+					text-decoration: line-through;
+				}
+			}
+		
+				h3{
+					margin-bottom: 0;
+				}
+				.conditions{
+					flex:1;
+					padding: 0;
+					margin-left: 20px;
+					li{
+						list-style: url('images/list-item-icon.svg');
+						@extend .font-main;
+					}
+				}
+		}
+
 		.go_to_account_btn{
-			width: 286.57px;
-			height: 59px;
-			background-color: #D2D2D2;
-			border: none;
-			border-radius: 5px;
-		}
+				height: 59px;
+				background-color: #D2D2D2;
+				border: none;
+				border-radius: 5px;
+			}
 
-		.get_info_btn{
-			width: 286.57px;
-			height: 59px;
-			background-color: vars.$blue;
-			border: none;
-			border-radius: 5px;
-			color: white;
-		}
-	}
+			.get_info_btn{
+				height: 59px;
+				background-color: vars.$blue;
+				border: none;
+				border-radius: 5px;
+				color: white;
+			}
+			.go_to_account_btn, .get_info_btn{
+				margin: 20px;
+			}
 
-	p, li, .go_to_account_btn{
-		@extend .font-main;
-		}
+		p, li, .go_to_account_btn{
+			@extend .font-main;
+			}
 
-	.card_header, .card_content{
-		padding: 20px;
-	}
+		.card_header, .card_content{
+			padding: 20px;
+		}
+}
+
+
+button{
+	cursor: pointer;
 }

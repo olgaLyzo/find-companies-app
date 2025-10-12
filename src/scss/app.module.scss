@@ -1,12 +1,15 @@
 .container {
-	min-width: 380px;
 	border: 1px solid black;
 	font-family: Inter, sans serif;
   display: flex;
   flex-direction: column;
 	overflow: hidden;
-	a {        /* ваш желаемый цвет, например чёрный */
-  text-decoration: none; /* убирает подчеркивание */
+	a {        
+		text-decoration: none; 
+	}
+
+	button{
+		cursor: pointer;
 	}
 }
 

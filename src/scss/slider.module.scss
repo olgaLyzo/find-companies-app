@@ -1,9 +1,9 @@
-.slider_container{
+.slider_wrapper{
 	display:flex;
-	justify-content: space-between;
-	flex-direction: row;
 	align-items: center;
 	margin-bottom: 60px;
+	gap: 10px;
+
 	.back_arrow{
 		width: 20px;
 		height: 20px;
@@ -12,13 +12,14 @@
 		border-top: none;
 		border-left: none;
 		cursor: pointer;
-
 	}
-	.slider_card{
+
+		.slider_card{
 		box-shadow: 0 0 10px 5px #e1dede;
 		border-radius: 11px;
 		padding: 20px;
-		width: 260px;
+		flex: 1;
+    align-self: stretch;
 	}
 
 	.forward_arrow{
@@ -34,10 +35,6 @@
 	.forward_arrow, .back_arrow{
 		border-top-right-radius: 6px;
 		border-bottom-left-radius: 6px;
-
 	}
 }
 
-@media (min-width: 769px){
-	
-}
