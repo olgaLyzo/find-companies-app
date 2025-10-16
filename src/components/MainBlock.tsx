@@ -2,6 +2,7 @@ import css from "../scss/main.module.scss";
 import Card from "./Card";
 import { tarifRequest } from "./tarifRequest";
 import Slider from "./Slider";
+import { Link } from "react-router";
 
 
 const MainBlock: React.FC = () => {
@@ -15,7 +16,9 @@ const MainBlock: React.FC = () => {
 						Комплексный анализ публикаций, получение данных в формате PDF на
 						электронную почту.
 					</p>
-					<button className={css.get_info_btn}>Запросить данные</button>
+					<Link to="./search">
+						<button className={css.get_info_btn}>Запросить данные</button>
+					</Link>
 				</div>
 				<img className={css.search_spec} src='images/search-service.svg' alt='search_specialist'/>
 			</div>	

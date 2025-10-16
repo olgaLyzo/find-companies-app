@@ -5,8 +5,9 @@ import css from "./scss/app.module.scss";
 export interface AppProps {
   headerComponent: React.ReactNode; 
 	authorisationComponent: React.ReactNode; 
+	pageSearchingComponent: React.ReactNode; 
 	mainComponent: React.ReactNode;
-	footerComponent: React.ReactNode; // headerComponent принимает любой React-компонент
+	footerComponent: React.ReactNode; 
 }
 
 function App(props: AppProps) {
@@ -20,6 +21,7 @@ function App(props: AppProps) {
 					<Routes>
 						<Route path="/" element={props.mainComponent} />
 						<Route path="/auth" element={props.authorisationComponent} />
+						<Route path="/search" element={props.pageSearchingComponent} />
 					</Routes>
 				</main>
 				<footer>{props.footerComponent}</footer> 

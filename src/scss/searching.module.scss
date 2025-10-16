@@ -1,0 +1,228 @@
+@use './variables.module.scss' as vars;
+
+.search_container{
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	
+	h1{
+		@extend .font-h1;
+		font-size: 30px;
+		width: 90%;
+	}
+
+	.description{
+		display: flex;
+		justify-content: space-between;
+		align-self: baseline;
+		margin-bottom: 15px;
+		width: 100%;
+
+		p{
+			width: 80%;
+			@extend .font-main;
+			font-size: 18px;
+		}
+
+		.folders{
+			display: none;
+			width: 16%;
+		}
+	}
+	
+	.search_block{
+		display: flex;
+		flex-direction: column;
+
+		.form_container {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			gap: 15px;
+			padding: 15px;
+			border: 1px solid #ccc;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			
+			.form_field{
+				display: flex;
+				flex-direction: column;
+				gap: 13px;
+
+				label {
+					display: block;
+					margin-bottom: 5px;
+					font-size: 18px;
+					@extend .font-main;
+				}
+
+				input[type="text"],
+				input[type="date"],
+				select {
+					padding: 8px;
+					border-radius: 5px;
+					border: 0.5px solid #949494;
+					color: #949494;
+					text-align: center; 
+				}
+			}
+
+			.check_and_submit_container{
+				display: flex;
+				flex-direction: column;
+				.checkbox_group{
+					display: none;
+					flex-direction: column;
+					margin-bottom: 20px;
+					gap: 13px;
+					flex: 1;
+					
+					.checkbox{
+						margin-bottom: 10px;
+						font-size: 14px;
+						cursor: pointer;
+						position: relative;
+						padding-left: 30px; 
+					}
+
+					input[type='checkbox'] {
+						position: absolute;
+						opacity: 0;
+						cursor: pointer;
+						height: 0;
+						width: 0;
+					}
+
+					input[type='checkbox']:checked + .checkmark {
+							border-color: black;
+							box-shadow: 0 0 5px black;
+						}
+
+					input[type='checkbox']:checked + .checkmark:after {
+						content: "";
+						position: absolute;
+						left: 6px;
+						top: 2px;
+						width: 6px;
+						height: 12px;
+						border: solid #4caf50;
+						border-width: 0 2px 2px 0;
+						transform: rotate(45deg);
+						display: block;
+					}
+					.checkmark {
+						position: absolute;
+						left: 0;
+						top: 50%;
+						transform: translateY(-50%);
+						height: 20px;
+						width: 20px;
+						background-color: #fff;
+						border: 2px solid #ccc;
+						border-radius: 4px;
+						transition: 0.2s;
+
+						&:after {
+							content: "";
+							position: absolute;
+							left: 6px;
+							top: 2px;
+							width: 6px;
+							height: 12px;
+							border: solid #4caf50;
+							border-width: 0 2px 2px 0;
+							transform: rotate(45deg);
+							display: none; 
+						}
+					}
+				}
+					.submit_button {
+						width: 100%;
+						padding: 10px;
+						background-color: #b8cffb;
+						color: white;
+						border: none;
+						border-radius: 5px;
+						font-size: 16px;
+						cursor: pointer;
+						transition: background-color 0.3s;
+
+						&.active_btn{
+							background-color: #5970FF;
+							color: white;
+						}
+					}
+
+					.note {
+						font-size: 12px;
+						color: #999;
+					}
+			}
+		}
+	}
+
+	.error{
+		border-color: red;
+		box-shadow: 0 0 5px red;
+	}
+
+	select{
+		height: 40px;
+		option{
+				font-size: 14px;
+				@extend .font-main;
+		}
+	}			
+
+	.error_text {
+		color: red;
+		font-size: 12px;
+		margin-top: 4px;
+	}
+}
+
+
+
+
+
+
+
+
+
+@media (min-width: 769px){
+	.search_container{
+		padding: 20px;
+		h1{
+				width: 60%;
+			}
+		.description{
+			p{
+				width: 50%;
+			}
+			.folders{
+				display: block;
+			}
+		}
+		.search_block{
+			flex-direction: row;
+
+			.form_container{
+				flex-direction: row;
+				.check_and_submit_container{
+					.checkbox_group{
+						display: flex;
+					}
+				}
+			}
+			img{
+				align-self: end;
+			}
+		}
+	}
+}				
+
+
+
+
+
+

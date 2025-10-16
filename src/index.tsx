@@ -11,6 +11,7 @@ import Statistic from './components/Statistic';
 import Footer from './components/Footer';
 import Slider from './components/Slider';
 import AuthorisationPage from './components/AuthorisationPage';
+import PageSearching from './components/PageSearching';
 
 const rootElement = document.getElementById('root');
 
@@ -22,6 +23,7 @@ if (rootElement) {
 				headerComponent={<Header />} 
 				authorisationComponent={<AuthorisationPage />} 
 				mainComponent={<MainBlock />} 
+				pageSearchingComponent={<PageSearching />}
 				footerComponent={<Footer/>}>
 			</App>
     </StrictMode>
