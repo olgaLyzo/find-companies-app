@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import css from '../scss/searching.module.scss'; 
 import Checkbox from './Checkbox';
+import CustomDatePicker from './CustomDatePeaker';
 
 const SearchForm: React.FC = () => {
   const [data, setData] = useState({
@@ -24,45 +25,38 @@ const SearchForm: React.FC = () => {
     switch (name) {
       case 'inn':
         return /^\d{10}$/.test(value);
+			case 'tone':
+        return value !== '';
       case 'documentCount':
         const num = Number(value);
         return /^\d*$/.test(value) && num >= 1 && num <= 1000;
       case 'dateStart':
       case 'dateEnd':
         return value.trim() !== '';
-      case 'tone':
-        return value !== '';
       default:
         return true;
     }
   };  
 
 	useEffect(() => {
+		// console.log('data:', data)
+		// console.log('errors:',errors)
     const allFilled = Object.values(data).every(v => v.trim() !== '');
     const allErrorsOK = Object.values(errors).every(err => err === false);
-    setIsFormValid(allFilled && allErrorsOK);
-  }, [data, errors]);
+    const newValid = allFilled && allErrorsOK;
+
+		setIsFormValid(newValid);
+		console.log('isFormValid:',isFormValid)
+	}, [data, errors]);
 
 	
-  const [checks, setChecks] = useState({
-    maxFullness: true,
-    businessMention: true,
-    mainRole: true,
-    includeCalendars: false,
-    includeSummaries: false,
-  });
 
-  const toggleCheck = (name: string) => {
-    setChecks(prev => ({ ...prev, [name]: !prev[name] }));
-  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
     setData(prev => ({ ...prev, [name]: value }));
-
     const isValid = validateField(name, value);
     setErrors(prev => ({ ...prev, [name]: !isValid }));
   };
@@ -89,6 +83,7 @@ const handleSubmit = (e: React.FormEvent) => {
     }
   };
 
+	
   return (
     <form className={css.form_container} onSubmit={handleSubmit}>
 			<div className={css.form_field}>
@@ -133,31 +128,14 @@ const handleSubmit = (e: React.FormEvent) => {
 				{errors.documentCount && (
 					<div className={css.error_text}>Введите корректные данные</div>
 				)}
-				
-			
 				<label>Диапазон поиска *</label>
-				<input
-					type="date"
-					name="dateStart"
-					placeholder="Дата начала"
-					value={data.dateStart}
-					onChange={handleChange}
-					required
-				/>
-				<input
-					type="date"
-					name="dateEnd"
-					value={data.dateEnd}
-					onChange={handleChange}
-					placeholder="Дата конца"
-					required
-				/>
-				{errors.dateEnd && (
-					<div className={css.error_text}>Введите корректные данные</div>
-				)}
+				<CustomDatePicker />
+				
+				{ 
+					errors.dateEnd || errors.dateStart && (
+  				<div className={css.error_text}>Введите корректные данные</div>
+				)}			
 			</div>
-
-
 			<div className={css.check_and_submit_container}>
 				<Checkbox />
 				<button 
