@@ -1,0 +1,15 @@
+@use './variables.module.scss' as vars;
+
+.articles_container{
+	padding: 14px;
+	@extend .font-main;
+
+	h1{
+		@extend .font-h1;
+		font-size: 28px;
+	}
+
+	.main_stat_block{
+		
+	}
+}

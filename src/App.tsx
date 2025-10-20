@@ -7,7 +7,8 @@ export interface AppProps {
 	authorisationComponent: React.ReactNode; 
 	pageSearchingComponent: React.ReactNode; 
 	mainComponent: React.ReactNode;
-	footerComponent: React.ReactNode; 
+	footerComponent: React.ReactNode;
+	articlesPageComponent: React.ReactNode;
 }
 
 function App(props: AppProps) {
@@ -22,6 +23,7 @@ function App(props: AppProps) {
 						<Route path="/" element={props.mainComponent} />
 						<Route path="/auth" element={props.authorisationComponent} />
 						<Route path="/search" element={props.pageSearchingComponent} />
+						<Route path="/articles" element={props.articlesPageComponent} />
 					</Routes>
 				</main>
 				<footer>{props.footerComponent}</footer> 

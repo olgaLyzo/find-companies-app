@@ -40,9 +40,7 @@ const MainBlock: React.FC = () => {
 					{
 						tarifRequest.map((tarif, index)=>{
 							return(
-								
 									<Card key={index} {...tarif} />
-								
 							)
 						})
 					}

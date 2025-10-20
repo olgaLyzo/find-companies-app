@@ -3,7 +3,7 @@ import { useState } from 'react';
 import css from '../scss/datapeaker.module.scss';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-const DatePickerCustom = () => {
+const DatePickerCustom = ({ onChangeStart, onChangeEnd }) => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [activeStart, setActiveStart] = useState(false);
@@ -11,11 +11,13 @@ const DatePickerCustom = () => {
     const toggleStart = () => setActiveStart(!activeStart);
     const toggleEnd = () => setActiveEnd(!activeEnd);
     const handleStartChange = (date) => {
-        setStartDate(date);
+        const dateStr = date ? date.toLocaleDateString('ru-RU') : '';
+        onChangeStart(dateStr);
         setActiveStart(false);
     };
     const handleEndChange = (date) => {
-        setEndDate(date);
+        const dateStr = date ? date.toLocaleDateString('ru-RU') : '';
+        onChangeEnd(dateStr);
         setActiveEnd(false);
     };
     const formatDate = (date) => date ? date.toLocaleDateString('ru-RU') : '';

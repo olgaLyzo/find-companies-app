@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import css from '../scss/searching.module.scss'; 
 import Checkbox from './Checkbox';
 import CustomDatePicker from './CustomDatePeaker';
+import { Link } from 'react-router';
 
 const SearchForm: React.FC = () => {
   const [data, setData] = useState({
@@ -39,8 +40,8 @@ const SearchForm: React.FC = () => {
   };  
 
 	useEffect(() => {
-		// console.log('data:', data)
-		// console.log('errors:',errors)
+		console.log('data:', data)
+		console.log('errors:',errors)
     const allFilled = Object.values(data).every(v => v.trim() !== '');
     const allErrorsOK = Object.values(errors).every(err => err === false);
     const newValid = allFilled && allErrorsOK;
@@ -61,6 +62,12 @@ const SearchForm: React.FC = () => {
     setErrors(prev => ({ ...prev, [name]: !isValid }));
   };
 
+const handleStartDateChange = (dateStr: string) => {
+    setData(prev => ({ ...prev, dateStart: dateStr }));
+  };
+  const handleEndDateChange = (dateStr: string) => {
+    setData(prev => ({ ...prev, dateEnd: dateStr }));
+  };
 
 const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -129,7 +136,12 @@ const handleSubmit = (e: React.FormEvent) => {
 					<div className={css.error_text}>Введите корректные данные</div>
 				)}
 				<label>Диапазон поиска *</label>
-				<CustomDatePicker />
+				<CustomDatePicker 
+					startDate={data.dateStart}
+  				endDate={data.dateEnd}
+					onChangeStart={(dateStr) => setData(prev => ({ ...prev, dateStart: dateStr }))}
+  				onChangeEnd={(dateStr) => setData(prev => ({ ...prev, dateEnd: dateStr }))}
+				/>
 				
 				{ 
 					errors.dateEnd || errors.dateStart && (
@@ -138,12 +150,14 @@ const handleSubmit = (e: React.FormEvent) => {
 			</div>
 			<div className={css.check_and_submit_container}>
 				<Checkbox />
-				<button 
-					type="submit" 
-					className={`${css.submit_button} ${isFormValid 
-						? css.active_btn 
-						: ''}`}
-				>Поиск </button>
+				<Link to="/articles">
+					<button 
+						type="submit" 
+						className={`${css.submit_button} ${isFormValid 
+							? css.active_btn 
+							: ''}`}
+					>Поиск </button>
+				</Link>
 				<p className={css.note}>* Обязательные к заполнению поля</p>
 			</div>
 		</form>

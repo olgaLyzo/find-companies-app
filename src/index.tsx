@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import Slider from './components/Slider';
 import AuthorisationPage from './components/AuthorisationPage';
 import PageSearching from './components/PageSearching';
+import ArticlesPage from './components/ArticlesPage';
 
 const rootElement = document.getElementById('root');
 
@@ -24,6 +25,7 @@ if (rootElement) {
 				authorisationComponent={<AuthorisationPage />} 
 				mainComponent={<MainBlock />} 
 				pageSearchingComponent={<PageSearching />}
+				articlesPageComponent={<ArticlesPage />}
 				footerComponent={<Footer/>}>
 			</App>
     </StrictMode>
