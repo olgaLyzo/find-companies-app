@@ -1,14 +1,14 @@
 @use './variables.module.scss' as vars;
 
-.card{
+
+.card_container{
 	display: flex;
 	flex-direction: column;
 	@extend .font-h1;
 	font-size: 12px;
 	font-weight: normal;
-	
 
-	.card_elem{
+	.card{
 		display: flex;
 		flex-direction: column;
 		box-shadow: 2px 4px 21px rgba(0,0,0,0.3);
@@ -72,5 +72,12 @@
 				color: #949494;
 			}
 		}
+	}
+}
+
+@media (min-width: 769px){
+	.card_container{
+		flex-direction: row;
+		gap: 35px;
 	}
 }

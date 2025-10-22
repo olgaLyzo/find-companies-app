@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import css from '../scss/stat_slider.module.scss';
 
   export const data = [
@@ -24,50 +24,55 @@ import css from '../scss/stat_slider.module.scss';
  ];
 
 const StatSlider: React.FC = () => {
-  const [index, setIndex] = useState(0);
+  const [start, setStart] = useState(0);
+  const [windowSize, setWindowSize] = useState(5); 
+
+  useEffect(() => {
+    const updateWindowSize = () => {
+      setWindowSize(window.innerWidth < 768 ? 1 : 5); 
+    };
+    window.addEventListener('resize', updateWindowSize);
+    updateWindowSize(); 
+    return () => window.removeEventListener('resize', updateWindowSize);
+  }, []);
+
   const total = data.length;
-	const [start, setStart] = useState(0);
-	 
 
   const handlePrev = () => 
-  setStart(prev => (prev - 1 + total) % total);
-const handleNext = () => 
-  setStart(prev => (prev + 1) % total);
+    setStart((prev) => (prev - windowSize + total) % total);
 
+  const handleNext = () =>
+    setStart((prev) => (prev + windowSize) % total);
 
-const getVisibleData = () => {
-  const result = [];
-  for (let i = 0; i < 8; i++) {
-    result.push(data[(start + i) % total]);
-  }
-  return result;
-};
+  const getVisibleData = () => {
+    const result = [];
+    for (let i = 0; i < windowSize; i++) {
+      result.push(data[(start + i) % total]);
+    }
+    return result;
+  };
 
-const visibleData = getVisibleData();
+  const visibleData = getVisibleData();
 
   return (
     <div className={css.wrapper}>
       <div className={css.back_arrow} onClick={handlePrev}></div>
       <div className={css.table}>
         <div className={css.main_column}>
-					{
-						parameters.map((param, index) => (
-							<div>{param}</div>
-						))
-					}
+          {parameters.map((param, index) => (
+            <div key={index}>{param}</div>
+          ))}
         </div>
-				{
-					visibleData.map((elem, index) => (
-						<div className={css.column_container}>
-							<div className={css.column} key={index}>
-								<div className={css.dataCell}>{elem.period}</div>
-								<div className={css.dataCell}>{elem.total}</div>
-								<div className={css.dataCell}>{elem.risks}</div>
-							</div>
-							<div className={css.separator}></div>
-						</div>
-					))
-				}
+        {visibleData.map((elem, index) => (
+          <div className={css.column_container} key={index}>
+            <div className={css.column}>
+              <div className={css.dataCell}>{elem.period}</div>
+              <div className={css.dataCell}>{elem.total}</div>
+              <div className={css.dataCell}>{elem.risks}</div>
+            </div>
+						<div className={css.separator} style={{ display: index === 4 && 'none' }}></div>
+          </div>
+        ))}
       </div>
       <div className={css.forward_arrow} onClick={handleNext}></div>
     </div>

@@ -25,10 +25,10 @@ export const articles = [
 
 const ArticleCards: React.FC = () => {
 	return(
-		<div className={css.card}>
+		<div className={css.card_container}>
 			{
 				articles.map((elem, index)=>(
-					<div className={css.card_elem} key={index}>
+					<div className={css.card} key={index}>
 						<div className={css.info_block}>
 							<div className={css.date}>{elem.date}</div>
 							<a className={css.source} href='#'>{elem.source}</a>

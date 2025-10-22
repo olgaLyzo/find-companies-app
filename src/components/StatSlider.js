@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import css from '../scss/stat_slider.module.scss';
 export const data = [
     { period: '10.09.2021', total: 5, risks: 0 },
@@ -22,19 +22,27 @@ export const parameters = [
     'Риски'
 ];
 const StatSlider = () => {
-    const [index, setIndex] = useState(0);
-    const total = data.length;
     const [start, setStart] = useState(0);
-    const handlePrev = () => setStart(prev => (prev - 1 + total) % total);
-    const handleNext = () => setStart(prev => (prev + 1) % total);
+    const [windowSize, setWindowSize] = useState(5);
+    useEffect(() => {
+        const updateWindowSize = () => {
+            setWindowSize(window.innerWidth < 768 ? 1 : 5);
+        };
+        window.addEventListener('resize', updateWindowSize);
+        updateWindowSize();
+        return () => window.removeEventListener('resize', updateWindowSize);
+    }, []);
+    const total = data.length;
+    const handlePrev = () => setStart((prev) => (prev - windowSize + total) % total);
+    const handleNext = () => setStart((prev) => (prev + windowSize) % total);
     const getVisibleData = () => {
         const result = [];
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < windowSize; i++) {
             result.push(data[(start + i) % total]);
         }
         return result;
     };
     const visibleData = getVisibleData();
-    return (_jsxs("div", { className: css.wrapper, children: [_jsx("div", { className: css.back_arrow, onClick: handlePrev }), _jsxs("div", { className: css.table, children: [_jsx("div", { className: css.main_column, children: parameters.map((param, index) => (_jsx("div", { children: param }))) }), visibleData.map((elem, index) => (_jsxs("div", { className: css.column_container, children: [_jsxs("div", { className: css.column, children: [_jsx("div", { className: css.dataCell, children: elem.period }), _jsx("div", { className: css.dataCell, children: elem.total }), _jsx("div", { className: css.dataCell, children: elem.risks })] }, index), _jsx("div", { className: css.separator })] })))] }), _jsx("div", { className: css.forward_arrow, onClick: handleNext })] }));
+    return (_jsxs("div", { className: css.wrapper, children: [_jsx("div", { className: css.back_arrow, onClick: handlePrev }), _jsxs("div", { className: css.table, children: [_jsx("div", { className: css.main_column, children: parameters.map((param, index) => (_jsx("div", { children: param }, index))) }), visibleData.map((elem, index) => (_jsxs("div", { className: css.column_container, children: [_jsxs("div", { className: css.column, children: [_jsx("div", { className: css.dataCell, children: elem.period }), _jsx("div", { className: css.dataCell, children: elem.total }), _jsx("div", { className: css.dataCell, children: elem.risks })] }), _jsx("div", { className: css.separator, style: { display: index === 4 && 'none' } })] }, index)))] }), _jsx("div", { className: css.forward_arrow, onClick: handleNext })] }));
 };
 export default StatSlider;

@@ -28,9 +28,10 @@
 
 	.table{
 		display: flex;
+		flex-direction: column;
 		flex: 1;
 		overflow: hidden;
-		align-items: center;
+		align-items: normal;
 		border: 1px solid vars.$green;
 		border-radius: 10px;
 		background: #fff;
@@ -39,7 +40,6 @@
 
 		.main_column{
 					display: flex;
-					flex-direction: column;
 					justify-content: space-between;
 					padding: 10px;
 					gap: 15px;
@@ -49,24 +49,47 @@
 					color: white;
 					align-items: flex-start;
 					border-top-left-radius: 8px;
-					border-bottom-left-radius: 8px;
+					align-items: center;
 				}
 		.column_container{
 			display: flex;
+			align-items: stretch;
+			width: -webkit-fill-available;
 			.column {
 				display: flex;
-				flex-direction: column;
+				flex-direction: row;
+				width: 100%;
 				justify-content: space-between;
 				padding: 10px;
-				gap: 15px;
 				align-items: center;
+			}
 
-				
+			.separator{
+					display: none;
+					width: 3px; 
+					height: 80%; 
+					background-color: #949494; 
+					align-self: center;
+			}
+		}
+	}
+}
 
+@media (min-width: 768px){
+	.wrapper{
+		.table{
+			flex-direction: row;
+
+			.main_column{
+				flex-direction: column;
+			}
+
+			.column_container{
+				.column{
+					flex-direction: column;
+				}
 				.separator{
-					width: 2px; 
-					height: 20px; 
-					background-color: #ccc; 
+					display: block;
 				}
 			}
 		}
