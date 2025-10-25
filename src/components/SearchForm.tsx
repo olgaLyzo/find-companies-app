@@ -19,28 +19,42 @@ const errorsInit = {
   dateEnd: false
 };
 
+// Функция для форматирования ИНН по маске ХХ ХХХ ХХХ ХХ
+const formatInn = (value: string): string => {
+  const digits = value.replace(/\D/g, '');
+  const parts = [
+    digits.substring(0, 2),
+    digits.substring(2, 5),
+    digits.substring(5, 8),
+    digits.substring(8, 10)
+  ];
+  return parts.filter(Boolean).join(' ');
+};
+
+// Валидация поля в зависимости от его имени
+const validateField = (name: string, value: string): boolean => {
+  switch (name) {
+    case 'inn':
+      return /^\d{2} \d{3} \d{3} \d{2}$/.test(value);
+    case 'tone':
+      return value !== '';
+    case 'documentCount':
+      const num = Number(value);
+      return /^\d*$/.test(value) && num >= 1 && num <= 1000;
+    case 'dateStart':
+    case 'dateEnd':
+      return value.trim() !== '';
+    default:
+      return true;
+  }
+};
+
 const SearchForm: React.FC = () => {
   const [data, setData] = useState(dataInit);
   const [errors, setErrors] = useState(errorsInit);
   const [isFormValid, setIsFormValid] = useState(false);
 
-  const validateField = (name: string, value: string): boolean => {
-    switch (name) {
-      case 'inn':
-        return /^\d{10}$/.test(value);
-      case 'tone':
-        return value !== '';
-      case 'documentCount':
-        const num = Number(value);
-        return /^\d*$/.test(value) && num >= 1 && num <= 1000;
-      case 'dateStart':
-      case 'dateEnd':
-        return value.trim() !== '';
-      default:
-        return true;
-    }
-  };
-
+  // Обновление валидности формы при изменениях
   useEffect(() => {
     const allFilled = Object.values(data).every(v => v.trim() !== '');
     const noErrors = Object.values(errors).every(err => err === false);
@@ -51,11 +65,18 @@ const SearchForm: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setData(prev => ({ ...prev, [name]: value }));
-    const isValid = validateField(name, value);
-    setErrors(prev => ({ ...prev, [name]: !isValid }));
-  };
 
+    if (name === 'inn') {
+      const formattedInn = formatInn(value);
+      setData(prev => ({ ...prev, inn: formattedInn }));
+      const isValid = /^\d{2} \d{3} \d{3} \d{2}$/.test(formattedInn);
+      setErrors(prev => ({ ...prev, inn: !isValid }));
+    } else {
+      setData(prev => ({ ...prev, [name]: value }));
+      const isValid = validateField(name, value);
+      setErrors(prev => ({ ...prev, [name]: !isValid }));
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -74,67 +95,74 @@ const SearchForm: React.FC = () => {
 
   return (
     <form className={css.form_container} onSubmit={handleSubmit}>
-			<div className={css.form_grafs}>
-				<div className={css.form_field}>
-					<label>ИНН компании *</label>
-					<input
-						className={`${errors.inn ? css.error : ''}`}
-						type="text"
-						name="inn"
-						placeholder="10 цифр"
-						value={data.inn}
-						onChange={handleChange}
-						required
-					/>
-					{errors.inn && (
-						<div className={css.error_text}>Введите корректные данные</div>
-					)}
-				</div>
+      {/* Поле ИНН */}
+      <div className={css.form_grafs}>
+        <div className={css.form_field}>
+          <label>ИНН компании *</label>
+          <input
+            className={`${errors.inn ? css.error : ''}`}
+            type="text"
+            name="inn"
+            placeholder="XX XXX XXX XX"
+            value={data.inn}
+            onChange={handleChange}
+            required
+          />
+          {errors.inn && (
+            <div className={css.error_text}>Введите корректные данные</div>
+          )}
+        </div>
 
-				<div className={css.form_field}>
-					<label>Тональность</label>
-					<select 
-						name="tone" 
-						value={data.tone} 
-						onChange={handleChange}
-						required
-					>
-						<option value="Любая">Любая</option>
-						<option value="Позитивная">Позитивная</option>
-						<option value="Негативная">Негативная</option>
-					</select>
-				</div>
+        {/* Тональность */}
+        <div className={css.form_field}>
+          <label>Тональность</label>
+          <select
+            name="tone"
+            value={data.tone}
+            onChange={handleChange}
+            required
+          >
+            <option value="Любая">Любая</option>
+            <option value="Позитивная">Позитивная</option>
+            <option value="Негативная">Негативная</option>
+          </select>
+        </div>
 
-				<div className={css.form_field}>
-					<label>Количество документов в выдаче *</label>
-					<input
-						className={`${errors.documentCount ? css.error : ''}`}
-						type="text"
-						name="documentCount"
-						placeholder="От 1 до 1000"
-						value={data.documentCount}
-						onChange={handleChange}
-						required
-					/>
-					{errors.documentCount && (
-						<div className={css.error_text}>Введите корректные данные</div>
-					)}
-				</div>
-				<div className={css.form_field}>
-					<label>Диапазон поиска *</label>
-					<div style={{ display: 'flex', gap: '10px' }}>
-						<CustomDatePeaker
-							startDate={data.dateStart}
-							endDate={data.dateEnd}
-							onChangeStartDate={(dateStr) => setData(prev => ({ ...prev, dateStart: dateStr }))}
-							onChangeEndDate={(dateStr) => setData(prev => ({ ...prev, dateEnd: dateStr }))}
-						/>
-					</div>
-					{(errors.dateStart || errors.dateEnd) && (
-						<div className={css.error_text}>Введите корректные данные</div>
-					)}
-				</div>
-			</div>
+        {/* Количество документов */}
+        <div className={css.form_field}>
+          <label>Количество документов в выдаче *</label>
+          <input
+            className={`${errors.documentCount ? css.error : ''}`}
+            type="text"
+            name="documentCount"
+            placeholder="От 1 до 1000"
+            value={data.documentCount}
+            onChange={handleChange}
+            required
+          />
+          {errors.documentCount && (
+            <div className={css.error_text}>Введите корректные данные</div>
+          )}
+        </div>
+
+        {/* Диапазон поиска */}
+        <div className={css.form_field}>
+          <label>Диапазон поиска *</label>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <CustomDatePeaker
+              startDate={data.dateStart}
+              endDate={data.dateEnd}
+              onChangeStartDate={(dateStr) => setData(prev => ({ ...prev, dateStart: dateStr }))}
+              onChangeEndDate={(dateStr) => setData(prev => ({ ...prev, dateEnd: dateStr }))}
+            />
+          </div>
+          {(errors.dateStart || errors.dateEnd) && (
+            <div className={css.error_text}>Введите корректные данные</div>
+          )}
+        </div>
+      </div>
+
+      {/* Блок с чекбоксом и кнопкой */}
       <div className={css.check_and_submit_container}>
         <Checkbox />
         <button
@@ -146,8 +174,8 @@ const SearchForm: React.FC = () => {
         </button>
         <p className={css.note}>* Обязательные к заполнению поля</p>
       </div>
-
     </form>
   );
 };
+
 export default SearchForm;
