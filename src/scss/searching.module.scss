@@ -43,30 +43,34 @@
 			border: 1px solid #ccc;
 			border-radius: 10px;
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			font-size: 14px;
 			
-			.form_field{
+			.form_grafs{
 				display: flex;
 				flex-direction: column;
-				gap: 13px;
+				.form_field{
+					display: flex;
+					flex-direction: column;
+					gap: 13px;
 
-				label {
-					display: block;
-					margin-bottom: 5px;
-					font-size: 18px;
-					@extend .font-main;
-				}
+					label {
+						display: block;
+						margin-bottom: 5px;
+						font-size: 18px;
+						@extend .font-main;
+					}
 
-				input[type="text"],
-				input[type="date"],
-				select {
-					padding: 8px;
-					border-radius: 5px;
-					border: 0.5px solid #949494;
-					color: #949494;
-					text-align: center; 
+					input[type="text"],
+					input[type="date"],
+					select {
+						padding: 8px;
+						border-radius: 5px;
+						border: 0.5px solid #949494;
+						color: #949494;
+						text-align: center; 
+					}
 				}
 			}
-
 			.check_and_submit_container{
 				display: flex;
 				flex-direction: column;

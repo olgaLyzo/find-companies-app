@@ -22,6 +22,7 @@ function App(props: AppProps) {
 					<Routes>
 						<Route path="/" element={props.mainComponent} />
 						<Route path="/auth" element={props.authorisationComponent} />
+						<Route path="/login" element={props.authorisationComponent} />
 						<Route path="/search" element={props.pageSearchingComponent} />
 						<Route path="/articles" element={props.articlesPageComponent} />
 					</Routes>

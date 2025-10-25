@@ -5,48 +5,56 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	
 	.date_cell {
 		display: flex;
 		flex-direction: column;
 		position: relative;
 
-			.date {
-				padding: 10px 40px 10px 15px;
-				border: 1px solid #ccc;
-				border-radius: 4px;
-				background-color: #fff;
-				color: #949494;
-				font-size: 14px;
-				cursor: pointer;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				transition: background-color 0.3s, border-color 0.3s;
-				@extend .font-main;
+		.date {
+			padding: 10px 40px 10px 15px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			background-color: #fff;
+			color: #949494;
+			font-size: 14px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			transition: background-color 0.3s, border-color 0.3s;
+			margin-bottom: 20px;
+			@extend .font-main;
 
-				&.active {
-					background-color: #5970ff; // активный фон
-					border-color: #5970ff;
-					color: #fff;
-				}
+			&.active {
+				background-color: #5970ff;
+				border-color: #5970ff;
+				color: #fff;
 			}
-			.text {
-				flex: 1;
-				text-align: center;
-			}
-			.arrow {
-				font-size: 14px;
-				margin-left: 10px;
-			}
+		}
+		.text {
+			flex: 1;
+			text-align: center;
+		}
+		.arrow {
+			font-size: 14px;
+			margin-left: 10px;
+		}
 
-			
+		
 		
 		.datepicker-wrapper {
-				position: absolute;
-				top: 100%;
-				left: 0;
-				z-index: 10;
-				margin-top: 2px;
-			}
+			position: absolute;
+			top: 100%;
+			left: 0;
+			z-index: 10;
+			margin-top: 2px;
+		}
 	}
+
+	.error_text{
+			color: red;
+			font-size: 12px;
+			margin-top: 4px;
+		}
 }
