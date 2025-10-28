@@ -70,13 +70,18 @@
 			.login_btn {
 				height: 59px;
 				color: white;
-				background-color: #b1acf5;
+				background-color: #b6bffa;
 				border: none;
 				padding: 10px;
 				font-size: 20px;
 				border-radius: 5px;
 				cursor: pointer;
 				margin-top: 10px;
+				width: 100%;
+
+				&.active{
+					background-color: vars.$blue;
+				}
 			}
 		}
 

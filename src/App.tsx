@@ -14,6 +14,7 @@ export interface AppProps {
   footerComponent: React.ReactNode;
   articlesPageComponent: React.ReactNode;
   isAuthenticated: boolean; 
+	loginComponent: React.ReactNode;
 }
 
 function App(props: AppProps) {
@@ -30,6 +31,7 @@ function App(props: AppProps) {
             </Route>
             <Route path="/auth" element={props.authorisationComponent} />
             <Route path="/login" element={props.authorisationComponent} />
+						<Route path="/" element={props.loginComponent} />
           </Routes>
         </main>
         <footer>{props.footerComponent}</footer>

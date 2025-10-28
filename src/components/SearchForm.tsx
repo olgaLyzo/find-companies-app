@@ -31,7 +31,6 @@ const formatInn = (value: string): string => {
   return parts.filter(Boolean).join(' ');
 };
 
-// Валидация поля в зависимости от его имени
 const validateField = (name: string, value: string): boolean => {
   switch (name) {
     case 'inn':
@@ -54,7 +53,6 @@ const SearchForm: React.FC = () => {
   const [errors, setErrors] = useState(errorsInit);
   const [isFormValid, setIsFormValid] = useState(false);
 
-  // Обновление валидности формы при изменениях
   useEffect(() => {
     const allFilled = Object.values(data).every(v => v.trim() !== '');
     const noErrors = Object.values(errors).every(err => err === false);
@@ -95,7 +93,6 @@ const SearchForm: React.FC = () => {
 
   return (
     <form className={css.form_container} onSubmit={handleSubmit}>
-      {/* Поле ИНН */}
       <div className={css.form_grafs}>
         <div className={css.form_field}>
           <label>ИНН компании *</label>
@@ -113,7 +110,6 @@ const SearchForm: React.FC = () => {
           )}
         </div>
 
-        {/* Тональность */}
         <div className={css.form_field}>
           <label>Тональность</label>
           <select
@@ -128,7 +124,6 @@ const SearchForm: React.FC = () => {
           </select>
         </div>
 
-        {/* Количество документов */}
         <div className={css.form_field}>
           <label>Количество документов в выдаче *</label>
           <input
@@ -145,7 +140,6 @@ const SearchForm: React.FC = () => {
           )}
         </div>
 
-        {/* Диапазон поиска */}
         <div className={css.form_field}>
           <label>Диапазон поиска *</label>
           <div style={{ display: 'flex', gap: '10px' }}>
@@ -162,7 +156,6 @@ const SearchForm: React.FC = () => {
         </div>
       </div>
 
-      {/* Блок с чекбоксом и кнопкой */}
       <div className={css.check_and_submit_container}>
         <Checkbox />
         <button

@@ -28,7 +28,6 @@ const formatInn = (value) => {
     ];
     return parts.filter(Boolean).join(' ');
 };
-// Валидация поля в зависимости от его имени
 const validateField = (name, value) => {
     switch (name) {
         case 'inn':
@@ -49,7 +48,6 @@ const SearchForm = () => {
     const [data, setData] = useState(dataInit);
     const [errors, setErrors] = useState(errorsInit);
     const [isFormValid, setIsFormValid] = useState(false);
-    // Обновление валидности формы при изменениях
     useEffect(() => {
         const allFilled = Object.values(data).every(v => v.trim() !== '');
         const noErrors = Object.values(errors).every(err => err === false);
