@@ -1,6 +1,4 @@
-import Header from './Header';
 import css from '../scss/authorisation.module.scss';
-import Footer from './Footer';
 import AuthorisationForm from './AuthorisationForm';
 
 

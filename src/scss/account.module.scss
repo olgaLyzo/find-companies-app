@@ -1,0 +1,29 @@
+.account_container{
+	display: none;
+	border: black;
+
+	.account_info{
+		display: flex;
+		flex-direction: column;
+	}
+
+	.user_name{
+		font-size: 14px;
+	}
+
+	.logout_btn{
+		font-size: 10px;
+		border: none;
+		background-color: #fff;
+	}
+
+	.logout_btn, .user_name{
+		color: grey;
+	}
+}
+
+@media (min-width: 769px){
+	.account_container{
+		display: flex;
+	}
+}

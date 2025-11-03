@@ -1,7 +1,7 @@
 @use './variables.module.scss' as vars;
 
 .stat_block{
-	display: none;
+	display: flex;
 	border-radius: 5px;
   flex-direction: column;
 	justify-content: center;
@@ -37,21 +37,6 @@
 			font-size: 14px;
 		}
 	}
-}
-
-@media (min-width: 481px) {
-	// .stat_block{
-	// 	height: 63px;
-	// 	max-width: 175px;
-	// 	.limit_block, .companies_block{
-	// 		flex-direction: row;
-	// 		align-items: center;
-	// 		align-self: baseline;
-	// 	}
-	// 	p{
-	// 		margin-right: 10px;
-	// 	}
-	// }
 }
 
 @media (min-width: 769px){

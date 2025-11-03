@@ -88,6 +88,10 @@
 	}
 		.menu{
 			display: flex;
+
+			&.disabled{
+				display: none;
+			}
 		}
 	}
 }

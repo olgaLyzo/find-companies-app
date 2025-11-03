@@ -1,9 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import css from "./scss/app.module.scss";
+import { isAuthenticated } from "./utils/auth";
+import { AuthProvider } from "./context/AuthContext";
 
-function PrivateRoute({ isAuthenticated }: { isAuthenticated: boolean }) {
-  return isAuthenticated ? <Outlet /> : <Navigate to="/auth" />;
+export function PrivateRoute() {
+  return isAuthenticated() ? <Outlet /> : <Navigate to="/auth" />;
 }
 
 export interface AppProps {
@@ -13,30 +15,29 @@ export interface AppProps {
   mainComponent: React.ReactNode;
   footerComponent: React.ReactNode;
   articlesPageComponent: React.ReactNode;
-  isAuthenticated: boolean; 
-	loginComponent: React.ReactNode;
 }
 
 function App(props: AppProps) {
   return (
-    <Router>
-      <div className={css.container}>
-        <div>{props.headerComponent}</div>
-        <main>
-          <Routes>
-            <Route path="/" element={props.mainComponent} />
-            <Route element={<PrivateRoute isAuthenticated={props.isAuthenticated} />}>
-              <Route path="/search" element={props.pageSearchingComponent} />
-              <Route path="/articles" element={props.articlesPageComponent} />
-            </Route>
-            <Route path="/auth" element={props.authorisationComponent} />
-            <Route path="/login" element={props.authorisationComponent} />
-						<Route path="/" element={props.loginComponent} />
-          </Routes>
-        </main>
-        <footer>{props.footerComponent}</footer>
-      </div>
-    </Router>
+		<AuthProvider>
+			<Router>
+				<div className={css.container}>
+					<header>{props.headerComponent}</header>
+					<main>
+						<Routes>
+							<Route path="/" element={props.mainComponent} />
+							<Route element={<PrivateRoute />}>
+								<Route path="/search" element={props.pageSearchingComponent} />
+								<Route path="/articles" element={props.articlesPageComponent} />
+							</Route>
+							<Route path="/auth" element={props.authorisationComponent} />
+							<Route path="/login" element={props.authorisationComponent} />
+						</Routes>
+					</main>
+					<footer>{props.footerComponent}</footer>
+				</div>
+			</Router>
+		</AuthProvider>
   );
 }
 

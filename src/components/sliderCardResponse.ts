@@ -9,11 +9,11 @@ export const sliderInfo = [
 		'info': 'Высокая и оперативная скорость обработки заявки'
 	},
 	{
-		'image': '../../public/images/loupe.svg',
+		'image': 'images/loupe.svg',
 		'info': 'Огромная комплексная база данных, обеспечивающая объективный ответ на запрос'
 	},
 	{
-		'image': '../../public/images/lock.svg',
+		'image': 'images/lock_icon.svg',
 		'info': 'Защита конфеденциальных сведений, не подлежащих разглашению по федеральному законодательству'
 	},
 	{
@@ -21,11 +21,11 @@ export const sliderInfo = [
 		'info': 'Высокая и оперативная скорость обработки заявки'
 	},
 	{
-		'image': '../../public/images/loupe.svg',
+		'image': 'images/loupe.svg',
 		'info': 'Огромная комплексная база данных, обеспечивающая объективный ответ на запрос'
 	},
 	{
-		'image': '../../public/images/lock.svg',
+		'image': 'images/lock_icon.svg',
 		'info': 'Защита конфеденциальных сведений, не подлежащих разглашению по федеральному законодательству'
 	}
 ]

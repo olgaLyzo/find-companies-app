@@ -1,7 +1,9 @@
 @use './variables.module.scss';
 	
 	.auth{
-		@extend .font-h1;
+		h1{
+			@extend .font-h1;
+		}
 		font-size: 35px;
 		display: flex;
 		flex-direction: column;

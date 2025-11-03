@@ -9,7 +9,6 @@ import Footer from './components/Footer';
 import AuthorisationPage from './components/AuthorisationPage';
 import PageSearching from './components/PageSearching';
 import ArticlesPage from './components/ArticlesPage';
-import AuthorisationForm from './components/AuthorisationForm';
 
 const rootElement = document.getElementById('root');
 
@@ -20,12 +19,10 @@ if (rootElement) {
       <App 
 				headerComponent={<Header />}
 				authorisationComponent={<AuthorisationPage />}
-				loginComponent={<AuthorisationForm />}
 				mainComponent={<MainBlock />}
 				pageSearchingComponent={<PageSearching />}
 				articlesPageComponent={<ArticlesPage />}
 				footerComponent={<Footer />} 
-				// isAuthenticated={false} 
 			>
 			</App>
     </StrictMode>

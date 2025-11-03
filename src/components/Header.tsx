@@ -3,16 +3,15 @@ import React, { useState } from 'react';
 import  BurgerMenu  from './BurgerMenu';
 import Statistic  from './Statistic';
 import { Link } from 'react-router';
+import AccountBlock from './AccountBlock';
+import { useAuth } from '../context/AuthContext';
 
 
-const Header: React.FC = ({ 
-	
-}) => {
+
+const Header: React.FC = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
-	const statData = [
-		{quantity: 10, limit: 50}
-	]
+	const { isAuthenticated, logout } = useAuth();
 
 	const toggleMenu = () => {
     setIsOpen(prev => !prev);
@@ -25,6 +24,9 @@ const Header: React.FC = ({
     { label: 'Тарифы', link: '/tarifs' },
     { label: 'FAQ', link: '/questions' },
   ];
+
+	
+
 
 	return(
 		<header className={css.header}>
@@ -47,17 +49,25 @@ const Header: React.FC = ({
 					})
 				}
 			</div>
-			<Statistic statData={statData}/>
-			<div className={css.menu}>
-				<Link to="/auth">
-					<button className={css.registration_btn}>Зарегистрироваться</button>
-				</Link>
-				<div className={css.limiter}></div>
-				<Link to="/login">
-					<button className={css.enter_in_account}>Войти</button>
-				</Link>
-			</div>
-			
+			{ isAuthenticated ? (
+				<Statistic />
+				): ''
+			}
+			{
+				isAuthenticated ? 
+					(<AccountBlock />) :
+					(
+						<div className={css.menu}>
+							<Link to="/auth">
+								<button className={css.registration_btn}>Зарегистрироваться</button>
+							</Link>
+							<div className={css.limiter}></div>
+							<Link to="/login">
+								<button className={css.enter_in_account}>Войти</button>
+							</Link>
+						</div>
+					)
+			}
     	<BurgerMenu 
 				menuItems={menuItems} 
 				isOpen={isOpen}
