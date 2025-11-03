@@ -8,11 +8,11 @@ const AccountBlock: React.FC = () => {
     <div className={css.account_container}>
       <div className={css.account_info}>
         <div className={css.user_name}>
-          {auth.name ?? "Пользователь"}
+          {auth.name || "Tim Huck"}
         </div>
         <button className={css.logout_btn} onClick={logout}>Выйти</button>
       </div>
-      <img src={auth.avatarUrl ?? "/images/default-avatar.png"} alt="user_avatar" className={css.user_avatar} />
+      <img src={auth.avatarUrl || "/images/default_avatar.svg"} alt="user_avatar" className={css.user_avatar} />
     </div>
   );
 };
