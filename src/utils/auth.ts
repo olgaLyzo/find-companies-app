@@ -9,9 +9,16 @@ export interface AuthState {
 
 export interface AuthContextValue {
   auth: AuthState;
-  login: (accessToken: string, expire: string, name?: string, surname?: string, avatarUrl?: string) => void;
+  login: (
+		accessToken: string, 
+		expire: string, 
+		name?: string, 
+		surname?: string, 
+		avatarUrl?: string
+	) => void;
   logout: () => void;
   isAuthenticated: boolean;
+	loadUserInfo: () => Promise<void>;
 }
 
 export const isAuthenticated = () => {

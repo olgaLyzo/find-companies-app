@@ -40,13 +40,13 @@ const Statistic: React.FC = () => {
   return (
     <div className={css.stat_block}>
       <div className={css.companies_block}>
-        <p>Использовано компаний</p>
-        <div className={css.num_of_companies}>{quantity}</div>
+        <p>Использовано компаний</p> 
+				<div className={css.num_of_companies}>{quantity}</div>
       </div>
 
       <div className={css.limit_block}>
-        <p>Лимит по компаниям</p>
-        <div className={css.limits}>{limit}</div>
+        <p>Лимит по компаниям</p> 
+				<div className={css.limits}>{limit}</div>
       </div>
     </div>
   );

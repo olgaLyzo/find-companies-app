@@ -20,6 +20,7 @@
 		display:flex;
 		flex-direction:column;
 		margin-bottom: 10px; 
+		justify-content: space-between;
 		.num_of_companies{
 			color: black;
 			font-weight: 700;
@@ -29,7 +30,7 @@
 	
 	.limit_block{
 		display:flex;
-		flex-direction:column;
+		flex-direction: column;
 		justify-content: space-between;
 		.limits{
 			color: #8AC540;
@@ -41,6 +42,23 @@
 
 @media (min-width: 769px){
 	.stat_block{
-		flex-grow: 0;
+		flex-grow: 0.1;
+
+	.companies_block, .limit_block{
+		flex-direction: row;
 	}
+
+	.companies_block p,
+.limit_block p {
+  flex: 1;
+  text-align: right;
+  padding-right: 8px;
+}
+
+.num_of_companies,
+.limits {
+  flex: 1;
+	flex-grow: 0.2;
+	}
+}
 }

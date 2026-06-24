@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { AuthState, AuthContextValue } from "../utils/auth";
-import { getAccountInfo } from "../requests/statRequest"; // если хочешь подгружать статистику
+import { getAccountInfo } from "../requests/accountAPI"; // если хочешь подгружать статистику
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
@@ -26,17 +26,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   setAuth({ accessToken: token, expire, name, surname, avatarUrl });
 };
 
-  const logout = useCallback(() => {
+  const logout = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("tokenExpire");
     localStorage.removeItem("userName");
     localStorage.removeItem("userSurname");
     localStorage.removeItem("userAvatar");
     setAuth({ accessToken: null, expire: null, name: null, surname: null, avatarUrl: null });
-    // можно ещё: navigate('/login') — но navigation из контекста лучше не делать напрямую
-  }, []);
+		await loadUserInfo();
+	};
 
-  // авто-logout при истечении
   useEffect(() => {
     if (!auth.expire) return;
     const msLeft = new Date(auth.expire).getTime() - Date.now();
@@ -48,8 +47,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => clearTimeout(t);
   }, [auth.expire, logout]);
 
+
+
+	const loadUserInfo = async () => {
+  try {
+    const data = await getAccountInfo();
+
+    setAuth((prev) => ({
+      ...prev,
+      name: data.data.name,
+      surname: data.data.surname,
+      avatarUrl: data.data.avatarUrl
+    }));
+
+    if (data.data.name) localStorage.setItem("userName", data.data.name);
+    if (data.data.surname) localStorage.setItem("userSurname", data.data.surname);
+    if (data.data.avatarUrl) localStorage.setItem("userAvatar", data.data.avatarUrl);
+  } catch (e) {
+    console.log("Не удалось получить данные пользователя");
+  }
+};
+
   return (
-    <AuthContext.Provider value={{ auth, login, logout, isAuthenticated }}>
+    <AuthContext.Provider value={{ auth, login, logout, isAuthenticated, loadUserInfo }}>
       {children}
     </AuthContext.Provider>
   );

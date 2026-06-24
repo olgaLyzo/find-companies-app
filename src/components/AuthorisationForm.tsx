@@ -46,7 +46,6 @@ const AuthorisationForm: React.FC = () => {
 
   return (
     <div className={css.form_container}>
-      {/* —–– ТВОЯ ВЁРСТКА НИЧЕГО НЕ МЕНЯЮ —–– */}
       <img className={css.lock_icon} src='images/grey-lock.svg' alt='grey-lock'/>
       <div className={css.tabs}>
         <button className={css.active}>Войти</button>

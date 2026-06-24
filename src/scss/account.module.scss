@@ -25,5 +25,11 @@
 @media (min-width: 769px){
 	.account_container{
 		display: flex;
+
+		.logout_btn,
+		.user_name{
+			padding-right: 10px;
+    	text-align: right;
+		}
 	}
 }
