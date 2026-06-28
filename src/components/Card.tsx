@@ -8,9 +8,11 @@ export interface cardProps {
   price: number;
   previousPrice: number;
   description: string;
-  tarif: string;
+  tariff: string;
   services: string[];
-	actualTariff: string;
+	activeCard: string | null;
+	setActiveCard: React.Dispatch<
+    React.SetStateAction<string | null>>;
 }
 
 const Card: React.FC<cardProps> = ({
@@ -20,13 +22,12 @@ const Card: React.FC<cardProps> = ({
   price,
   previousPrice,
   description,
-  tarif,
+  tariff,
   services,
-	actualTariff
+	activeCard,
+	setActiveCard,
 }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [showBadge, setShowBadge] = useState<boolean>(false);
-	const [ clicked, setClicked ] = useState(false);
 
 	const handleMouseEnter = () => {
     setIsHovered(true);
@@ -35,10 +36,10 @@ const Card: React.FC<cardProps> = ({
     setIsHovered(false);
   };
 	const handleClick = ()=>{
-		setClicked(prev => !prev);
-		setShowBadge(prev => !prev);
+		setActiveCard(title);
 	}
 
+	const isActive = activeCard === title;
   return (
     <div
       className={`${css.card} 
@@ -70,7 +71,11 @@ const Card: React.FC<cardProps> = ({
         <p className={css.client}>{client}</p>
       </div>
       <div className={css.card_content}>
-				{showBadge && <div className={css.active_tariff}>Текущий тариф</div>}
+				{isActive && (
+					<div className={css.active_tariff}>
+						Текущий тариф
+					</div>
+				)}
         <div className={css.price}>
           <span className={css.actual_price}>
             {price.toLocaleString("ru-RU")} ₽
@@ -82,7 +87,7 @@ const Card: React.FC<cardProps> = ({
         </div>
        
 				
-					<h3>{tarif}</h3>
+					<h3>{tariff}</h3>
         	<ul className={css.conditions}>
 						{services.map((elem, index) => (
 							<li key={index}>{elem}</li>
@@ -90,12 +95,12 @@ const Card: React.FC<cardProps> = ({
 					</ul>
 				
         <button 
-					className={`${css.go_to_account_btn} ${clicked 
+					className={`${css.go_to_account_btn} ${isActive 
 						? css.go_to_account_btn 
 						: css.get_info_btn}`} 
 					onClick = {handleClick}
 				>
-          {clicked ? 'Перейти в личный кабинет' : 'Подробнее'}
+          {isActive ? 'Перейти в личный кабинет' : 'Подробнее'}
         </button>
       </div>
     </div>

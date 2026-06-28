@@ -3,9 +3,12 @@ import Card from "./Card";
 import { tarifRequest } from "./tarifRequest";
 import Slider from "./Slider";
 import { Link } from "react-router";
+import { useState } from "react";
 
 
 const MainBlock: React.FC = () => {
+
+	const [activeCard, setActiveCard ] = useState<string | null>(null);
 
   return (
     <div className={css.main_block}>
@@ -38,9 +41,13 @@ const MainBlock: React.FC = () => {
 				<h2 className={css.title}>Наши тарифы</h2>
 				<div className={css.cards_container}>
 					{
-						tarifRequest.map((tarif, index)=>{
+						tarifRequest.map((tariff, index)=>{
 							return(
-									<Card key={index} {...tarif} />
+									<Card 
+										key={index} 
+										activeCard = {activeCard}
+										setActiveCard = {setActiveCard}
+										{...tariff} />
 							)
 						})
 					}
