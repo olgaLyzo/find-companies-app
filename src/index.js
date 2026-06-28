@@ -1,4 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
+import './scss/base_styles/_font_styles.scss';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';

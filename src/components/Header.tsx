@@ -1,4 +1,4 @@
-import css from '../scss/header.module.scss';
+import css from '../scss/components_styles/header.module.scss';
 import React, { useState } from 'react';
 import  BurgerMenu  from './BurgerMenu';
 import Statistic  from './Statistic';

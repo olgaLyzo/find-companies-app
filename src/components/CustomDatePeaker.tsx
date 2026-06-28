@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import css from '../scss/datapeaker.module.scss';
+import css from '../scss/components_styles/datapeaker.module.scss';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 

@@ -1,5 +1,6 @@
-@use './variables.module.scss' as vars;
-	
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as *;
+
 	.card{
 		display: flex;
 		flex-direction: column;
@@ -27,7 +28,7 @@
 			.card_title{
 				display: flex;
 				h2{
-					@extend .font-h2;
+					@include font-h2;
 				}
 				img{
 					margin: 0 10px 0 auto;
@@ -58,10 +59,22 @@
 			width: -webkit-fill-available;
     	flex-direction: column;
 
+			.active_tariff{
+					background-color: #3BA5E0;
+					border-radius: 20px;
+					text-align: center;
+					@include font-main;
+					width: 140px;
+					height: 24px;
+					color: vars.$white;
+					padding-top: 5px;
+					font-size: 14px;
+					align-self: flex-end;
+				}
 			.price{
 				flex: 1;
 				.actual_price, .previous_price, h3{
-					@extend .font-h2;
+					@include font-h2;
 				}
 				.actual_price{
 					font-size: 30px;
@@ -83,7 +96,7 @@
 					margin-left: 20px;
 					li{
 						list-style: url('images/list-item-icon.svg');
-						@extend .font-main;
+						@include font-main;
 					}
 				}
 		}
@@ -107,7 +120,7 @@
 			}
 
 		p, li, .go_to_account_btn{
-			@extend .font-main;
+			@include font-main;
 			}
 
 		.card_header, .card_content{

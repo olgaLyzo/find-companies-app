@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
-import css from '../scss/articles_page.module.scss';
+import css from '../scss/components_styles/articles_page.module.scss';
 import ArticleCards from './ArticleCards';
 import StatSlider from './StatSlider';
 const ArticlesPage = () => {

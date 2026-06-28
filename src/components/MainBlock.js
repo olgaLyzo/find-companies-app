@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import css from "../scss/main.module.scss";
+import css from "../scss/components_styles/main.module.scss";
 import Card from "./Card";
 import { tarifRequest } from "./tarifRequest";
 import Slider from "./Slider";

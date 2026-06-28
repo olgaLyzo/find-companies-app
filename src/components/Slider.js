@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from 'react';
-import css from '../scss/slider.module.scss';
+import css from '../scss/components_styles/slider.module.scss';
 import SliderCard from './SliderCard';
 import { sliderInfo } from './sliderCardResponse';
 const Slider = () => {

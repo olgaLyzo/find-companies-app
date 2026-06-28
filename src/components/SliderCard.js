@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import css from '../scss/slider.module.scss';
+import css from '../scss/components_styles/slider.module.scss';
 import { sliderInfo } from './sliderCardResponse';
 const SliderCard = ({ currentIndex, isMobile }) => {
     if (isMobile) {

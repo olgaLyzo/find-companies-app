@@ -1,4 +1,4 @@
-import css from '../scss/searching.module.scss';
+import css from '../scss/components_styles/searching.module.scss';
 import SearchForm from './SearchForm';
 
 const PageSearching: React.FC = () => {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import css from "../scss/card.module.scss";
+import css from "../scss/components_styles/card.module.scss";
 
 export interface cardProps {
   title: string;
@@ -10,6 +10,7 @@ export interface cardProps {
   description: string;
   tarif: string;
   services: string[];
+	actualTariff: string;
 }
 
 const Card: React.FC<cardProps> = ({
@@ -21,17 +22,21 @@ const Card: React.FC<cardProps> = ({
   description,
   tarif,
   services,
+	actualTariff
 }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const handleMouseEnter = () => {
+  const [showBadge, setShowBadge] = useState<boolean>(false);
+	const [ clicked, setClicked ] = useState(false);
+
+	const handleMouseEnter = () => {
     setIsHovered(true);
   };
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-	const [ clicked, setClicked ] = useState(false);
 	const handleClick = ()=>{
-		setClicked(true)
+		setClicked(prev => !prev);
+		setShowBadge(prev => !prev);
 	}
 
   return (
@@ -65,6 +70,7 @@ const Card: React.FC<cardProps> = ({
         <p className={css.client}>{client}</p>
       </div>
       <div className={css.card_content}>
+				{showBadge && <div className={css.active_tariff}>Текущий тариф</div>}
         <div className={css.price}>
           <span className={css.actual_price}>
             {price.toLocaleString("ru-RU")} ₽
@@ -86,7 +92,7 @@ const Card: React.FC<cardProps> = ({
         <button 
 					className={`${css.go_to_account_btn} ${clicked 
 						? css.go_to_account_btn 
-						: css.get_info_btn}`}
+						: css.get_info_btn}`} 
 					onClick = {handleClick}
 				>
           {clicked ? 'Перейти в личный кабинет' : 'Подробнее'}

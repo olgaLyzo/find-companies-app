@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
-import css from '../scss/searching.module.scss';
+import css from '../scss/components_styles/searching.module.scss';
 export const checkStates = [
     { key: 'maxFullness', label: 'Признак максимальной полноты' },
     { key: 'businessMention', label: 'Упоминания в бизнес-контексте' },

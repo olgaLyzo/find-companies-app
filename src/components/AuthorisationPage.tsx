@@ -1,4 +1,4 @@
-import css from '../scss/authorisation.module.scss';
+import css from '../scss/components_styles/authorisation.module.scss';
 import AuthorisationForm from './AuthorisationForm';
 
 

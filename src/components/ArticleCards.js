@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import css from '../scss/article_card.module.scss';
+import css from '../scss/components_styles/article_card.module.scss';
 export const articles = [
     {
         date: '13.09.2021',

@@ -1,5 +1,6 @@
 
-@use './variables.module.scss' as vars;
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as *;
 
 .dates_container{
 	display: flex;
@@ -24,7 +25,7 @@
 			justify-content: space-between;
 			transition: background-color 0.3s, border-color 0.3s;
 			margin-bottom: 20px;
-			@extend .font-main;
+			@include font-main;
 
 			&.active {
 				background-color: #5970ff;

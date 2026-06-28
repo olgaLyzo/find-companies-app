@@ -1,8 +1,9 @@
-@use './variables.module.scss' as vars;
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as *;
 
 .articles_container{
 	padding: 14px;
-	@extend .font-main;
+	@include font-main;
 
 	.search_block{
 		display: flex;
@@ -10,7 +11,7 @@
 		justify-content: space-between;
 
 		h1{
-			@extend .font-h1;
+			@include font-h1;
 			font-size: 28px;
 		}
 	}

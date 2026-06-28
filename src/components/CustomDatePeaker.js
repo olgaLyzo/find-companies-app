@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
-import css from '../scss/datapeaker.module.scss';
+import css from '../scss/components_styles/datapeaker.module.scss';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 const CustomDatePeaker = ({ startDate, endDate, onChangeStartDate, onChangeEndDate }) => {

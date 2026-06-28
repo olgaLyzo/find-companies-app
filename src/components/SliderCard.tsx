@@ -1,4 +1,4 @@
-import css from '../scss/slider.module.scss';
+import css from '../scss/components_styles/slider.module.scss';
 import React from 'react';
 import { sliderInfo } from './sliderCardResponse';
 

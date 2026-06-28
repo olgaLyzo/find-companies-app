@@ -1,4 +1,5 @@
-@use './variables.module.scss' as vars;
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as *;
 
 .stat_block{
 	display: flex;
@@ -6,11 +7,12 @@
   flex-direction: column;
 	justify-content: center;
 	flex-grow: 2;
+	@include font-main;
 	color: rgb(190, 189, 189);
 	font-size: 9px;
 	padding: 10px;
 	background: #ededed;
-	@extend.font-main;
+	
 	
 	p{
 		margin: 0;

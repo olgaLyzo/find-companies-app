@@ -1,4 +1,6 @@
-@use './variables.module.scss' as vars;
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as *;
+
 
 .search_container{
 	padding: 10px;
@@ -6,7 +8,7 @@
 	flex-direction: column;
 	
 	h1{
-		@extend .font-h1;
+		@include font-h1;
 		font-size: 30px;
 		width: 90%;
 	}
@@ -20,7 +22,7 @@
 
 		p{
 			width: 80%;
-			@extend .font-main;
+			@include font-main;
 			font-size: 18px;
 		}
 
@@ -57,7 +59,7 @@
 						display: block;
 						margin-bottom: 5px;
 						font-size: 18px;
-						@extend .font-main;
+						@include font-main;
 					}
 
 					input[type="text"],
@@ -174,7 +176,7 @@
 		height: 40px;
 		option{
 				font-size: 14px;
-				@extend .font-main;
+				@include font-main;
 		}
 	}			
 

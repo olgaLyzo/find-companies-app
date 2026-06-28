@@ -1,4 +1,4 @@
-import css from '../scss/burger.module.scss';
+import css from '../scss/components_styles/burger.module.scss';
 import React from 'react';
 
 export interface BurgerProps {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import css from '../scss/authorisation_form.module.scss';
+import css from '../scss/components_styles/authorisation_form.module.scss';
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext"; 
 import { loginRequest } from "../requests/authAPI";

@@ -1,10 +1,10 @@
-@use './variables.module.scss' as vars;
-
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as *;
 
 .card_container{
 	display: flex;
 	flex-direction: column;
-	@extend .font-h1;
+	@include font-h1;
 	font-size: 12px;
 	font-weight: normal;
 
@@ -14,7 +14,7 @@
 		box-shadow: 2px 4px 21px rgba(0,0,0,0.3);
 		border-radius: 11px;
 		padding: 15px;
-		@extend .font-main;
+		@include font-main;
 		font-size: 12px;
 		margin-bottom: 20px;
 

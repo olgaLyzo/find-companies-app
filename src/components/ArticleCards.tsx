@@ -1,4 +1,4 @@
-import css from '../scss/article_card.module.scss';
+import css from '../scss/components_styles/article_card.module.scss';
 
 export const articles = [
 	{

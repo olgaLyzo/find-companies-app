@@ -1,5 +1,5 @@
 import React from "react";
-import css from "../scss/account.module.scss";
+import css from "../scss/components_styles/account.module.scss";
 import { useAuth } from "../context/AuthContext";
 
 const AccountBlock: React.FC = () => {

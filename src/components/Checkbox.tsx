@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import css from '../scss/searching.module.scss';
+import css from '../scss/components_styles/searching.module.scss';
 
 export const checkStates = [
 		{ key: 'maxFullness', label: 'Признак максимальной полноты' },

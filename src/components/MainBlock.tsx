@@ -1,4 +1,4 @@
-import css from "../scss/main.module.scss";
+import css from "../scss/components_styles/main.module.scss";
 import Card from "./Card";
 import { tarifRequest } from "./tarifRequest";
 import Slider from "./Slider";

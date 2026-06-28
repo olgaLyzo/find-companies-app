@@ -1,6 +1,7 @@
+import './scss/base_styles/_font_styles.scss';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import css from './scss/index.scss';
+
 
 import App from './App';
 import Header from './components/Header'; 

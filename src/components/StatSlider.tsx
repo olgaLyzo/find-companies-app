@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import css from '../scss/stat_slider.module.scss';
+import css from '../scss/components_styles/stat_slider.module.scss';
 
   export const data = [
   { period: '10.09.2021', total: 5, risks: 0 },

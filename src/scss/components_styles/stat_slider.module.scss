@@ -1,10 +1,11 @@
-@use './variables.module.scss' as vars;
+@use '../abstracts/variables' as vars;
+@use '../abstracts/mixins' as *;
 
 .wrapper {
 	display: flex;
 	align-items: center;
 	font-size: 16px;
-	@extend .font-main;
+	@include font-main;
 	justify-content: space-between;
 
 	.forward_arrow, .back_arrow{

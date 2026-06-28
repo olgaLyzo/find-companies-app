@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect } from 'react';
-import css from '../scss/stat.module.scss';
+import css from '../scss/components_styles/stat.module.scss';
 import { getAccountInfo } from "../requests/statRequest";
 const Statistic = () => {
     const [quantity, setQuantity] = useState(0);

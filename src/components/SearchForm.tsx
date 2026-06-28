@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import css from '../scss/searching.module.scss'; 
+import css from '../scss/components_styles/searching.module.scss'; 
 import Checkbox from './Checkbox';
 import CustomDatePeaker from './CustomDatePeaker';
 

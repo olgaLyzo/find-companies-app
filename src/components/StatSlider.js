@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useEffect, useState } from 'react';
-import css from '../scss/stat_slider.module.scss';
+import css from '../scss/components_styles/stat_slider.module.scss';
 export const data = [
     { period: '10.09.2021', total: 5, risks: 0 },
     { period: '13.09.2021', total: 2, risks: 0 },

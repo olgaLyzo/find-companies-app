@@ -1,3 +1,5 @@
+@use '../abstracts/variables' as vars;
+
 .account_container{
 	display: none;
 	border: black;
@@ -14,7 +16,7 @@
 	.logout_btn{
 		font-size: 10px;
 		border: none;
-		background-color: #fff;
+		background-color: vars.$white;
 	}
 
 	.logout_btn, .user_name{
