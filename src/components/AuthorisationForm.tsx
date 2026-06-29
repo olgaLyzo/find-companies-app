@@ -10,15 +10,55 @@ const AuthorisationForm: React.FC = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [isValid, setIsValid] = useState(false);
-
+	const [loginError, setLoginError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  useEffect(() => {
-    const loginValid = loginInput.trim().length > 2;
-    const passwordValid = password.trim().length >= 7;
-    setIsValid(loginValid && passwordValid);
-  }, [loginInput, password]);
+	
+	
+	
+	
+	
+	
+	
+	useEffect(() => {
+  const passwordValid = password.trim().length >= 7;
+  const v = loginInput.trim();
+  const phoneRegex = /^\+?\d{9,15}$/;
+  const loginRegex = /^[a-zA-Z0-9_]{3,}$/;
+  let loginValid = false;
+
+	if (v === '') {
+  loginValid = false;
+  setLoginError('');
+	}
+	else if (v.startsWith('+') || /^\d+$/.test(v)) {
+			const normalizedPhone = v.replace(/[\s\-()]/g, '');
+		loginValid = phoneRegex.test(normalizedPhone);
+		setLoginError(
+			loginValid 
+			? '' 
+			: 'Введите корректные данные'
+		);
+	}
+	else {
+		loginValid = loginRegex.test(v);
+
+		setLoginError(
+			loginValid
+				? ''
+				: 'Используйте только латинские буквы, цифры и "_"'
+		);
+	}
+		setIsValid(loginValid && passwordValid);
+	}, [loginInput, password]);
+
+
+
+
+
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,11 +78,13 @@ const AuthorisationForm: React.FC = () => {
 
       navigate('/');
     } catch {
-      setError('Неверный логин или пароль ❌');
+			console.log("LOGIN ERROR:", error);
+      setError('Неверный пароль или логин');
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <div className={css.form_container}>
@@ -57,24 +99,34 @@ const AuthorisationForm: React.FC = () => {
           Логин или номер телефона:
           <input
             type="text"
-            name="login"
+						name="username"
             value={loginInput}
-            onChange={(e) => setLoginInput(e.target.value)}
-            required
+						onChange={(e) => {
+							setLoginInput(e.target.value);
+							setError('');
+						}}
+						className={`${loginError ? css.input_error : ''}`}
+						required
           />
         </label>
+
+				{loginError && <p className={css.error_text}>{loginError}</p>}
 
         <label>
           Пароль:
-          <input 
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+					<input
+						type="password"
+						value={password}
+						onChange={(e) => {
+							setPassword(e.target.value);
+							setError('');
+						}}
+						className={`${error ? css.input_error : ''}`}
+					/>
         </label>
-
+					
+				{error && <p className={css.error_text}>{error}</p>}
+				
         <button 
           type="submit"
           className={`${css.login_btn} ${isValid ? css.active : ''}`}
@@ -82,12 +134,8 @@ const AuthorisationForm: React.FC = () => {
         >
           {loading ? 'Входим...' : 'Войти'}
         </button>
-
-        {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
-
       <a href="#" className={css.forgot_password}>Восстановить пароль</a>
-
       <div className={css.login_via}>
         <p>Войти через:</p>
         <div className={css.social_buttons}>
