@@ -53,13 +53,6 @@ const AuthorisationForm: React.FC = () => {
 		setIsValid(loginValid && passwordValid);
 	}, [loginInput, password]);
 
-
-
-
-
-
-
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');

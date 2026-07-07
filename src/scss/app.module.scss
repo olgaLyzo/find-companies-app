@@ -1,9 +1,9 @@
 .container {
-	border: 1px solid black;
 	font-family: Inter, sans serif;
   display: flex;
   flex-direction: column;
 	overflow: hidden;
+	min-width: 320px;
 	a {        
 		text-decoration: none; 
 	}

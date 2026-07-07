@@ -19,7 +19,6 @@ const errorsInit = {
   dateEnd: false
 };
 
-// Функция для форматирования ИНН по маске ХХ ХХХ ХХХ ХХ
 const formatInn = (value: string): string => {
   const digits = value.replace(/\D/g, '');
   const parts = [
@@ -95,7 +94,7 @@ const SearchForm: React.FC = () => {
     <form className={css.form_container} onSubmit={handleSubmit}>
       <div className={css.form_grafs}>
         <div className={css.form_field}>
-          <label>ИНН компании *</label>
+          <label>ИНН компании <span className={errors.inn ? css.error_label : ''}>*</span></label>
           <input
             className={`${errors.inn ? css.error : ''}`}
             type="text"
@@ -125,7 +124,8 @@ const SearchForm: React.FC = () => {
         </div>
 
         <div className={css.form_field}>
-          <label>Количество документов в выдаче *</label>
+          <label>Количество документов в выдаче <span className={errors.documentCount ? css.error_label : ''}>*</span>
+					</label>
           <input
             className={`${errors.documentCount ? css.error : ''}`}
             type="text"
