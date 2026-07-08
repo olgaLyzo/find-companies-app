@@ -51,12 +51,13 @@ const SearchForm: React.FC = () => {
   const [data, setData] = useState(dataInit);
   const [errors, setErrors] = useState(errorsInit);
   const [isFormValid, setIsFormValid] = useState(false);
+	const [dateError, setDateError] = useState(false);
 
   useEffect(() => {
     const allFilled = Object.values(data).every(v => v.trim() !== '');
-    const noErrors = Object.values(errors).every(err => err === false);
-    setIsFormValid(allFilled && noErrors);
-  }, [data, errors]);
+		const noErrors = Object.values(errors).every(err => err === false);
+		setIsFormValid(allFilled && noErrors && !dateError);  
+	}, [data, errors, dateError]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -141,18 +142,25 @@ const SearchForm: React.FC = () => {
         </div>
 
         <div className={css.form_field}>
-          <label>Диапазон поиска *</label>
+          <label>Диапазон поиска <span className={dateError ? css.error_label : ''}> *</span>
+					</label>
           <div style={{ display: 'flex', gap: '10px' }}>
             <CustomDatePeaker
-              startDate={data.dateStart}
-              endDate={data.dateEnd}
-              onChangeStartDate={(dateStr) => setData(prev => ({ ...prev, dateStart: dateStr }))}
-              onChangeEndDate={(dateStr) => setData(prev => ({ ...prev, dateEnd: dateStr }))}
-            />
+              // startDate={data.dateStart}
+              // endDate={data.dateEnd}
+              // onChangeStartDate={(dateStr) => setData(prev => ({ ...prev, dateStart: dateStr }))}
+              // onChangeEndDate={(dateStr) => setData(prev => ({ ...prev, dateEnd: dateStr }))}
+							startDate={data.dateStart}
+							endDate={data.dateEnd}
+							onChangeStartDate={(dateStr) => 
+								setData(prev => ({ ...prev, dateStart: dateStr }))
+							}
+							onChangeEndDate={(dateStr) => 
+								setData(prev => ({ ...prev, dateEnd: dateStr }))
+							}
+							onErrorChange={setDateError}
+						/>
           </div>
-          {(errors.dateStart || errors.dateEnd) && (
-            <div className={css.error_text}>Введите корректные данные</div>
-          )}
         </div>
       </div>
 

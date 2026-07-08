@@ -8,20 +8,40 @@ interface CustomDatePeakerProps {
   endDate: string;
   onChangeStartDate: (dateStr: string) => void;
   onChangeEndDate: (dateStr: string) => void;
+	onErrorChange: (hasError: boolean) => void;
 }
 
 const CustomDatePeaker: React.FC<CustomDatePeakerProps> = ({
   startDate,
   endDate,
   onChangeStartDate,
-  onChangeEndDate
+  onChangeEndDate,
+	onErrorChange
 }) => {
   const [activeDate, setActiveDate] = useState<'start' | 'end' | null>(null);
-	const [error, setError] = useState<string>('');
-	const [dateErrors, setDateErrors] = useState({
-		start: false,
-		end: false
-	});
+	const [dateValidation, setDateValidation] = useState<{
+	start: {
+		error: boolean;
+		message: string;
+		touched: boolean;
+	};
+	end: {
+		error: boolean;
+		message: string;
+		touched: boolean;
+	};
+}>({
+	start: {
+		error: false,
+		message: '',
+		touched: false,
+	},
+	end: {
+		error: false,
+		message: '',
+		touched: false,
+	}
+});
 
   const convertStrToDate = (dateStr: string): Date | null => {
     const parts = dateStr.split('.');
@@ -45,63 +65,111 @@ const CustomDatePeaker: React.FC<CustomDatePeakerProps> = ({
   today.setHours(0, 0, 0, 0); 
 
 const checkErrors = (date: Date | null, type: 'start' | 'end') => {
-  let startError = false;
-  let endError = false;
-  let message = '';
+	let start = {
+		error: false,
+		message: ''
+	};
 
-  const newStart = type === 'start' ? date : selectedStart;
-  const newEnd = type === 'end' ? date : selectedEnd;
+	let end = {
+		error: false,
+		message: ''
+	};
 
-  if (!newStart || !newEnd) {
-    if (!newStart) startError = true;
-    if (!newEnd) endError = true;
+	const newStart = type === 'start' ? date : selectedStart;
+	const newEnd = type === 'end' ? date : selectedEnd;
 
-    message = 'Введите корректные данные';
-  }
 
-  else if (newStart > newEnd) {
-    startError = true;
-    message = 'Дата начала не может быть позже даты конца';
-  }
-
-  else if (newEnd < newStart) {
-    endError = true;
-    message = 'Дата конца не может быть раньше даты начала';
-  }
-
-	else if (clearTime(newEnd) > today) {
-		endError = true;
-		message = 'Дата конца не может быть больше текущей даты';
+	// если дата начала не выбрана
+	if (!newStart && type === 'start') {
+		start.error = true;
+		start.message = 'Введите корректные данные';
 	}
-	
-  setDateErrors({
-    start: startError,
-    end: endError
-  });
 
-  setError(message);
+
+	// если дата конца не выбрана
+	if (!newEnd && type === 'end') {
+		end.error = true;
+		end.message = 'Введите корректные данные';
+	}
+
+
+	// проверяем дату начала отдельно
+	if (newStart && clearTime(newStart) > today) {
+		start.error = true;
+		start.message = 'Дата начала не может быть больше текущей даты';
+	}
+
+
+	// проверяем диапазон, если выбраны обе даты
+	if (newStart && newEnd) {
+
+		if (newStart > newEnd) {
+			start.error = true;
+			start.message = 'Дата начала не может быть позже даты конца';
+		}
+
+		if (newEnd < newStart) {
+			end.error = true;
+			end.message = 'Дата конца не может быть раньше даты начала';
+		}
+
+		if (clearTime(newEnd) > today) {
+			end.error = true;
+			end.message = 'Дата конца не может быть больше текущей даты';
+		}
+	}
+
+
+	setDateValidation(prev => ({
+		start: {
+			...prev.start,
+			error: start.error,
+			message: start.message,
+		},
+		end: {
+			...prev.end,
+			error: end.error,
+			message: end.message,
+		}
+	}));
+
+
+	const hasError = start.error || end.error;
+	onErrorChange(hasError);
 };
 
-	const handleChangeDate = (field: 'start' | 'end', date: Date | null) => {
-  if (date) {
-    checkErrors(date, field);
-  } else {
-		setError('');
-		setDateErrors({
-			start: false,
-			end: false
-		});
-  }
+const handleChangeDate = (field: 'start' | 'end', date: Date | null) => {
 
-  const dateStr = date ? date.toLocaleDateString('ru-RU') : '';
+  setDateValidation(prev => ({
+    ...prev,
+    [field]: {
+      ...prev[field],
+      touched: true
+    }
+  }));
 
-  if (field === 'start') {
-    onChangeStartDate(dateStr);
-  } else {
-    onChangeEndDate(dateStr);
-  }
+const dateStr = date ? date.toLocaleDateString('ru-RU') : '';
 
+if (field === 'start') {
+  onChangeStartDate(dateStr);
+} else {
+  onChangeEndDate(dateStr);
+}
+
+if (date) {
+  checkErrors(date, field);
+} else {
+  setDateValidation(prev => ({
+    ...prev,
+    [field]: {
+      ...prev[field],
+      error: true,
+      message: 'Введите корректные данные'
+    }
+  }));
+}	
   setActiveDate(null);
+
 };
 
   return (
@@ -112,7 +180,7 @@ const checkErrors = (date: Date | null, type: 'start' | 'end') => {
 						className={`
 							${css.date}
 							${activeDate === 'start' ? css.active : ''}
-							${dateErrors.start ? css.error : ''}
+							${dateValidation.start.error ? css.error : ''}
 						`}
 						onClick={() => setActiveDate(activeDate === 'start' ? null : 'start')}
 					>
@@ -136,7 +204,7 @@ const checkErrors = (date: Date | null, type: 'start' | 'end') => {
 						className={`
 							${css.date}
 							${activeDate === 'end' ? css.active : ''}
-							${dateErrors.end ? css.error : ''}
+							${dateValidation.end.error ? css.error : ''}
 						`}
 						onClick={() => setActiveDate(activeDate === 'end' ? null : 'end')}
 					>
@@ -155,8 +223,19 @@ const checkErrors = (date: Date | null, type: 'start' | 'end') => {
 				</div>
 			</div>
 			
-      {error && <div className={css.error_text}>{error}</div>}
-    </div>
+      {/* {error && <div className={css.error_text}>{error}</div>} */}
+    {dateValidation.start.touched && dateValidation.start.message && (
+			<div className={css.error_text}>
+				{dateValidation.start.message}
+			</div>
+		)}
+
+		{dateValidation.end.touched && dateValidation.end.message && (
+			<div className={css.error_text}>
+				{dateValidation.end.message}
+			</div>
+		)}
+		</div>
   );
 };
 
