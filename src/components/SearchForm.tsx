@@ -76,11 +76,53 @@ const SearchForm: React.FC = () => {
       const isValid = /^\d{2} \d{3} \d{3} \d{2}$/.test(formattedInn);
       setErrors(prev => ({ ...prev, inn: !isValid }));
     } else {
-      setData(prev => ({ ...prev, [name]: value }));
-      const isValid = validateField(name, value);
-      setErrors(prev => ({ ...prev, [name]: !isValid }));
-    }
-  };
+			const isValid = validateField(name, value);
+
+			if (name === 'documentCount' && !isValid) {
+				setData(prev => ({
+					...prev,
+					documentCount: ''
+				}));
+
+				setErrors(prev => ({
+					...prev,
+					documentCount: true
+				}));
+
+				return;
+			}
+
+			setData(prev => ({
+				...prev,
+				[name]: value
+			}));
+
+			setErrors(prev => ({
+				...prev,
+				[name]: !isValid
+			}));
+		}
+			};
+
+		const handleBlur = (
+		e: React.FocusEvent<HTMLInputElement>
+	) => {
+		const { name, value } = e.target;
+
+		const isValid = validateField(name, value);
+
+		if (name === 'documentCount' && !isValid) {
+			setData(prev => ({
+				...prev,
+				documentCount: ''
+			}));
+
+			setErrors(prev => ({
+				...prev,
+				documentCount: true
+			}));
+		}
+	};
 
   const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
@@ -143,6 +185,7 @@ const SearchForm: React.FC = () => {
             placeholder="От 1 до 1000"
             value={data.documentCount}
             onChange={handleChange}
+						onBlur={handleBlur}
             required
           />
           {errors.documentCount && (
