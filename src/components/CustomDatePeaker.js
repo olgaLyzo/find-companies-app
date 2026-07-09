@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import css from '../scss/components_styles/datapeaker.module.scss';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -17,6 +17,10 @@ const CustomDatePeaker = ({ startDate, endDate, onChangeStartDate, onChangeEndDa
             touched: false,
         }
     });
+    // const [touched, setTouched] = useState({
+    // 	start: false,
+    // 	end: false
+    // });
     const convertStrToDate = (dateStr) => {
         const parts = dateStr.split('.');
         if (parts.length !== 3)
@@ -33,7 +37,146 @@ const CustomDatePeaker = ({ startDate, endDate, onChangeStartDate, onChangeEndDa
     const selectedEnd = endDate ? convertStrToDate(endDate) : null;
     const today = clearTime(new Date());
     today.setHours(0, 0, 0, 0);
-    const checkErrors = (date, type) => {
+    // 	let startError = '';
+    // let endError = '';
+    // if (touched.start && !selectedStart) {
+    // 	startError = 'Введите корректные данные';
+    // }
+    // if (touched.end && !selectedEnd) {
+    // 	endError = 'Введите корректные данные';
+    // }
+    // if (selectedStart && clearTime(selectedStart) > today) {
+    // 	startError = 'Дата начала не может быть больше текущей даты';
+    // }
+    // if (selectedEnd && clearTime(selectedEnd) > today) {
+    // 	endError = 'Дата конца не может быть больше текущей даты';
+    // }
+    // if (selectedStart && selectedEnd) {
+    // 	if (selectedStart > selectedEnd) {
+    // 		startError = 'Дата начала не может быть позже даты конца';
+    // 	}
+    // 	if (selectedEnd < selectedStart) {
+    // 		endError = 'Дата конца не может быть раньше даты начала';
+    // 	}
+    // }
+    // const checkErrors = (date: Date | null, type: 'start' | 'end') => {
+    // 	let start = {
+    // 		error: false,
+    // 		message: ''
+    // 	};
+    // 	let end = {
+    // 		error: false,
+    // 		message: ''
+    // 	};
+    // 	const newStart = type === 'start' ? date : selectedStart;
+    // 	const newEnd = type === 'end' ? date : selectedEnd;
+    // 	// если дата начала не выбрана
+    // 	if (!newStart && type === 'start') {
+    // 		start.error = true;
+    // 		start.message = 'Введите корректные данные';
+    // 	}
+    // 	// если дата конца не выбрана
+    // 	if (!newEnd && type === 'end') {
+    // 		end.error = true;
+    // 		end.message = 'Введите корректные данные';
+    // 	}
+    // 	// проверяем дату начала отдельно
+    // 	if (newStart && clearTime(newStart) > today) {
+    // 		start.error = true;
+    // 		start.message = 'Дата начала не может быть больше текущей даты';
+    // 	}
+    // 	// проверяем диапазон, если выбраны обе даты
+    // 	if (newStart && newEnd) {
+    // 		if (newStart > newEnd) {
+    // 			start.error = true;
+    // 			start.message = 'Дата начала не может быть позже даты конца';
+    // 		}
+    // 		if (newEnd < newStart) {
+    // 			end.error = true;
+    // 			end.message = 'Дата конца не может быть раньше даты начала';
+    // 		}
+    // 		if (clearTime(newEnd) > today) {
+    // 			end.error = true;
+    // 			end.message = 'Дата конца не может быть больше текущей даты';
+    // 		}
+    // 	}
+    // 	setDateValidation(prev => ({
+    // 		start: {
+    // 			...prev.start,
+    // 			error: start.error,
+    // 			message: start.message,
+    // 		},
+    // 		end: {
+    // 			...prev.end,
+    // 			error: end.error,
+    // 			message: end.message,
+    // 		}
+    // 	}));
+    // 	const hasError = start.error || end.error;
+    // 	onErrorChange(hasError);
+    // };
+    // 	useEffect(()=>{
+    // 			checkErrors(null,'start');
+    // 	},[ startDate, endDate ]);
+    // useEffect(() => {
+    //   let start = {
+    //     error: false,
+    //     message: ''
+    //   };
+    //   let end = {
+    //     error: false,
+    //     message: ''
+    //   };
+    //   // если поле уже трогали, но оно пустое
+    //   if (dateValidation.start.touched && !selectedStart) {
+    //     start.error = true;
+    //     start.message = 'Введите корректные данные';
+    //   }
+    //   if (dateValidation.end.touched && !selectedEnd) {
+    //     end.error = true;
+    //     end.message = 'Введите корректные данные';
+    //   }
+    //   // дата начала не должна быть больше сегодняшней
+    //   if (selectedStart && clearTime(selectedStart) > today) {
+    //     start.error = true;
+    //     start.message = 'Дата начала не может быть больше текущей даты';
+    //   }
+    //   // дата конца не должна быть больше сегодняшней
+    //   if (selectedEnd && clearTime(selectedEnd) > today) {
+    //     end.error = true;
+    //     end.message = 'Дата конца не может быть больше текущей даты';
+    //   }
+    //   // сравнение диапазона
+    //   if (selectedStart && selectedEnd) {
+    //     if (selectedStart > selectedEnd) {
+    //       start.error = true;
+    //       start.message = 'Дата начала не может быть позже даты конца';
+    //     }
+    //     if (selectedEnd < selectedStart) {
+    //       end.error = true;
+    //       end.message = 'Дата конца не может быть раньше даты начала';
+    //     }
+    //   }
+    //   setDateValidation(prev => ({
+    //     start: {
+    //       ...prev.start,
+    //       error: start.error,
+    //       message: start.message
+    //     },
+    //     end: {
+    //       ...prev.end,
+    //       error: end.error,
+    //       message: end.message
+    //     }
+    //   }));
+    //   onErrorChange(start.error || end.error);
+    // }, [
+    //   startDate,
+    //   endDate,
+    //   dateValidation.start.touched,
+    //   dateValidation.end.touched
+    // ]);
+    useEffect(() => {
         let start = {
             error: false,
             message: ''
@@ -42,53 +185,115 @@ const CustomDatePeaker = ({ startDate, endDate, onChangeStartDate, onChangeEndDa
             error: false,
             message: ''
         };
-        const newStart = type === 'start' ? date : selectedStart;
-        const newEnd = type === 'end' ? date : selectedEnd;
-        // если дата начала не выбрана
-        if (!newStart && type === 'start') {
+        if (dateValidation.start.touched && !selectedStart) {
             start.error = true;
             start.message = 'Введите корректные данные';
         }
-        // если дата конца не выбрана
-        if (!newEnd && type === 'end') {
+        if (dateValidation.end.touched && !selectedEnd) {
             end.error = true;
             end.message = 'Введите корректные данные';
         }
-        // проверяем дату начала отдельно
-        if (newStart && clearTime(newStart) > today) {
+        if (selectedStart && clearTime(selectedStart) > today) {
             start.error = true;
             start.message = 'Дата начала не может быть больше текущей даты';
         }
-        // проверяем диапазон, если выбраны обе даты
-        if (newStart && newEnd) {
-            if (newStart > newEnd) {
+        if (selectedEnd && clearTime(selectedEnd) > today) {
+            end.error = true;
+            end.message = 'Дата конца не может быть больше текущей даты';
+        }
+        if (selectedStart && selectedEnd) {
+            if (selectedStart > selectedEnd) {
                 start.error = true;
                 start.message = 'Дата начала не может быть позже даты конца';
             }
-            if (newEnd < newStart) {
+            if (selectedEnd < selectedStart) {
                 end.error = true;
                 end.message = 'Дата конца не может быть раньше даты начала';
-            }
-            if (clearTime(newEnd) > today) {
-                end.error = true;
-                end.message = 'Дата конца не может быть больше текущей даты';
             }
         }
         setDateValidation(prev => ({
             start: {
                 ...prev.start,
                 error: start.error,
-                message: start.message,
+                message: start.message
             },
             end: {
                 ...prev.end,
                 error: end.error,
-                message: end.message,
+                message: end.message
             }
         }));
-        const hasError = start.error || end.error;
-        onErrorChange(hasError);
-    };
+        onErrorChange(start.error || end.error);
+    }, [
+        startDate,
+        endDate,
+        dateValidation.start.touched,
+        dateValidation.end.touched
+    ]);
+    // const handleChangeDate = (field: 'start' | 'end', date: Date | null) => {
+    //   setDateValidation(prev => ({
+    //     ...prev,
+    //     [field]: {
+    //       ...prev[field],
+    //       touched: true
+    //     }
+    //   }));
+    // const dateStr = date ? date.toLocaleDateString('ru-RU') : '';
+    // if (field === 'start') {
+    //   onChangeStartDate(dateStr);
+    // } else {
+    //   onChangeEndDate(dateStr);
+    // }
+    // if (date) {
+    //   checkErrors(date, field);
+    // } else {
+    //   setDateValidation(prev => ({
+    //     ...prev,
+    //     [field]: {
+    //       ...prev[field],
+    //       error: true,
+    //       message: 'Введите корректные данные'
+    //     }
+    //   }));
+    // }	
+    //   setActiveDate(null);
+    // };
+    // const handleChangeDate = (field: 'start' | 'end', date: Date | null) => {
+    //   setDateValidation(prev => ({
+    //     ...prev,
+    //     [field]: {
+    //       ...prev[field],
+    //       touched: true
+    //     }
+    //   }));
+    //   const dateStr = date
+    //     ? date.toLocaleDateString('ru-RU')
+    //     : '';
+    //   if (field === 'start') {
+    //     onChangeStartDate(dateStr);
+    //   } else {
+    //     onChangeEndDate(dateStr);
+    //   }
+    //   setActiveDate(null);
+    // };
+    // const handleChangeDate = (
+    // 	field: 'start' | 'end',
+    // 	date: Date | null
+    // ) => {
+    // 	setTouched(prev => ({
+    // 		...prev,
+    // 		[field]: true
+    // 	}));
+    // 	const dateStr = date
+    // 		? date.toLocaleDateString('ru-RU')
+    // 		: '';
+    // 	if (field === 'start') {
+    // 		onChangeStartDate(dateStr);
+    // 	} else {
+    // 		onChangeEndDate(dateStr);
+    // 	}
+    // 	setActiveDate(null);
+    // };
     const handleChangeDate = (field, date) => {
         setDateValidation(prev => ({
             ...prev,
@@ -97,25 +302,14 @@ const CustomDatePeaker = ({ startDate, endDate, onChangeStartDate, onChangeEndDa
                 touched: true
             }
         }));
-        const dateStr = date ? date.toLocaleDateString('ru-RU') : '';
+        const dateStr = date
+            ? date.toLocaleDateString('ru-RU')
+            : '';
         if (field === 'start') {
             onChangeStartDate(dateStr);
         }
         else {
             onChangeEndDate(dateStr);
-        }
-        if (date) {
-            checkErrors(date, field);
-        }
-        else {
-            setDateValidation(prev => ({
-                ...prev,
-                [field]: {
-                    ...prev[field],
-                    error: true,
-                    message: 'Введите корректные данные'
-                }
-            }));
         }
         setActiveDate(null);
     };

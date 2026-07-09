@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import css from '../scss/components_styles/searching.module.scss';
 import Checkbox from './Checkbox';
 import CustomDatePeaker from './CustomDatePeaker';
@@ -46,12 +46,17 @@ const validateField = (name, value) => {
 const SearchForm = () => {
     const [data, setData] = useState(dataInit);
     const [errors, setErrors] = useState(errorsInit);
-    const [isFormValid, setIsFormValid] = useState(false);
+    // const [isFormValid, setIsFormValid] = useState(false);
     const [dateError, setDateError] = useState(false);
-    useEffect(() => {
-        const allFilled = Object.values(data).every(v => v.trim() !== '');
-        const noErrors = Object.values(errors).every(err => err === false);
-        setIsFormValid(allFilled && noErrors && !dateError);
+    // useEffect(() => {
+    //   const allFilled = Object.values(data).every(v => v.trim() !== '');
+    // 	const noErrors = Object.values(errors).every(err => err === false);
+    // 	setIsFormValid(allFilled && noErrors && !dateError);  
+    // }, [data, errors, dateError]);
+    const isFormValid = useMemo(() => {
+        const allFilled = Object.values(data).every(value => value.trim() !== '');
+        const noErrors = Object.values(errors).every(error => error === false);
+        return allFilled && noErrors && !dateError;
     }, [data, errors, dateError]);
     const handleChange = (e) => {
         const { name, value } = e.target;

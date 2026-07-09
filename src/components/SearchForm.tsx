@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import css from '../scss/components_styles/searching.module.scss'; 
 import Checkbox from './Checkbox';
 import CustomDatePeaker from './CustomDatePeaker';
@@ -50,13 +50,19 @@ const validateField = (name: string, value: string): boolean => {
 const SearchForm: React.FC = () => {
   const [data, setData] = useState(dataInit);
   const [errors, setErrors] = useState(errorsInit);
-  const [isFormValid, setIsFormValid] = useState(false);
 	const [dateError, setDateError] = useState(false);
 
-  useEffect(() => {
-    const allFilled = Object.values(data).every(v => v.trim() !== '');
-		const noErrors = Object.values(errors).every(err => err === false);
-		setIsFormValid(allFilled && noErrors && !dateError);  
+	const isFormValid = useMemo(() => {
+		const allFilled = Object.values(data).every(
+			value => value.trim() !== ''
+		);
+
+		const noErrors = Object.values(errors).every(
+			error => error === false
+		);
+
+		return allFilled && noErrors && !dateError;
+
 	}, [data, errors, dateError]);
 
   const handleChange = (
@@ -77,19 +83,22 @@ const SearchForm: React.FC = () => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newErrors = {
-      inn: !validateField('inn', data.inn),
-      tone: !validateField('tone', data.tone),
-      documentCount: !validateField('documentCount', data.documentCount),
-      dateStart: !validateField('dateStart', data.dateStart),
-      dateEnd: !validateField('dateEnd', data.dateEnd),
-    };
-    setErrors(newErrors);
-    if (Object.values(newErrors).every(err => err === false)) {
-      console.log('Форма отправлена:', data);
-    }
+  e.preventDefault();
+
+  const newErrors = {
+    inn: !validateField('inn', data.inn),
+    tone: !validateField('tone', data.tone),
+    documentCount: !validateField('documentCount', data.documentCount),
+    dateStart: !validateField('dateStart', data.dateStart),
+    dateEnd: !validateField('dateEnd', data.dateEnd),
   };
+
+  setErrors(newErrors);
+
+  if (Object.values(newErrors).every(err => err === false)) {
+    console.log('Форма отправлена:', data);
+  }
+};
 
   return (
     <form className={css.form_container} onSubmit={handleSubmit}>
@@ -146,10 +155,6 @@ const SearchForm: React.FC = () => {
 					</label>
           <div style={{ display: 'flex', gap: '10px' }}>
             <CustomDatePeaker
-              // startDate={data.dateStart}
-              // endDate={data.dateEnd}
-              // onChangeStartDate={(dateStr) => setData(prev => ({ ...prev, dateStart: dateStr }))}
-              // onChangeEndDate={(dateStr) => setData(prev => ({ ...prev, dateEnd: dateStr }))}
 							startDate={data.dateStart}
 							endDate={data.dateEnd}
 							onChangeStartDate={(dateStr) => 
