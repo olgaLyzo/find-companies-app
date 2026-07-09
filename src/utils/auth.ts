@@ -2,29 +2,33 @@
 export interface AuthState {
   accessToken: string | null;
   expire: string | null;
-  name?: string;
-  surname?: string;
-  avatarUrl?: string;
+  name: string | null;
+  surname: string | null;
+  avatarUrl: string | null;
 }
 
 export interface AuthContextValue {
   auth: AuthState;
+
   login: (
-		accessToken: string, 
-		expire: string, 
-		name?: string, 
-		surname?: string, 
-		avatarUrl?: string
-	) => void;
-  logout: () => void;
+    accessToken: string,
+    expire: string,
+    name: string | null,
+    surname: string | null,
+    avatarUrl: string | null
+  ) => void;
+
+  logout: () => Promise<void>;
+
   isAuthenticated: boolean;
-	loadUserInfo: () => Promise<void>;
+
+  loadUserInfo: () => Promise<void>;
 }
 
-export const isAuthenticated = () => {
-  const token = localStorage.getItem('accessToken');
-  const expire = localStorage.getItem('tokenExpire');
+// export const isAuthenticated = () => {
+//   const token = localStorage.getItem('accessToken');
+//   const expire = localStorage.getItem('tokenExpire');
 
-  if (!token || !expire) return false;
-  return new Date(expire) > new Date();
-};
+//   if (!token || !expire) return false;
+//   return new Date(expire) > new Date();
+// };

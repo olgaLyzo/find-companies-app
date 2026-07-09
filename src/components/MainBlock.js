@@ -3,7 +3,7 @@ import css from "../scss/components_styles/main.module.scss";
 import Card from "./Card";
 import { tarifRequest } from "./tarifRequest";
 import Slider from "./Slider";
-import { Link } from "react-router";
+import { Link } from 'react-router-dom';
 import { useState } from "react";
 const MainBlock = () => {
     const [activeCard, setActiveCard] = useState(null);

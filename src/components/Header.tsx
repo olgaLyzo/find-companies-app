@@ -2,7 +2,7 @@ import css from '../scss/components_styles/header.module.scss';
 import React, { useState } from 'react';
 import  BurgerMenu  from './BurgerMenu';
 import Statistic  from './Statistic';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import AccountBlock from './AccountBlock';
 import { useAuth } from '../context/AuthContext';
 
@@ -17,35 +17,43 @@ const Header: React.FC = () => {
     setIsOpen(prev => !prev);
   };
 
-	const menuItems = [
-		{ label: 'Зарегистрироваться', link: '/auth'},
-		{ label: 'Вход', link: '/login'},
-    { label: 'Главная', link: '/' },
-    { label: 'Тарифы', link: '/tarifs' },
-    { label: 'FAQ', link: '/questions' },
-  ];
-
-	
-
+	const menuItems = isAuthenticated
+		? [
+				{ label: 'Главная', link: '/' },
+				{ label: 'Тарифы', link: '/tarifs' },
+				{ label: 'FAQ', link: '/questions' },
+				{ label: 'Выйти', action: logout },
+			]
+		: [
+				{ label: 'Зарегистрироваться', link: '/auth' },
+				{ label: 'Вход', link: '/login' },
+				{ label: 'Главная', link: '/' },
+				{ label: 'Тарифы', link: '/tarifs' },
+				{ label: 'FAQ', link: '/questions' },
+			];
 
 	return(
 		<header className={css.header}>
     	<div className={css.logo}></div>
 			<div className={css.menu_items}>
-				{ 
+				{
 					menuItems.map((item, index) => {
-						if(index !== 0 && index !== 1){
-							return (
-								<Link
-									key={index} 
-									to={item.link} 
-									className={css.menuItem} 
-									onClick={toggleMenu}
-								>
-									{item.label}
-								</Link>
-							)
+
+						if (!item.link) return null;
+
+						if (!isAuthenticated && (item.label === "Зарегистрироваться" || item.label === "Вход")) {
+							return null;
 						}
+
+						return (
+							<Link
+								key={index}
+								to={item.link}
+								className={css.menuItem}
+							>
+								{item.label}
+							</Link>
+						);
 					})
 				}
 			</div>

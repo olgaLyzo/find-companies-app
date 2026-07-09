@@ -13,28 +13,82 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     avatarUrl: localStorage.getItem("userAvatar") || null,
   });
 
-  const isAuthenticated = !!auth.accessToken && !!auth.expire && new Date(auth.expire) > new Date();
+	const isAuthenticated =
+		!!auth.accessToken &&
+		!!auth.expire &&
+		new Date(auth.expire) > new Date();
 
-  const login = (token, expire, name, surname, avatarUrl) => {
-  localStorage.setItem("accessToken", token);
-  localStorage.setItem("tokenExpire", expire);
+	const login = useCallback((
+		token: string,
+		expire: string,
+		name: string | null,
+		surname: string | null,
+		avatarUrl: string | null
+	) => {
 
-  name && localStorage.setItem("userName", name);
-  surname && localStorage.setItem("userSurname", surname);
-  avatarUrl && localStorage.setItem("userAvatar", avatarUrl);
+		localStorage.setItem("accessToken", token);
+		localStorage.setItem("tokenExpire", expire);
 
-  setAuth({ accessToken: token, expire, name, surname, avatarUrl });
-};
+		if (name) localStorage.setItem("userName", name);
+		if (surname) localStorage.setItem("userSurname", surname);
+		if (avatarUrl) localStorage.setItem("userAvatar", avatarUrl);
 
-  const logout = async () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("tokenExpire");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userSurname");
-    localStorage.removeItem("userAvatar");
-    setAuth({ accessToken: null, expire: null, name: null, surname: null, avatarUrl: null });
-		await loadUserInfo();
+		setAuth({
+			accessToken: token,
+			expire,
+			name,
+			surname,
+			avatarUrl
+		});
+	}, []);
+
+	const loadUserInfo = async () => {
+		try {
+			const data = await getAccountInfo();
+
+			if (!data) return;
+
+			setAuth((prev) => ({
+				...prev,
+				name: data.name ?? null,
+				surname: data.surname ?? null,
+				avatarUrl: data.avatarUrl ?? null
+			}));
+
+			if (data.name) {
+				localStorage.setItem("userName", data.name);
+			}
+
+			if (data.surname) {
+				localStorage.setItem("userSurname", data.surname);
+			}
+
+			if (data.avatarUrl) {
+				localStorage.setItem("userAvatar", data.avatarUrl);
+			}
+
+		} catch (e) {
+			console.log("Не удалось получить данные пользователя", e);
+		}
 	};
+
+	const logout = useCallback(() => {
+
+		localStorage.removeItem("accessToken");
+		localStorage.removeItem("tokenExpire");
+		localStorage.removeItem("userName");
+		localStorage.removeItem("userSurname");
+		localStorage.removeItem("userAvatar");
+
+		setAuth({
+			accessToken: null,
+			expire: null,
+			name: null,
+			surname: null,
+			avatarUrl: null
+		});
+
+	},[]);
 
   useEffect(() => {
     if (!auth.expire) return;
@@ -47,26 +101,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => clearTimeout(t);
   }, [auth.expire, logout]);
 
-
-
-	const loadUserInfo = async () => {
-  try {
-    const data = await getAccountInfo();
-
-    setAuth((prev) => ({
-      ...prev,
-      name: data.data.name,
-      surname: data.data.surname,
-      avatarUrl: data.data.avatarUrl
-    }));
-
-    if (data.data.name) localStorage.setItem("userName", data.data.name);
-    if (data.data.surname) localStorage.setItem("userSurname", data.data.surname);
-    if (data.data.avatarUrl) localStorage.setItem("userAvatar", data.data.avatarUrl);
-  } catch (e) {
-    console.log("Не удалось получить данные пользователя");
-  }
-};
 
   return (
     <AuthContext.Provider value={{ auth, login, logout, isAuthenticated, loadUserInfo }}>

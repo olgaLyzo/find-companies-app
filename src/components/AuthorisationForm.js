@@ -12,7 +12,7 @@ const AuthorisationForm = () => {
     const [isValid, setIsValid] = useState(false);
     const [loginError, setLoginError] = useState('');
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, loadUserInfo } = useAuth();
     useEffect(() => {
         const passwordValid = password.trim().length >= 7;
         const v = loginInput.trim();
@@ -44,10 +44,11 @@ const AuthorisationForm = () => {
         setLoading(true);
         try {
             const data = await loginRequest(loginInput, password);
-            login(data.accessToken, data.expire, data.name, data.surname, data.avatarUrl);
+            login(data.accessToken, data.expire, null, null, null);
+            await loadUserInfo();
             navigate('/');
         }
-        catch {
+        catch (error) {
             console.log("LOGIN ERROR:", error);
             setError('Неверный пароль или логин');
         }

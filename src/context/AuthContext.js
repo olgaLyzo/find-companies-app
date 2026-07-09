@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { getAccountInfo } from "../requests/accountAPI"; // если хочешь подгружать статистику
 const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
@@ -10,24 +10,65 @@ export const AuthProvider = ({ children }) => {
         surname: localStorage.getItem("userSurname") || null,
         avatarUrl: localStorage.getItem("userAvatar") || null,
     });
-    const isAuthenticated = !!auth.accessToken && !!auth.expire && new Date(auth.expire) > new Date();
-    const login = (token, expire, name, surname, avatarUrl) => {
+    const isAuthenticated = !!auth.accessToken &&
+        !!auth.expire &&
+        new Date(auth.expire) > new Date();
+    const login = useCallback((token, expire, name, surname, avatarUrl) => {
         localStorage.setItem("accessToken", token);
         localStorage.setItem("tokenExpire", expire);
-        name && localStorage.setItem("userName", name);
-        surname && localStorage.setItem("userSurname", surname);
-        avatarUrl && localStorage.setItem("userAvatar", avatarUrl);
-        setAuth({ accessToken: token, expire, name, surname, avatarUrl });
+        if (name)
+            localStorage.setItem("userName", name);
+        if (surname)
+            localStorage.setItem("userSurname", surname);
+        if (avatarUrl)
+            localStorage.setItem("userAvatar", avatarUrl);
+        setAuth({
+            accessToken: token,
+            expire,
+            name,
+            surname,
+            avatarUrl
+        });
+    }, []);
+    const loadUserInfo = async () => {
+        try {
+            const data = await getAccountInfo();
+            if (!data)
+                return;
+            setAuth((prev) => ({
+                ...prev,
+                name: data.name ?? null,
+                surname: data.surname ?? null,
+                avatarUrl: data.avatarUrl ?? null
+            }));
+            if (data.name) {
+                localStorage.setItem("userName", data.name);
+            }
+            if (data.surname) {
+                localStorage.setItem("userSurname", data.surname);
+            }
+            if (data.avatarUrl) {
+                localStorage.setItem("userAvatar", data.avatarUrl);
+            }
+        }
+        catch (e) {
+            console.log("Не удалось получить данные пользователя", e);
+        }
     };
-    const logout = async () => {
+    const logout = useCallback(() => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("tokenExpire");
         localStorage.removeItem("userName");
         localStorage.removeItem("userSurname");
         localStorage.removeItem("userAvatar");
-        setAuth({ accessToken: null, expire: null, name: null, surname: null, avatarUrl: null });
-        await loadUserInfo();
-    };
+        setAuth({
+            accessToken: null,
+            expire: null,
+            name: null,
+            surname: null,
+            avatarUrl: null
+        });
+    }, []);
     useEffect(() => {
         if (!auth.expire)
             return;
@@ -39,26 +80,6 @@ export const AuthProvider = ({ children }) => {
         const t = setTimeout(logout, msLeft);
         return () => clearTimeout(t);
     }, [auth.expire, logout]);
-    const loadUserInfo = async () => {
-        try {
-            const data = await getAccountInfo();
-            setAuth((prev) => ({
-                ...prev,
-                name: data.data.name,
-                surname: data.data.surname,
-                avatarUrl: data.data.avatarUrl
-            }));
-            if (data.data.name)
-                localStorage.setItem("userName", data.data.name);
-            if (data.data.surname)
-                localStorage.setItem("userSurname", data.data.surname);
-            if (data.data.avatarUrl)
-                localStorage.setItem("userAvatar", data.data.avatarUrl);
-        }
-        catch (e) {
-            console.log("Не удалось получить данные пользователя");
-        }
-    };
     return (_jsx(AuthContext.Provider, { value: { auth, login, logout, isAuthenticated, loadUserInfo }, children: children }));
 };
 export const useAuth = () => {
