@@ -52,24 +52,30 @@ const SearchForm: React.FC = () => {
   const [errors, setErrors] = useState(errorsInit);
 	const [dateError, setDateError] = useState(false);
 
-	const isFormValid = useMemo(() => {
-		const allFilled = Object.values(data).every(
-			value => value.trim() !== ''
-		);
-
-		const noErrors = Object.values(errors).every(
-			error => error === false
-		);
-
-		return allFilled && noErrors && !dateError;
-
-	}, [data, errors, dateError]);
-
+	// const isFormValid = useMemo(() => {
+	// 	const allFilled = Object.values(data).every(
+	// 		value => value.trim() !== ''
+	// 	);
+	// 	const noErrors = Object.values(errors).every(
+	// 		error => error === false
+	// 	);
+	// 	return allFilled && noErrors && !dateError;
+	// }, [data, errors, dateError]);
+const isFormValid = useMemo(() => {
+    return (
+        data.inn !== '' &&
+        data.tone !== '' &&
+        data.documentCount !== '' &&
+        data.dateStart !== '' &&
+        data.dateEnd !== '' &&
+        Object.values(errors).every(error => error === false) &&
+        !dateError
+    );
+}, [data, errors, dateError]);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
     if (name === 'inn') {
       const formattedInn = formatInn(value);
       setData(prev => ({ ...prev, inn: formattedInn }));
@@ -77,70 +83,59 @@ const SearchForm: React.FC = () => {
       setErrors(prev => ({ ...prev, inn: !isValid }));
     } else {
 			const isValid = validateField(name, value);
-
 			if (name === 'documentCount' && !isValid) {
 				setData(prev => ({
 					...prev,
 					documentCount: ''
 				}));
-
 				setErrors(prev => ({
 					...prev,
 					documentCount: true
 				}));
-
 				return;
 			}
-
 			setData(prev => ({
 				...prev,
 				[name]: value
 			}));
-
 			setErrors(prev => ({
 				...prev,
 				[name]: !isValid
 			}));
 		}
-			};
+	};
 
-		const handleBlur = (
-		e: React.FocusEvent<HTMLInputElement>
-	) => {
-		const { name, value } = e.target;
-
-		const isValid = validateField(name, value);
-
-		if (name === 'documentCount' && !isValid) {
-			setData(prev => ({
-				...prev,
-				documentCount: ''
-			}));
-
-			setErrors(prev => ({
-				...prev,
-				documentCount: true
-			}));
-		}
+	const handleBlur = (
+			e: React.FocusEvent<HTMLInputElement>
+		) => {
+			const { name, value } = e.target;
+			const isValid = validateField(name, value);
+			if (name === 'documentCount' && !isValid) {
+				setData(prev => ({
+					...prev,
+					documentCount: ''
+				}));
+				setErrors(prev => ({
+					...prev,
+					documentCount: true
+				}));
+			}
 	};
 
   const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-
-  const newErrors = {
-    inn: !validateField('inn', data.inn),
-    tone: !validateField('tone', data.tone),
-    documentCount: !validateField('documentCount', data.documentCount),
-    dateStart: !validateField('dateStart', data.dateStart),
-    dateEnd: !validateField('dateEnd', data.dateEnd),
-  };
-
-  setErrors(newErrors);
-
-  if (Object.values(newErrors).every(err => err === false)) {
-    console.log('Форма отправлена:', data);
-  }
-};
+		e.preventDefault();
+		const newErrors = {
+			inn: !validateField('inn', data.inn),
+			tone: !validateField('tone', data.tone),
+			documentCount: !validateField('documentCount', data.documentCount),
+			dateStart: !validateField('dateStart', data.dateStart),
+			dateEnd: !validateField('dateEnd', data.dateEnd),
+		};
+		setErrors(newErrors);
+		if (Object.values(newErrors).every(err => err === false)) {
+			console.log('Форма отправлена:', data);
+		}
+	};
 
   return (
     <form className={css.form_container} onSubmit={handleSubmit}>
@@ -192,7 +187,6 @@ const SearchForm: React.FC = () => {
             <div className={css.error_text}>Введите корректные данные</div>
           )}
         </div>
-
         <div className={css.form_field}>
           <label>Диапазон поиска <span className={dateError ? css.error_label : ''}> *</span>
 					</label>
@@ -200,18 +194,54 @@ const SearchForm: React.FC = () => {
             <CustomDatePeaker
 							startDate={data.dateStart}
 							endDate={data.dateEnd}
-							onChangeStartDate={(dateStr) => 
-								setData(prev => ({ ...prev, dateStart: dateStr }))
-							}
-							onChangeEndDate={(dateStr) => 
-								setData(prev => ({ ...prev, dateEnd: dateStr }))
-							}
+							// onChangeStartDate={(dateStr) => {
+							// 	setData(prev => ({
+							// 		...prev,
+							// 		dateStart: dateStr
+							// 	}));
+							// 	setErrors(prev => ({
+							// 		...prev,
+							// 		dateStart: false
+							// 	}));
+							// }}
+							// onChangeEndDate={(dateStr) => {
+							// 	setData(prev => ({
+							// 		...prev,
+							// 		dateEnd: dateStr
+							// 	}));
+							// 	setErrors(prev => ({
+							// 		...prev,
+							// 		dateEnd: false
+							// 	}));
+							// }}
+							onChangeStartDate={(dateStr) => {
+    setData(prev => ({
+        ...prev,
+        dateStart: dateStr
+    }));
+
+    setErrors(prev => ({
+        ...prev,
+        dateStart: !validateField('dateStart', dateStr)
+    }));
+}}
+
+onChangeEndDate={(dateStr) => {
+    setData(prev => ({
+        ...prev,
+        dateEnd: dateStr
+    }));
+
+    setErrors(prev => ({
+        ...prev,
+        dateEnd: !validateField('dateEnd', dateStr)
+    }));
+}}
 							onErrorChange={setDateError}
 						/>
           </div>
         </div>
       </div>
-
       <div className={css.check_and_submit_container}>
         <Checkbox />
         <button
