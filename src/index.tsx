@@ -1,6 +1,8 @@
 import './scss/base_styles/_font_styles.scss';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 
 import App from './App';
@@ -17,15 +19,17 @@ if (rootElement) {
   const root = createRoot(rootElement);
   root.render(
     <StrictMode>
-      <App 
-				headerComponent={<Header />}
-				authorisationComponent={<AuthorisationPage />}
-				mainComponent={<MainBlock />}
-				pageSearchingComponent={<PageSearching />}
-				articlesPageComponent={<ArticlesPage />}
-				footerComponent={<Footer />} 
-			>
-			</App>
+			<Provider store = {store}>
+				<App 
+					headerComponent={<Header />}
+					authorisationComponent={<AuthorisationPage />}
+					mainComponent={<MainBlock />}
+					pageSearchingComponent={<PageSearching />}
+					articlesPageComponent={<ArticlesPage />}
+					footerComponent={<Footer />} 
+				>
+				</App>
+			</Provider>
     </StrictMode>
   );
 }

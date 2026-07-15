@@ -2,6 +2,8 @@ import { useState } from 'react';
 import css from '../scss/components_styles/articles_page.module.scss';
 import ArticleCards from './ArticleCards';
 import StatSlider from './StatSlider';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 export const articles = [
 	{
@@ -29,6 +31,38 @@ export const articles = [
 const ArticlesPage: React.FC = () => {
 	const [ numOfVariants, setNumOfVariants ] = useState(4221);
 	const displayNumber = numOfVariants.toLocaleString('ru-RU');
+	const documents = useSelector(
+		(state: RootState) => state.search.documents
+	);
+	
+	console.log('documents from redux:', documents);
+
+	const formattedArticles = documents
+  .filter((doc:any) => doc.ok)
+  .map((doc:any) => ({
+    date: new Date(doc.ok.issueDate)
+      .toLocaleDateString('ru-RU'),
+
+    source: doc.ok.source.name,
+
+    title: doc.ok.title.text,
+
+    tag: 'Технические новости',
+
+    img: '../../public/images/skillfactory_article.svg',
+
+    description: doc.ok.content.markup
+      .replace(/<[^>]*>/g, '')
+      .replace(/&lt;/g, '')
+      .replace(/&gt;/g, '')
+      .slice(0, 500),
+
+    button: 'Читать в источнике',
+
+    stat: `${doc.ok.attributes.wordCount} слов`,
+
+    url: doc.ok.url
+  }));
 
 	return(
 		<div className={css.articles_container}>
@@ -47,7 +81,7 @@ const ArticlesPage: React.FC = () => {
 			
 			<h2>Список документов</h2>
 			<div className={css.articles_block}>
-				<ArticleCards />
+				<ArticleCards articles={formattedArticles}/>
 			</div>
 			<button className={css.show_more_btn}>Показать больше</button>
 		</div>

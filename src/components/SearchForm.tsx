@@ -2,6 +2,9 @@ import React, { useState, useMemo } from 'react';
 import css from '../scss/components_styles/searching.module.scss'; 
 import Checkbox from './Checkbox';
 import CustomDatePeaker from './CustomDatePeaker';
+import { useDispatch } from 'react-redux';
+import type { AppDispatch } from '../store/store';
+import { fetchDocuments } from '../features/search/searchThunk';
 
 const dataInit = {
   inn: '', 
@@ -47,31 +50,88 @@ const validateField = (name: string, value: string): boolean => {
   }
 };
 
+	const formatDateForApi = (date: string) => {
+		const [day, month, year] = date.split('.');
+		return `${year}-${month}-${day}`;
+	};
+	const createHistogramRequest = (data: typeof dataInit) => {
+		return {
+			issueDateInterval: {
+				startDate: formatDateForApi(data.dateStart),
+  			endDate: formatDateForApi(data.dateEnd),
+			},
+			searchContext: {
+				targetSearchEntitiesContext: {
+					targetSearchEntities: [
+						{
+							type: "company",
+							sparkId: null,
+							entityId: null,
+							inn: Number(data.inn.replace(/\s/g, "")),
+							maxFullness: true,
+							inBusinessNews: null,
+						},
+					],
+					onlyMainRole: true,
+					tonality:
+						data.tone === "Любая"
+							? "any"
+							: data.tone,
+					onlyWithRiskFactors: false,
+					riskFactors: {
+						and: [],
+						or: [],
+						not: [],
+					},
+					themes: {
+						and: [],
+						or: [],
+						not: [],
+					},
+				},
+				themesFilter: {
+					and: [],
+					or: [],
+					not: [],
+				},
+			},
+			attributeFilters: {
+				excludeTechNews: true,
+				excludeAnnouncements: true,
+				excludeDigests: true,
+			},
+			similarMode: "duplicates",
+			limit: Number(data.documentCount),
+			sortType: "sourceInfluence",
+			sortDirectionType: "desc",
+			intervalType: "month",
+			histogramTypes: [
+				"totalDocuments",
+				"riskFactors",
+			],
+		};
+	};
+
+
 const SearchForm: React.FC = () => {
-  const [data, setData] = useState(dataInit);
+  const dispatch = useDispatch<AppDispatch>();
+	
+	const [data, setData] = useState(dataInit);
   const [errors, setErrors] = useState(errorsInit);
 	const [dateError, setDateError] = useState(false);
 
-	// const isFormValid = useMemo(() => {
-	// 	const allFilled = Object.values(data).every(
-	// 		value => value.trim() !== ''
-	// 	);
-	// 	const noErrors = Object.values(errors).every(
-	// 		error => error === false
-	// 	);
-	// 	return allFilled && noErrors && !dateError;
-	// }, [data, errors, dateError]);
-const isFormValid = useMemo(() => {
-    return (
-        data.inn !== '' &&
-        data.tone !== '' &&
-        data.documentCount !== '' &&
-        data.dateStart !== '' &&
-        data.dateEnd !== '' &&
-        Object.values(errors).every(error => error === false) &&
-        !dateError
-    );
-}, [data, errors, dateError]);
+	const isFormValid = useMemo(() => {
+			return (
+					data.inn !== '' &&
+					data.tone !== '' &&
+					data.documentCount !== '' &&
+					data.dateStart !== '' &&
+					data.dateEnd !== '' &&
+					Object.values(errors).every(error => error === false) &&
+					!dateError
+			);
+	}, [data, errors, dateError]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -133,7 +193,7 @@ const isFormValid = useMemo(() => {
 		};
 		setErrors(newErrors);
 		if (Object.values(newErrors).every(err => err === false)) {
-			console.log('Форма отправлена:', data);
+			dispatch(fetchDocuments(createHistogramRequest(data)));
 		}
 	};
 
@@ -194,49 +254,26 @@ const isFormValid = useMemo(() => {
             <CustomDatePeaker
 							startDate={data.dateStart}
 							endDate={data.dateEnd}
-							// onChangeStartDate={(dateStr) => {
-							// 	setData(prev => ({
-							// 		...prev,
-							// 		dateStart: dateStr
-							// 	}));
-							// 	setErrors(prev => ({
-							// 		...prev,
-							// 		dateStart: false
-							// 	}));
-							// }}
-							// onChangeEndDate={(dateStr) => {
-							// 	setData(prev => ({
-							// 		...prev,
-							// 		dateEnd: dateStr
-							// 	}));
-							// 	setErrors(prev => ({
-							// 		...prev,
-							// 		dateEnd: false
-							// 	}));
-							// }}
 							onChangeStartDate={(dateStr) => {
-    setData(prev => ({
-        ...prev,
-        dateStart: dateStr
-    }));
-
-    setErrors(prev => ({
-        ...prev,
-        dateStart: !validateField('dateStart', dateStr)
-    }));
-}}
-
-onChangeEndDate={(dateStr) => {
-    setData(prev => ({
-        ...prev,
-        dateEnd: dateStr
-    }));
-
-    setErrors(prev => ({
-        ...prev,
-        dateEnd: !validateField('dateEnd', dateStr)
-    }));
-}}
+									setData(prev => ({
+											...prev,
+											dateStart: dateStr
+									}));
+									setErrors(prev => ({
+											...prev,
+											dateStart: !validateField('dateStart', dateStr)
+									}));
+							}}
+							onChangeEndDate={(dateStr) => {
+									setData(prev => ({
+											...prev,
+											dateEnd: dateStr
+									}));
+									setErrors(prev => ({
+											...prev,
+											dateEnd: !validateField('dateEnd', dateStr)
+									}));
+							}}
 							onErrorChange={setDateError}
 						/>
           </div>
