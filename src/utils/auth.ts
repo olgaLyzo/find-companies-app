@@ -1,4 +1,3 @@
-
 export interface AuthState {
   accessToken: string | null;
   expire: string | null;
@@ -9,7 +8,6 @@ export interface AuthState {
 
 export interface AuthContextValue {
   auth: AuthState;
-
   login: (
     accessToken: string,
     expire: string,
@@ -17,18 +15,8 @@ export interface AuthContextValue {
     surname: string | null,
     avatarUrl: string | null
   ) => void;
-
-  logout: () => Promise<void>;
-
+  logout: () => void;
   isAuthenticated: boolean;
-
   loadUserInfo: () => Promise<void>;
 }
 
-// export const isAuthenticated = () => {
-//   const token = localStorage.getItem('accessToken');
-//   const expire = localStorage.getItem('tokenExpire');
-
-//   if (!token || !expire) return false;
-//   return new Date(expire) > new Date();
-// };

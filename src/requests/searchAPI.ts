@@ -28,6 +28,30 @@ export async function searchDocuments(params: HistogramRequest) {
   return response.data;
 }
 
+export async function getHistograms(params: HistogramRequest) {
+  console.log('Histogram params:', params);
+  console.log(
+    'Histogram URL:',
+    api.defaults.baseURL + '/objectsearch/histograms'
+  );
+
+  const response = await api.post(
+    '/objectsearch/histograms',
+    {
+      ...params,
+      intervalType: 'month',
+      histogramTypes: [
+        'totalDocuments',
+        'riskFactors'
+      ]
+    }
+  );
+
+  console.log('Histogram response:', response.data);
+
+  return response.data;
+}
+
 export async function getDocuments(ids: string[]) {
   const response = await api.post('/documents', {
     ids

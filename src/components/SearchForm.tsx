@@ -4,15 +4,30 @@ import Checkbox from './Checkbox';
 import CustomDatePeaker from './CustomDatePeaker';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../store/store';
+import { fetchHistograms } from '../features/search/histogramThunk';
+import { setSearchStage } from '../features/search/searchSlice';
 import { fetchDocuments } from '../features/search/searchThunk';
 
+interface SearchFormProps {}
+
+//Раскомментить в конце разработки и удалить DEV_MODE и Datainit под ним!!!!!!!!!!!!!!
+// const dataInit = {
+//   inn: '', 
+//   tone: 'Любая', 
+//   documentCount: '', 
+//   dateStart: '', 
+//   dateEnd: ''
+// };
+
+const DEV_MODE = true;
+
 const dataInit = {
-  inn: '', 
-  tone: 'Любая', 
-  documentCount: '', 
-  dateStart: '', 
-  dateEnd: ''
-};
+  inn: DEV_MODE ? '77 360 500 03' : '',
+  tone: 'Любая',
+  documentCount: DEV_MODE ? '10' : '',
+  dateStart: DEV_MODE ? '01.01.2022' : '',
+  dateEnd: DEV_MODE ? '21.07.2026' : ''
+}; 
 
 const errorsInit = {
   inn: false,
@@ -113,7 +128,7 @@ const validateField = (name: string, value: string): boolean => {
 	};
 
 
-const SearchForm: React.FC = () => {
+const SearchForm: React.FC<SearchFormProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
 	
 	const [data, setData] = useState(dataInit);
@@ -182,7 +197,7 @@ const SearchForm: React.FC = () => {
 			}
 	};
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		const newErrors = {
 			inn: !validateField('inn', data.inn),
@@ -193,8 +208,34 @@ const SearchForm: React.FC = () => {
 		};
 		setErrors(newErrors);
 		if (Object.values(newErrors).every(err => err === false)) {
-			dispatch(fetchDocuments(createHistogramRequest(data)));
-		}
+	try {
+
+const params = createHistogramRequest(data);
+
+
+	// показываем слайдер с loader
+	dispatch(setSearchStage('histogramsLoading'));
+
+
+	// 1. получаем статистику
+	await dispatch(fetchHistograms(params)).unwrap();
+
+
+	// статистика готова
+	dispatch(setSearchStage('histogramsReady'));
+
+
+	// 2. получаем документы
+	await dispatch(fetchDocuments(params)).unwrap();
+
+
+	// статьи готовы
+	dispatch(setSearchStage('documentsReady'));		
+
+	} catch (error) {
+		console.log('Ошибка поиска:', error);
+	}
+}
 	};
 
   return (

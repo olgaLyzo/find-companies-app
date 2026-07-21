@@ -1,4 +1,4 @@
-export const tarifRequest = [
+export const tariffRequest = [
     {
         "title": "Beginner",
         "client": "Для небольшого исследования",
@@ -6,7 +6,7 @@ export const tarifRequest = [
         "price": 7999,
         "previousPrice": 2600,
         "description": "или 150 ₽/мес. при рассрочке на 24 мес.",
-        "tarif": "В тариф входит",
+        "tariff": "В тариф входит",
         "services": ["Безлимитная история запросов", "Безопасная сделка", "Поддержка 24/7"]
     },
     {
@@ -16,7 +16,7 @@ export const tarifRequest = [
         "price": 1299,
         "previousPrice": 2600,
         "description": "или 279 ₽/мес. при рассрочке на 24 мес.",
-        "tarif": "В тариф входит",
+        "tariff": "В тариф входит",
         "services": ["Все пункты тарифа Beginner", "Экспорт истории", "Рекомендации по приоритетам"]
     },
     {
@@ -26,7 +26,7 @@ export const tarifRequest = [
         "price": 2379,
         "previousPrice": 3700,
         "description": "",
-        "tarif": "В тариф входит",
+        "tariff": "В тариф входит",
         "services": ["Все пункты тарифа Pro", "Безлимитное количество запросов", "Приоритетная поддержка"]
     }
 ];

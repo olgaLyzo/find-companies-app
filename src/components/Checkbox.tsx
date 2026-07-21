@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import css from '../scss/components_styles/searching.module.scss';
 
-export const checkStates = [
-		{ key: 'maxFullness', label: 'Признак максимальной полноты' },
-		{ key: 'businessMention', label: 'Упоминания в бизнес-контексте' },
-		{ key: 'mainRole', label: 'Главная роль в публикации' },
-		{ key: 'includeCalendars', label: 'Включать анонсы и календари' },
-		{ key: 'includeSummaries', label: 'Включать сводки новостей' }
-  ];
+type CheckKey =
+  | 'maxFullness'
+  | 'businessMention'
+  | 'mainRole'
+  | 'includeCalendars'
+  | 'includeSummaries';
+
+interface CheckState {
+  key: CheckKey;
+  label: string;
+}
+
+export const checkStates: CheckState[] = [
+  { key: 'maxFullness', label: 'Признак максимальной полноты' },
+  { key: 'businessMention', label: 'Упоминания в бизнес-контексте' },
+  { key: 'mainRole', label: 'Главная роль в публикации' },
+  { key: 'includeCalendars', label: 'Включать анонсы и календари' },
+  { key: 'includeSummaries', label: 'Включать сводки новостей' }
+];
 
 const Checkbox: React.FC = () => {
-  const [checks, setChecks] = useState({
+  const [checks, setChecks] = useState<Record<CheckKey, boolean>>({
     maxFullness: false,
     businessMention: false,
     mainRole: false,
@@ -18,7 +30,7 @@ const Checkbox: React.FC = () => {
     includeSummaries: false,
   });
 
-  const toggleCheck = (name: string) => {
+  const toggleCheck = (name: CheckKey) => {
     setChecks(prev => ({ ...prev, [name]: !prev[name] }));
   };
 

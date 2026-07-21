@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { searchDocuments, getDocuments } from '../../requests/searchAPI';
-export const fetchDocuments = createAsyncThunk('search/fetchDocuments', async (params, { rejectWithValue }) => {
+export const fetchDocuments = createAsyncThunk('search/fetchDocuments', async (params, { rejectWithValue, dispatch }) => {
     try {
         console.log('Отправляем запрос:', params);
         const searchResult = await searchDocuments(params);

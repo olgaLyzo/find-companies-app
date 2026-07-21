@@ -23,7 +23,11 @@ import css from '../scss/components_styles/stat_slider.module.scss';
 	'Риски'
  ];
 
-const StatSlider: React.FC = () => {
+ interface StatSliderProps {
+  loading?: boolean;
+} 
+
+const StatSlider: React.FC<StatSliderProps> = ({loading = false}) => {
   const [start, setStart] = useState(0);
   const [windowSize, setWindowSize] = useState(5); 
 
@@ -31,8 +35,10 @@ const StatSlider: React.FC = () => {
     const updateWindowSize = () => {
       setWindowSize(window.innerWidth < 768 ? 1 : 5); 
     };
+
     window.addEventListener('resize', updateWindowSize);
-    updateWindowSize(); 
+    updateWindowSize();
+
     return () => window.removeEventListener('resize', updateWindowSize);
   }, []);
 
@@ -51,32 +57,91 @@ const StatSlider: React.FC = () => {
     }
     return result;
   };
-
   const visibleData = getVisibleData();
 
   return (
     <div className={css.wrapper}>
-      <div className={css.back_arrow} onClick={handlePrev}></div>
+      {!loading && (
+        <div 
+          className={css.back_arrow} 
+          onClick={handlePrev}
+        ></div>
+      )}
       <div className={css.table}>
         <div className={css.main_column}>
-          {parameters.map((param, index) => (
-            <div key={index}>{param}</div>
+          {parameters.map((param,index)=>(
+            <div key={index}>
+              {param}
+            </div>
           ))}
         </div>
-        {visibleData.map((elem, index) => (
-          <div className={css.column_container} key={index}>
-            <div className={css.column}>
-              <div className={css.dataCell}>{elem.period}</div>
-              <div className={css.dataCell}>{elem.total}</div>
-              <div className={css.dataCell}>{elem.risks}</div>
+        {
+          loading ? (
+            <div className={css.loading_container}>
+              <div className={css.loader}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <p>
+                Загрузка данных
+              </p>
+
             </div>
-						<div className={css.separator} style={{ display: index === 4 && 'none' }}></div>
-          </div>
-        ))}
+
+          ) : (
+
+            visibleData.map((elem,index)=>(
+              <div 
+                className={css.column_container} 
+                key={index}
+              >
+
+                <div className={css.column}>
+
+                  <div className={css.dataCell}>
+                    {elem.period}
+                  </div>
+
+                  <div className={css.dataCell}>
+                    {elem.total}
+                  </div>
+
+                  <div className={css.dataCell}>
+                    {elem.risks}
+                  </div>
+
+                </div>
+
+                <div 
+                  className={css.separator}
+                  style={{display:index===4 ? 'none':'block'}}
+                />
+
+              </div>
+            ))
+
+          )
+        }
+
+
       </div>
-      <div className={css.forward_arrow} onClick={handleNext}></div>
+
+
+      {!loading && (
+        <div 
+          className={css.forward_arrow} 
+          onClick={handleNext}
+        ></div>
+      )}
+
     </div>
   );
 };
-
 export default StatSlider;

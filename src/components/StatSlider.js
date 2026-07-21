@@ -21,7 +21,7 @@ export const parameters = [
     'Всего',
     'Риски'
 ];
-const StatSlider = () => {
+const StatSlider = ({ loading = false }) => {
     const [start, setStart] = useState(0);
     const [windowSize, setWindowSize] = useState(5);
     useEffect(() => {
@@ -43,6 +43,6 @@ const StatSlider = () => {
         return result;
     };
     const visibleData = getVisibleData();
-    return (_jsxs("div", { className: css.wrapper, children: [_jsx("div", { className: css.back_arrow, onClick: handlePrev }), _jsxs("div", { className: css.table, children: [_jsx("div", { className: css.main_column, children: parameters.map((param, index) => (_jsx("div", { children: param }, index))) }), visibleData.map((elem, index) => (_jsxs("div", { className: css.column_container, children: [_jsxs("div", { className: css.column, children: [_jsx("div", { className: css.dataCell, children: elem.period }), _jsx("div", { className: css.dataCell, children: elem.total }), _jsx("div", { className: css.dataCell, children: elem.risks })] }), _jsx("div", { className: css.separator, style: { display: index === 4 && 'none' } })] }, index)))] }), _jsx("div", { className: css.forward_arrow, onClick: handleNext })] }));
+    return (_jsxs("div", { className: css.wrapper, children: [!loading && (_jsx("div", { className: css.back_arrow, onClick: handlePrev })), _jsxs("div", { className: css.table, children: [_jsx("div", { className: css.main_column, children: parameters.map((param, index) => (_jsx("div", { children: param }, index))) }), loading ? (_jsxs("div", { className: css.loading_container, children: [_jsxs("div", { className: css.loader, children: [_jsx("span", {}), _jsx("span", {}), _jsx("span", {}), _jsx("span", {}), _jsx("span", {}), _jsx("span", {}), _jsx("span", {}), _jsx("span", {})] }), _jsx("p", { children: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430 \u0434\u0430\u043D\u043D\u044B\u0445" })] })) : (visibleData.map((elem, index) => (_jsxs("div", { className: css.column_container, children: [_jsxs("div", { className: css.column, children: [_jsx("div", { className: css.dataCell, children: elem.period }), _jsx("div", { className: css.dataCell, children: elem.total }), _jsx("div", { className: css.dataCell, children: elem.risks })] }), _jsx("div", { className: css.separator, style: { display: index === 4 ? 'none' : 'block' } })] }, index))))] }), !loading && (_jsx("div", { className: css.forward_arrow, onClick: handleNext }))] }));
 };
 export default StatSlider;

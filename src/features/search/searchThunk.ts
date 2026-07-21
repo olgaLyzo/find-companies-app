@@ -3,7 +3,7 @@ import { searchDocuments, getDocuments, HistogramRequest } from '../../requests/
 
 export const fetchDocuments = createAsyncThunk(
   'search/fetchDocuments',
-  async (params: HistogramRequest, { rejectWithValue }) => {
+  async (params: HistogramRequest, { rejectWithValue, dispatch }) => {
     try {
       console.log('Отправляем запрос:', params);
       const searchResult = await searchDocuments(params);
