@@ -9,13 +9,15 @@ const Statistic = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
+                const token = localStorage.getItem("accessToken");
+                console.log("TOKEN BEFORE REQUEST", token);
                 const data = await getAccountInfo();
+                console.log(data);
                 setQuantity(data.eventFiltersInfo.usedCompanyCount);
                 setLimit(data.eventFiltersInfo.companyLimit);
             }
             catch (err) {
-                console.error(err);
-                setError("Не удалось загрузить данные");
+                console.log(err);
             }
         };
         fetchStats();

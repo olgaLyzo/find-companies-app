@@ -10,19 +10,17 @@ const Statistic: React.FC = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
-      try {
-        const data = await getAccountInfo();
-        setQuantity(
-          data.eventFiltersInfo.usedCompanyCount
-        );
-        setLimit(
-          data.eventFiltersInfo.companyLimit
-        );
-      } catch (err) {
-        console.error(err);
-        setError("Не удалось загрузить данные");
-      }
-    };
+			try {
+				const token = localStorage.getItem("accessToken");
+				console.log("TOKEN BEFORE REQUEST", token);
+				const data = await getAccountInfo();
+				console.log(data);
+				setQuantity(data.eventFiltersInfo.usedCompanyCount);
+				setLimit(data.eventFiltersInfo.companyLimit);
+			} catch (err) {
+				console.log(err);
+			}
+		};
     fetchStats();
   }, []);
 

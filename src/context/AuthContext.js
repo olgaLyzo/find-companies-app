@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
     const loadUserInfo = async () => {
         try {
             const data = await getAccountInfo();
+            console.log("ACCOUNT INFO:", data);
             if (!data)
                 return;
             setAuth((prev) => ({

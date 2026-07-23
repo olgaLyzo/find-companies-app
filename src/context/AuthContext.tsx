@@ -45,7 +45,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 	const loadUserInfo = async () => {
 		try {
 			const data = await getAccountInfo();
-
+			console.log("ACCOUNT INFO:", data);
 			if (!data) return;
 
 			setAuth((prev) => ({
@@ -54,32 +54,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 				surname: data.surname ?? prev.surname,
 				avatarUrl: data.avatarUrl ?? prev.avatarUrl
 			}));
-
 			if (data.name) {
 				localStorage.setItem("userName", data.name);
 			}
-
 			if (data.surname) {
 				localStorage.setItem("userSurname", data.surname);
 			}
-
 			if (data.avatarUrl) {
 				localStorage.setItem("userAvatar", data.avatarUrl);
 			}
-
 		} catch (e) {
 			console.log("Не удалось получить данные пользователя", e);
 		}
 	};
 
 	const logout = useCallback(() => {
-
 		localStorage.removeItem("accessToken");
 		localStorage.removeItem("tokenExpire");
 		localStorage.removeItem("userName");
 		localStorage.removeItem("userSurname");
 		localStorage.removeItem("userAvatar");
-
 		setAuth({
 			accessToken: null,
 			expire: null,
@@ -87,7 +81,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 			surname: null,
 			avatarUrl: null
 		});
-
 	},[]);
 
   useEffect(() => {

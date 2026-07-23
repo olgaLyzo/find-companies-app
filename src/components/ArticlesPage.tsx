@@ -28,11 +28,35 @@ const ArticlesPage: React.FC<ArticlesPageProps> = ({
 	const histograms = useSelector(
   (state: RootState) => state.search.histograms
 );
+const getWordLabel = (count: number): string => {
+  const lastTwo = count % 100;
+  const lastOne = count % 10;
+
+  if (lastTwo >= 11 && lastTwo <= 14) {
+    return "слов";
+  }
+
+  if (lastOne === 1) {
+    return "слово";
+  }
+
+  if (lastOne >= 2 && lastOne <= 4) {
+    return "слова";
+  }
+
+  return "слов";
+};
 const formattedArticles = documents
   .filter((doc: any) => doc.ok)
   .map((doc: any, index) => {
     console.log(index, doc.ok.url);
-    console.log('Документ:', doc.ok);
+    console.log('IMAGE FIELDS:', {
+			image: doc.ok.image,
+			images: doc.ok.images,
+			picture: doc.ok.picture,
+			preview: doc.ok.preview,
+			content: doc.ok.content
+		});
 
     return {
       date: new Date(doc.ok.issueDate).toLocaleDateString('ru-RU'),
@@ -46,7 +70,7 @@ const formattedArticles = documents
         .replace(/&gt;/g, '')
         .slice(0, 500),
       button: 'Читать в источнике',
-      stat: `${doc.ok.attributes.wordCount} слов`,
+      stat: `${doc.ok.attributes.wordCount} ${getWordLabel(doc.ok.attributes.wordCount)}`,
       url: doc.ok.url,
     };
   });
