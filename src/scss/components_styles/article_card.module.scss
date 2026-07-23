@@ -59,14 +59,22 @@
 			justify-content: space-between;
     	align-items: center;
 			height: 40px;
+			margin-top: auto;
 
 
 			.get_info_btn{
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				
+
 				background-color: vars.$light-green;
 				height: 40px;
-				border-radius: 7px;
-				border: none;
 				width: 60%;
+				border-radius: 7px;
+
+				text-decoration: none;
+				color: inherit;
 			}
 			.stat{
 				color: #949494;

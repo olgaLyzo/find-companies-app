@@ -10,13 +10,10 @@ import { useAuth } from '../context/AuthContext';
 
 const Header: React.FC = () => {
 	const [isOpen, setIsOpen] = useState(false);
-
 	const { isAuthenticated, logout } = useAuth();
-
 	const toggleMenu = () => {
     setIsOpen(prev => !prev);
   };
-
 	const menuItems = isAuthenticated
 		? [
 				{ label: 'Главная', link: '/' },
@@ -38,13 +35,10 @@ const Header: React.FC = () => {
 			<div className={css.menu_items}>
 				{
 					menuItems.map((item, index) => {
-
 						if (!item.link) return null;
-
 						if (!isAuthenticated && (item.label === "Зарегистрироваться" || item.label === "Вход")) {
 							return null;
 						}
-
 						return (
 							<Link
 								key={index}
@@ -82,9 +76,6 @@ const Header: React.FC = () => {
 				onClick={toggleMenu}
 			/>
   	</header>
-	
 )}
   
-
-
 export default Header;

@@ -37,6 +37,7 @@ const searchSlice = createSlice({
             state.error = null;
         })
             .addCase(fetchHistograms.fulfilled, (state, action) => {
+            console.log('HISTOGRAMS:', action.payload);
             state.histogramsLoading = false;
             state.histograms = action.payload.data;
             state.searchStage = 'histogramsReady';

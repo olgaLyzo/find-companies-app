@@ -78,93 +78,105 @@
 
 .loading_container {
 	flex: 1;
+	min-height: 130px;
 	background: white;
-	height: 150px;
 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	gap: 20px;
+
+	gap: 12px;
+
+	& p {
+	margin: 0;
+	font-size: 14px;
+	color: #333;
+	text-align: center;
+}
 }
 
 
 .loader {
-	width: 55px;
-	height: 55px;
+	width: 42px;
+	height: 42px;
 	position: relative;
-
 	animation: rotate 1.5s linear infinite;
 }
 
-
 .loader span {
 	position: absolute;
-	width: 8px;
-	height: 8px;
+	left: 50%;
+	top: 50%;
 
-	border: 2px solid #ccc;
+	border: 2px solid #b4b1b1;
+	background: transparent;
 	border-radius: 50%;
+	box-sizing: border-box;
+
+	transform:
+		rotate(calc(var(--i) * 45deg))
+		translateY(-24px)
+		translate(-50%, -50%);
 }
 
-
 .loader span:nth-child(1){
-	top:0;
-	left:50%;
+	width: 3px;
+	height: 3px;
 }
 
 .loader span:nth-child(2){
-	top:10%;
-	right:15%;
+	width: 4px;
+	height: 4px;
 }
 
 .loader span:nth-child(3){
-	top:50%;
-	right:0;
+	width: 5px;
+	height: 5px;
 }
 
 .loader span:nth-child(4){
-	bottom:10%;
-	right:15%;
+	width: 7px;
+	height: 7px;
 }
 
 .loader span:nth-child(5){
-	bottom:0;
-	left:50%;
+	width: 9px;
+	height: 9px;
 }
 
 .loader span:nth-child(6){
-	bottom:10%;
-	left:15%;
+	width: 7px;
+	height: 7px;
 }
 
 .loader span:nth-child(7){
-	top:50%;
-	left:0;
+	width: 5px;
+	height: 5px;
 }
 
 .loader span:nth-child(8){
-	top:10%;
-	left:15%;
+	width: 4px;
+	height: 4px;
 }
-
 
 @keyframes rotate {
-
 	from {
-		transform:rotate(0deg);
+		transform: rotate(0);
 	}
-
 	to {
-		transform:rotate(360deg);
+		transform: rotate(360deg);
 	}
-
 }
-
-
 .loading_container p {
 	font-size:18px;
 	color:#333;
+}
+
+.empty_text {
+	font-size: 20px;
+	color: #949494;
+	text-align: center;
 }
 
 @media (min-width: 768px){

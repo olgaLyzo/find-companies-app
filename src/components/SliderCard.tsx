@@ -35,10 +35,4 @@ const SliderCard: React.FC<sliderCardProps> = ({currentIndex, isMobile}) => {
     );
   }
 };
-  
-	
-
-  
-
-
 export default SliderCard;
