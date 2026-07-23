@@ -37,9 +37,9 @@ export const AuthProvider = ({ children }) => {
                 return;
             setAuth((prev) => ({
                 ...prev,
-                name: data.name ?? null,
-                surname: data.surname ?? null,
-                avatarUrl: data.avatarUrl ?? null
+                name: data.name ?? prev.name,
+                surname: data.surname ?? prev.surname,
+                avatarUrl: data.avatarUrl ?? prev.avatarUrl
             }));
             if (data.name) {
                 localStorage.setItem("userName", data.name);

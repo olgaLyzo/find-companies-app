@@ -4,8 +4,8 @@ import { useAuth } from "../context/AuthContext";
 
 const AccountBlock: React.FC = () => {
   const { auth, logout } = useAuth();
-	const fullName = `${auth.name || "Tim Huck"} ${auth.surname || ""}`.trim();
-  const avatar = auth.avatarUrl || "/images/default_avatar.svg";
+const fullName = auth.name || "Пользователь";  
+const avatar = auth.avatarUrl || "/images/default_avatar.svg";
   return (
     <div className={css.account_container}>
       <div className={css.account_info}>

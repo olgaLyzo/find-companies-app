@@ -4,6 +4,7 @@ import css from '../scss/components_styles/authorisation_form.module.scss';
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import { loginRequest } from "../requests/authAPI";
+import { decodeToken } from "../utils/decodeToken";
 const AuthorisationForm = () => {
     const [loginInput, setLoginInput] = useState("");
     const [password, setPassword] = useState('');
@@ -44,7 +45,8 @@ const AuthorisationForm = () => {
         setLoading(true);
         try {
             const data = await loginRequest(loginInput, password);
-            login(data.accessToken, data.expire, null, null, null);
+            const user = decodeToken(data.accessToken);
+            login(data.accessToken, data.expire, user.preferred_username, "", null);
             await loadUserInfo();
             navigate('/');
         }
