@@ -41,6 +41,13 @@
 		}
 	}
 }
+.stat_loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	min-height: 45px;
+}
 
 @media (min-width: 769px){
 	.stat_block{

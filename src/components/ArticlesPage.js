@@ -4,11 +4,12 @@ import css from '../scss/components_styles/articles_page.module.scss';
 import ArticleCards from './ArticleCards';
 import StatSlider from './StatSlider';
 import { useSelector } from 'react-redux';
-const ArticlesPage = ({ searchStage }) => {
+const ArticlesPage = () => {
     const [visibleCount, setVisibleCount] = useState(3);
     const documents = useSelector((state) => state.search.documents);
     const loadingDocuments = useSelector((state) => state.search.loading);
     const histograms = useSelector((state) => state.search.histograms);
+    const searchStage = useSelector((state) => state.search.searchStage);
     const getWordLabel = (count) => {
         const lastTwo = count % 100;
         const lastOne = count % 10;
@@ -26,14 +27,6 @@ const ArticlesPage = ({ searchStage }) => {
     const formattedArticles = documents
         .filter((doc) => doc.ok)
         .map((doc, index) => {
-        console.log(index, doc.ok.url);
-        console.log('IMAGE FIELDS:', {
-            image: doc.ok.image,
-            images: doc.ok.images,
-            picture: doc.ok.picture,
-            preview: doc.ok.preview,
-            content: doc.ok.content
-        });
         return {
             date: new Date(doc.ok.issueDate).toLocaleDateString('ru-RU'),
             source: doc.ok.source.name,

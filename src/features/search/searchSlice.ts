@@ -50,6 +50,7 @@ const searchSlice = createSlice({
       .addCase(fetchDocuments.fulfilled, (state, action) => {
         state.loading = false;
         state.documents = action.payload;
+				state.searchStage = 'documentsReady';
       })
 
       .addCase(fetchDocuments.rejected, (state, action) => {

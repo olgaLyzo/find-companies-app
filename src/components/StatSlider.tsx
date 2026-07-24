@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import css from '../scss/components_styles/stat_slider.module.scss';
+import Loader from './statLoader';
 
  export const parameters = [
 	'Период',
@@ -84,19 +85,9 @@ const StatSlider: React.FC<StatSliderProps> = ({
         </div>
         {
   loading ? (
-    <div className={css.loading_container}>
-      <div className={css.loader}>
-				{Array.from({ length: 8 }).map((_, index) => (
-					<span
-						key={index}
-						style={{ "--i": index } as React.CSSProperties}
-					/>
-				))}
-			</div>
-      <p>
-        Загружаем данные
-      </p>
-    </div>
+  <div className={css.loading_container}>
+		<Loader />
+	</div>
   ) : empty ? (
     <div className={css.loading_container}>
       <p className={css.empty_text}>

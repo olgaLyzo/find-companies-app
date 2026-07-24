@@ -5,19 +5,7 @@ import StatSlider from './StatSlider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 
-type SearchStage =
-  | 'form'
-  | 'histogramsLoading'
-  | 'histogramsReady'
-  | 'documentsReady';
-
-interface ArticlesPageProps {
-  searchStage: SearchStage;
-}
-
-const ArticlesPage: React.FC<ArticlesPageProps> = ({
-  searchStage
-}) => {
+const ArticlesPage: React.FC = () => {
 	const [visibleCount, setVisibleCount] = useState(3);
 	const documents = useSelector(
 		(state: RootState) => state.search.documents
@@ -27,6 +15,9 @@ const ArticlesPage: React.FC<ArticlesPageProps> = ({
 	);
 	const histograms = useSelector(
   (state: RootState) => state.search.histograms
+);
+const searchStage = useSelector(
+  (state: RootState) => state.search.searchStage
 );
 const getWordLabel = (count: number): string => {
   const lastTwo = count % 100;
@@ -49,15 +40,6 @@ const getWordLabel = (count: number): string => {
 const formattedArticles = documents
   .filter((doc: any) => doc.ok)
   .map((doc: any, index) => {
-    console.log(index, doc.ok.url);
-    console.log('IMAGE FIELDS:', {
-			image: doc.ok.image,
-			images: doc.ok.images,
-			picture: doc.ok.picture,
-			preview: doc.ok.preview,
-			content: doc.ok.content
-		});
-
     return {
       date: new Date(doc.ok.issueDate).toLocaleDateString('ru-RU'),
       source: doc.ok.source.name,
@@ -79,7 +61,6 @@ const formattedArticles = documents
 	useEffect(() => {
 		setVisibleCount(3);
 	}, [documents]);
-
 
 	return(
 		<div className={css.articles_container}>
@@ -106,16 +87,13 @@ const formattedArticles = documents
 						histograms={histograms}
 					/>
 			</div>
-			
 			{
 				searchStage === 'documentsReady' && (
 				<>
 				<h2>Список документов</h2>
-
 				<div className={css.articles_block}>
 					<ArticleCards articles={visibleArticles}/>
 				</div>
-				
 				{
 					visibleCount < formattedArticles.length && (
 						<button 

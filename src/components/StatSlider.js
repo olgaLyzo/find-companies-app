@@ -1,6 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import React, { useEffect, useState } from 'react';
 import css from '../scss/components_styles/stat_slider.module.scss';
+import Loader from './statLoader';
 export const parameters = [
     'Период',
     'Всего',
@@ -41,6 +42,6 @@ const StatSlider = ({ loading = false, empty = false, histograms }) => {
         return result;
     };
     const visibleData = getVisibleData();
-    return (_jsxs("div", { className: css.wrapper, children: [!loading && (_jsx("div", { className: css.back_arrow, onClick: handlePrev })), _jsxs("div", { className: css.table, children: [_jsx("div", { className: css.main_column, children: parameters.map((param, index) => (_jsx("div", { children: param }, index))) }), loading ? (_jsxs("div", { className: css.loading_container, children: [_jsx("div", { className: css.loader, children: Array.from({ length: 8 }).map((_, index) => (_jsx("span", { style: { "--i": index } }, index))) }), _jsx("p", { children: "\u0417\u0430\u0433\u0440\u0443\u0436\u0430\u0435\u043C \u0434\u0430\u043D\u043D\u044B\u0435" })] })) : empty ? (_jsx("div", { className: css.loading_container, children: _jsx("p", { className: css.empty_text, children: "\u0421\u0442\u0430\u0442\u0435\u0439 \u043D\u0435 \u043E\u0431\u043D\u0430\u0440\u0443\u0436\u0435\u043D\u043E" }) })) : (visibleData.map((elem, index) => (_jsxs("div", { className: css.column_container, children: [_jsxs("div", { className: css.column, children: [_jsx("div", { className: css.dataCell, children: elem.period }), _jsx("div", { className: css.dataCell, children: elem.total }), _jsx("div", { className: css.dataCell, children: elem.risks })] }), _jsx("div", { className: css.separator, style: { display: index === 4 ? 'none' : 'block' } })] }, index))))] }), !loading && (_jsx("div", { className: css.forward_arrow, onClick: handleNext }))] }));
+    return (_jsxs("div", { className: css.wrapper, children: [!loading && (_jsx("div", { className: css.back_arrow, onClick: handlePrev })), _jsxs("div", { className: css.table, children: [_jsx("div", { className: css.main_column, children: parameters.map((param, index) => (_jsx("div", { children: param }, index))) }), loading ? (_jsx("div", { className: css.loading_container, children: _jsx(Loader, {}) })) : empty ? (_jsx("div", { className: css.loading_container, children: _jsx("p", { className: css.empty_text, children: "\u0421\u0442\u0430\u0442\u0435\u0439 \u043D\u0435 \u043E\u0431\u043D\u0430\u0440\u0443\u0436\u0435\u043D\u043E" }) })) : (visibleData.map((elem, index) => (_jsxs("div", { className: css.column_container, children: [_jsxs("div", { className: css.column, children: [_jsx("div", { className: css.dataCell, children: elem.period }), _jsx("div", { className: css.dataCell, children: elem.total }), _jsx("div", { className: css.dataCell, children: elem.risks })] }), _jsx("div", { className: css.separator, style: { display: index === 4 ? 'none' : 'block' } })] }, index))))] }), !loading && (_jsx("div", { className: css.forward_arrow, onClick: handleNext }))] }));
 };
 export default StatSlider;
