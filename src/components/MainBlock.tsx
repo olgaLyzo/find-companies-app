@@ -1,15 +1,10 @@
 import css from "../scss/components_styles/main.module.scss";
-import Card from "./Card";
-import { tariffRequest } from "./tarifRequest";
 import Slider from "./Slider";
 import { Link } from 'react-router-dom';
-import { useState } from "react";
+import Tariffs from "./Tariffs";
 
 
 const MainBlock: React.FC = () => {
-
-	const [activeCard, setActiveCard ] = useState<string | null>(null);
-
   return (
     <div className={css.main_block}>
 			<div className={css.search_block}>
@@ -37,23 +32,7 @@ const MainBlock: React.FC = () => {
 					</div>
 				</div>
 			</div>
-			<div className={css.tarifs_block}>
-				<h2 className={css.title}>Наши тарифы</h2>
-				<div className={css.cards_container}>
-					{
-						tariffRequest.map((tariff, index)=>{
-							return(
-									<Card 
-										key={index} 
-										activeCard = {activeCard}
-										setActiveCard = {setActiveCard}
-										{...tariff} />
-							)
-						})
-					}
-				</div>
-			</div>
-			
+			<Tariffs />
     </div>
   );
 };

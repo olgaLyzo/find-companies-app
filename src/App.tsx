@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-
 import css from "./scss/app.module.scss";
 import { AuthProvider } from "./context/AuthContext";
 import { useAuth } from "./context/AuthContext";
+import ScrollToHash from "./components/ScrollToHash";
 
 export function PrivateRoute() {
   const { isAuthenticated } = useAuth();
@@ -23,6 +24,7 @@ export interface AppProps {
   return (
     <Router>
       <AuthProvider>
+				<ScrollToHash />
         <div className={css.container}>
           <header>{props.headerComponent}</header>
           <main>

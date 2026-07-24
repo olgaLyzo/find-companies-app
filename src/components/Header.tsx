@@ -17,7 +17,7 @@ const Header: React.FC = () => {
 	const menuItems = isAuthenticated
 		? [
 				{ label: 'Главная', link: '/' },
-				{ label: 'Тарифы', link: '/tarifs' },
+				{ label: 'Тарифы', link: '/#tariffs' },
 				{ label: 'FAQ', link: '/questions' },
 				{ label: 'Выйти', action: logout },
 			]
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
 				{ label: 'Зарегистрироваться', link: '/auth' },
 				{ label: 'Вход', link: '/login' },
 				{ label: 'Главная', link: '/' },
-				{ label: 'Тарифы', link: '/tarifs' },
+				{ label: 'Тарифы', link: '/#tariffs' },
 				{ label: 'FAQ', link: '/questions' },
 			];
 
@@ -44,6 +44,14 @@ const Header: React.FC = () => {
 								key={index}
 								to={item.link}
 								className={css.menuItem}
+								onClick={() => {
+									if (item.scroll) {
+										sessionStorage.setItem(
+											"scrollToHash",
+											"true"
+										);
+									}
+								}}
 							>
 								{item.label}
 							</Link>

@@ -61,16 +61,6 @@
 	height: 3px;
 }
 
-
-@keyframes rotate {
-	from {
-		transform: rotate(0);
-	}
-	to {
-		transform: rotate(360deg);
-	}
-}
-
 .small {
 	width: 16px;
 	height: 16px;
@@ -135,4 +125,13 @@
 	margin: 0;
 	font-size: 18px;
 	color: #333;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }

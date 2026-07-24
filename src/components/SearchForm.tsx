@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import css from '../scss/components_styles/searching.module.scss'; 
 import Checkbox from './Checkbox';
-import CustomDatePeaker from './CustomDatePeaker';
+import CustomDatePeaker from './CustomDatePicker';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../store/store';
 import { fetchHistograms } from '../features/search/histogramThunk';

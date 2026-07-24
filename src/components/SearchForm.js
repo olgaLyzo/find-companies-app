@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useMemo } from 'react';
 import css from '../scss/components_styles/searching.module.scss';
 import Checkbox from './Checkbox';
-import CustomDatePeaker from './CustomDatePeaker';
+import CustomDatePeaker from './CustomDatePicker';
 import { useDispatch } from 'react-redux';
 import { fetchHistograms } from '../features/search/histogramThunk';
 import { setSearchStage } from '../features/search/searchSlice';
