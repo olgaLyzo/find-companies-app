@@ -1,6 +1,7 @@
 import { useState } from "react";
 import css from "../scss/components_styles/card.module.scss";
 import { useAuth } from "../context/AuthContext";
+
 export interface cardProps {
   title: string;
   client: string;
@@ -12,7 +13,8 @@ export interface cardProps {
   services: string[];
 	activeCard: string | null;
 	setActiveCard: React.Dispatch<
-    React.SetStateAction<string | null>>;
+  React.SetStateAction<string | null>>;
+	currentTariff?: boolean;
 }
 
 const Card: React.FC<cardProps> = ({
@@ -26,10 +28,10 @@ const Card: React.FC<cardProps> = ({
   services,
 	activeCard,
 	setActiveCard,
+	currentTariff = false,
 }) => {
-	const { isAuthenticated } = useAuth();
   const [isHovered, setIsHovered] = useState<boolean>(false);
-
+	const { isAuthenticated } = useAuth();
 	const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -72,7 +74,7 @@ const Card: React.FC<cardProps> = ({
         <p className={css.client}>{client}</p>
       </div>
       <div className={css.card_content}>
-				{isAuthenticated && isActive && (
+				{currentTariff && (
 					<div className={css.active_tariff}>
 						Текущий тариф
 					</div>
