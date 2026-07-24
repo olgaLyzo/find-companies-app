@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import css from '../scss/components_styles/searching.module.scss';
 
 type CheckKey =
-  | 'maxFullness'
-  | 'businessMention'
-  | 'mainRole'
-  | 'includeCalendars'
-  | 'includeSummaries';
+  'maxFullness' | 'businessMention' | 'mainRole' | 'includeCalendars' | 'includeSummaries';
 
 interface CheckState {
   key: CheckKey;
@@ -18,7 +14,7 @@ export const checkStates: CheckState[] = [
   { key: 'businessMention', label: 'Упоминания в бизнес-контексте' },
   { key: 'mainRole', label: 'Главная роль в публикации' },
   { key: 'includeCalendars', label: 'Включать анонсы и календари' },
-  { key: 'includeSummaries', label: 'Включать сводки новостей' }
+  { key: 'includeSummaries', label: 'Включать сводки новостей' },
 ];
 
 const Checkbox: React.FC = () => {
@@ -31,27 +27,23 @@ const Checkbox: React.FC = () => {
   });
 
   const toggleCheck = (name: CheckKey) => {
-    setChecks(prev => ({ ...prev, [name]: !prev[name] }));
+    setChecks((prev) => ({ ...prev, [name]: !prev[name] }));
   };
 
   return (
     <div className={css.checkbox_group}>
-					{
-						checkStates.map((item, index) => (
-							
-								<label className={css.checkbox} htmlFor={`${index}`} key={index}>
-									<input
-										type="checkbox"
-										id={`${index}`}
-										checked={checks[item.key]}
-										onChange={() => toggleCheck(item.key)}
-									/>
-									<span className={css.checkmark}></span>
-									{item.label}
-								</label>
-						
-						))
-					}
+      {checkStates.map((item, index) => (
+        <label className={css.checkbox} htmlFor={`${index}`} key={index}>
+          <input
+            type="checkbox"
+            id={`${index}`}
+            checked={checks[item.key]}
+            onChange={() => toggleCheck(item.key)}
+          />
+          <span className={css.checkmark}></span>
+          {item.label}
+        </label>
+      ))}
     </div>
   );
 };

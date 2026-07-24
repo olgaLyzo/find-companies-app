@@ -7,5 +7,5 @@ export interface Article {
   description: string;
   button: string;
   stat: string;
-	url:string;
+  url: string;
 }

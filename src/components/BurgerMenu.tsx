@@ -7,16 +7,12 @@ export interface BurgerProps {
     label: string;
     link?: string;
     action?: () => void;
-  }[],
-  isOpen: boolean,
-  onClick: () => void,
+  }[];
+  isOpen: boolean;
+  onClick: () => void;
 }
 
-const BurgerMenu: React.FC<BurgerProps> = ({ 
-	menuItems, 
-	onClick, 
-	isOpen,
- }) => {
+const BurgerMenu: React.FC<BurgerProps> = ({ menuItems, onClick, isOpen }) => {
   return (
     <div className={css.hamburgerMenu}>
       <button className={css.hamburgerButton} onClick={onClick}>
@@ -25,30 +21,25 @@ const BurgerMenu: React.FC<BurgerProps> = ({
         <div className={`${css.bar} ${isOpen ? css.open3 : ''}`}></div>
       </button>
       <nav className={`${css.menu} ${isOpen ? css.open : ''}`}>
-				{menuItems.map((item, index) => (
-					item.action ? (
-						<button
-							key={index}
-							className={css.menuItem}
-							onClick={() => {
-								item.action?.();
-								onClick();
-							}}
-						>
-							{item.label}
-						</button>
-					) : (
-						<Link
-							key={index}
-							to={item.link!}
-							className={css.menuItem}
-							onClick={onClick}
-						>
-							{item.label}
-						</Link>
-					)
-				))}      
-			</nav>
+        {menuItems.map((item, index) =>
+          item.action ? (
+            <button
+              key={index}
+              className={css.menuItem}
+              onClick={() => {
+                item.action?.();
+                onClick();
+              }}
+            >
+              {item.label}
+            </button>
+          ) : (
+            <Link key={index} to={item.link!} className={css.menuItem} onClick={onClick}>
+              {item.label}
+            </Link>
+          )
+        )}
+      </nav>
     </div>
   );
 };

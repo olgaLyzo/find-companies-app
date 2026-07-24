@@ -1,56 +1,53 @@
 @use '../abstracts/variables' as vars;
 
 .hamburgerMenu {
-	position: relative;
-	display: flex;
-	align-items: center;
-	height: 93px;
-	width: 55px;
-	margin-left: 15px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 93px;
+  width: 55px;
+  margin-left: 15px;
 
-	.hamburgerButton {
-		background: none;
-		border: none;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		align-items: center;
-		height: 29px;
-		width: 44px;
-		
+  .hamburgerButton {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 29px;
+    width: 44px;
 
-		.bar {
-			width: 100%;
-			height: 6px;
-			background-color: vars.$green;
-			transition: 0.4s;
-		}
-	}
+    .bar {
+      width: 100%;
+      height: 6px;
+      background-color: vars.$green;
+      transition: 0.4s;
+    }
+  }
 
-	.menu {
-		position: absolute;
-		top: 100%;
-		right: 0;
-		background-color: white;
-		border: 1px solid #ccc;
-		display: none;
-		flex-direction: column;
-		padding: 10px;
-		z-index: 1;
+  .menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    display: none;
+    flex-direction: column;
+    padding: 10px;
+    z-index: 1;
 
-		&.open {
-  		display: flex;
-		}
+    &.open {
+      display: flex;
+    }
 
-		.menuItem {
-			padding: 10px;
-			text-decoration: none;
-			color: black;
-			display: block;
-		}
-	}
-
-
+    .menuItem {
+      padding: 10px;
+      text-decoration: none;
+      color: black;
+      display: block;
+    }
+  }
 }
 
 .open1 {
@@ -65,18 +62,8 @@
   transform: rotate(45deg) translate(-7px, -8px);
 }
 
-
-
-@media (min-width: 769px){
-	.hamburgerMenu {
-		display: none;
-		
-	}
-	
+@media (min-width: 769px) {
+  .hamburgerMenu {
+    display: none;
+  }
 }
-
-
-
-
-
-

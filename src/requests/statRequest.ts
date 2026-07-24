@@ -1,4 +1,4 @@
-import { api } from "../requests/axios";
+import { api } from '../requests/axios';
 
 export interface AccountInfoResponse {
   eventFiltersInfo: {
@@ -8,6 +8,6 @@ export interface AccountInfoResponse {
 }
 
 export async function getAccountInfo(): Promise<AccountInfoResponse> {
-  const res = await api.get("/account/info");
+  const res = await api.get('/account/info');
   return res.data;
 }

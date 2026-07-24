@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useEffect, useState } from "react";
-import css from "../scss/components_styles/main.module.scss";
-import Card from "./Card";
-import { tariffRequest } from "./tarifRequest";
-import { useAuth } from "../context/AuthContext";
+import { useEffect, useState } from 'react';
+import css from '../scss/components_styles/main.module.scss';
+import Card from './Card';
+import { tariffRequest } from './tariffRequest';
+import { useAuth } from '../context/AuthContext';
 const Tariffs = () => {
     const { isAuthenticated } = useAuth();
     const [activeCard, setActiveCard] = useState(isAuthenticated ? tariffRequest[0].title : null);

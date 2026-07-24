@@ -14,15 +14,15 @@ const ArticlesPage = () => {
         const lastTwo = count % 100;
         const lastOne = count % 10;
         if (lastTwo >= 11 && lastTwo <= 14) {
-            return "слов";
+            return 'слов';
         }
         if (lastOne === 1) {
-            return "слово";
+            return 'слово';
         }
         if (lastOne >= 2 && lastOne <= 4) {
-            return "слова";
+            return 'слова';
         }
-        return "слов";
+        return 'слов';
     };
     const formattedArticles = documents
         .filter((doc) => doc.ok)
@@ -47,8 +47,8 @@ const ArticlesPage = () => {
     useEffect(() => {
         setVisibleCount(3);
     }, [documents]);
-    return (_jsxs("div", { className: css.articles_container, children: [(searchStage === 'histogramsLoading' || loadingDocuments) && (_jsxs("div", { className: css.search_block, children: [_jsxs("div", { className: css.description, children: [_jsx("h1", { children: "\u0418\u0449\u0435\u043C. \u0421\u043A\u043E\u0440\u043E \u0431\u0443\u0434\u0443\u0442 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B" }), _jsx("p", { children: "\u041F\u043E\u0438\u0441\u043A \u043C\u043E\u0436\u0435\u0442 \u0437\u0430\u043D\u044F\u0442\u044C \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u043E\u0435 \u0432\u0440\u0435\u043C\u044F, \u043F\u0440\u043E\u0441\u0438\u043C \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0442\u044C \u0442\u0435\u0440\u043F\u0435\u043D\u0438\u0435." })] }), _jsx("img", { src: "images/find_info_icon.svg", alt: "find_info_icon" })] })), "\t\t\t", _jsxs("div", { className: css.main_stat_block, children: [_jsx("h1", { children: "\u041E\u0431\u0449\u0430\u044F \u0441\u0432\u043E\u0434\u043A\u0430" }), _jsx(StatSlider, { loading: searchStage === 'histogramsLoading', empty: searchStage === 'documentsReady' && formattedArticles.length === 0, histograms: histograms })] }), searchStage === 'documentsReady' && (_jsxs(_Fragment, { children: [_jsx("h2", { children: "\u0421\u043F\u0438\u0441\u043E\u043A \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u043E\u0432" }), _jsx("div", { className: css.articles_block, children: _jsx(ArticleCards, { articles: visibleArticles }) }), visibleCount < formattedArticles.length && (_jsx("button", { className: css.show_more_btn, onClick: () => {
-                            setVisibleCount(prev => {
+    return (_jsxs("div", { className: css.articles_container, children: [(searchStage === 'histogramsLoading' || loadingDocuments) && (_jsxs("div", { className: css.search_block, children: [_jsxs("div", { className: css.description, children: [_jsx("h1", { children: "\u0418\u0449\u0435\u043C. \u0421\u043A\u043E\u0440\u043E \u0431\u0443\u0434\u0443\u0442 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442\u044B" }), _jsx("p", { children: "\u041F\u043E\u0438\u0441\u043A \u043C\u043E\u0436\u0435\u0442 \u0437\u0430\u043D\u044F\u0442\u044C \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u043E\u0435 \u0432\u0440\u0435\u043C\u044F, \u043F\u0440\u043E\u0441\u0438\u043C \u0441\u043E\u0445\u0440\u0430\u043D\u044F\u0442\u044C \u0442\u0435\u0440\u043F\u0435\u043D\u0438\u0435." })] }), _jsx("img", { src: "images/find_info_icon.svg", alt: "find_info_icon" })] })), ' ', _jsxs("div", { className: css.main_stat_block, children: [_jsx("h1", { children: "\u041E\u0431\u0449\u0430\u044F \u0441\u0432\u043E\u0434\u043A\u0430" }), _jsx(StatSlider, { loading: searchStage === 'histogramsLoading', empty: searchStage === 'documentsReady' && formattedArticles.length === 0, histograms: histograms })] }), searchStage === 'documentsReady' && (_jsxs(_Fragment, { children: [_jsx("h2", { children: "\u0421\u043F\u0438\u0441\u043E\u043A \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u043E\u0432" }), _jsx("div", { className: css.articles_block, children: _jsx(ArticleCards, { articles: visibleArticles }) }), visibleCount < formattedArticles.length && (_jsx("button", { className: css.show_more_btn, onClick: () => {
+                            setVisibleCount((prev) => {
                                 return prev + 3;
                             });
                         }, children: "\u041F\u043E\u043A\u0430\u0437\u0430\u0442\u044C \u0431\u043E\u043B\u044C\u0448\u0435" }))] }))] }));

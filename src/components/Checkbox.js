@@ -6,7 +6,7 @@ export const checkStates = [
     { key: 'businessMention', label: 'Упоминания в бизнес-контексте' },
     { key: 'mainRole', label: 'Главная роль в публикации' },
     { key: 'includeCalendars', label: 'Включать анонсы и календари' },
-    { key: 'includeSummaries', label: 'Включать сводки новостей' }
+    { key: 'includeSummaries', label: 'Включать сводки новостей' },
 ];
 const Checkbox = () => {
     const [checks, setChecks] = useState({
@@ -17,7 +17,7 @@ const Checkbox = () => {
         includeSummaries: false,
     });
     const toggleCheck = (name) => {
-        setChecks(prev => ({ ...prev, [name]: !prev[name] }));
+        setChecks((prev) => ({ ...prev, [name]: !prev[name] }));
     };
     return (_jsx("div", { className: css.checkbox_group, children: checkStates.map((item, index) => (_jsxs("label", { className: css.checkbox, htmlFor: `${index}`, children: [_jsx("input", { type: "checkbox", id: `${index}`, checked: checks[item.key], onChange: () => toggleCheck(item.key) }), _jsx("span", { className: css.checkmark }), item.label] }, index))) }));
 };

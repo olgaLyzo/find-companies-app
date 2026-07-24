@@ -1,249 +1,241 @@
 @use '../abstracts/variables' as vars;
 @use '../abstracts/mixins' as *;
 
+.search_container {
+  padding-left: 10px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
 
-.search_container{
-	padding-left: 10px;
-	padding-left: 10px;
-	display: flex;
-	flex-direction: column;
-	
-	h1{
-		@include font-h1;
-		font-size: 28px;
-	}
+  h1 {
+    @include font-h1;
+    font-size: 28px;
+  }
 
-	.description{
-		display: flex;
-		align-self: baseline;
-		margin-bottom: 15px;
-		justify-content: space-between;
+  .description {
+    display: flex;
+    align-self: baseline;
+    margin-bottom: 15px;
+    justify-content: space-between;
 
-		.main_title{
-			display: flex;
-			flex-direction: column;
-			padding-left: 22px;
-			flex: 0.8;
-		}
+    .main_title {
+      display: flex;
+      flex-direction: column;
+      padding-left: 22px;
+      flex: 0.8;
+    }
 
-		.images{
-			display: flex;
-			flex-direction: column;
-    	justify-content: center;
-			padding-right: 10px;
-			.page_img{
-				width: 68px;
-			}
-			.folders_img{
-				display:none;
-			}
-		}
+    .images {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-right: 10px;
+      .page_img {
+        width: 68px;
+      }
+      .folders_img {
+        display: none;
+      }
+    }
 
-		p{
-			@include font-main;
-			font-size: 18px;
-		}
-	}
-	
-	.search_block{
-		display: flex;
-		flex-direction: column;
+    p {
+      @include font-main;
+      font-size: 18px;
+    }
+  }
 
-		.form_container {
-			display: flex;
-			flex-direction: column;
-			gap: 15px;
-			padding: 20px;
-			border: 1px solid #ccc;
-			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-			font-size: 14px;
-			
-			.form_grafs{
-				display: flex;
-				flex-direction: column;
-				.form_field{
-					display: flex;
-					flex-direction: column;
-					flex: 1;
-					label {
-						display: block;
-						margin-bottom: 20px;
-						margin-top: 20px;
-						font-size: 18px;
-						@include font-main;
-					}
+  .search_block {
+    display: flex;
+    flex-direction: column;
 
-					input[type="text"],
-					input[type="date"],
-					select {
-						padding: 8px;
-						border-radius: 5px;
-						border: 0.5px solid #949494;
-						color: #949494;
-						text-align: center; 
-					}
-				}
-			}
-			.check_and_submit_container{
-				display: flex;
-				flex-direction: column;
-				.checkbox_group{
-					display: none;
-					flex-direction: column;
-					margin-bottom: 20px;
-					gap: 13px;
-					flex: 1;
-					
-					.checkbox{
-						margin-bottom: 10px;
-						font-size: 14px;
-						cursor: pointer;
-						position: relative;
-						padding-left: 30px; 
-					}
+    .form_container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
 
-					input[type='checkbox'] {
-						position: absolute;
-						opacity: 0;
-						cursor: pointer;
-						height: 0;
-						width: 0;
-					}
+      .form_grafs {
+        display: flex;
+        flex-direction: column;
+        .form_field {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          label {
+            display: block;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            font-size: 18px;
+            @include font-main;
+          }
 
-					input[type='checkbox']:checked + .checkmark {
-							border-color: black;
-							box-shadow: 0 0 5px black;
-						}
+          input[type='text'],
+          input[type='date'],
+          select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 0.5px solid #949494;
+            color: #949494;
+            text-align: center;
+          }
+        }
+      }
+      .check_and_submit_container {
+        display: flex;
+        flex-direction: column;
+        .checkbox_group {
+          display: none;
+          flex-direction: column;
+          margin-bottom: 20px;
+          gap: 13px;
+          flex: 1;
 
-					input[type='checkbox']:checked + .checkmark:after {
-						content: "";
-						position: absolute;
-						left: 6px;
-						top: 2px;
-						width: 6px;
-						height: 12px;
-						border: solid #4caf50;
-						border-width: 0 2px 2px 0;
-						transform: rotate(45deg);
-						display: block;
-					}
-					.checkmark {
-						position: absolute;
-						left: 0;
-						top: 50%;
-						transform: translateY(-50%);
-						height: 20px;
-						width: 20px;
-						background-color: #fff;
-						border: 2px solid #ccc;
-						border-radius: 4px;
-						transition: 0.2s;
+          .checkbox {
+            margin-bottom: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            position: relative;
+            padding-left: 30px;
+          }
 
-						&:after {
-							content: "";
-							position: absolute;
-							left: 6px;
-							top: 2px;
-							width: 6px;
-							height: 12px;
-							border: solid #4caf50;
-							border-width: 0 2px 2px 0;
-							transform: rotate(45deg);
-							display: none; 
-						}
-					}
-				}
-					.submit_button {
-						width: 100%;
-						padding: 10px;
-						background-color: #b8cffb;
-						color: white;
-						border: none;
-						border-radius: 5px;
-						font-size: 16px;
-						cursor: pointer;
-						transition: background-color 0.3s;
+          input[type='checkbox'] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+          }
 
-						&.active_btn{
-							background-color: #5970FF;
-							color: white;
-						}
-					}
+          input[type='checkbox']:checked + .checkmark {
+            border-color: black;
+            box-shadow: 0 0 5px black;
+          }
 
-					.note {
-						font-size: 12px;
-						color: #999;
-					}
-			}
-		}
-		img{
-			// width: 400px;
-			margin-top: 25px;
-			margin: 0 auto;
-		}
-	}
+          input[type='checkbox']:checked + .checkmark:after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 12px;
+            border: solid #4caf50;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            display: block;
+          }
+          .checkmark {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            transition: 0.2s;
 
-	.error{
-		border-color: red;
-		box-shadow: 0 0 5px red;
-	}
+            &:after {
+              content: '';
+              position: absolute;
+              left: 6px;
+              top: 2px;
+              width: 6px;
+              height: 12px;
+              border: solid #4caf50;
+              border-width: 0 2px 2px 0;
+              transform: rotate(45deg);
+              display: none;
+            }
+          }
+        }
+        .submit_button {
+          width: 100%;
+          padding: 10px;
+          background-color: #b8cffb;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s;
 
-	.error_label {
-		color: red;
-	}
+          &.active_btn {
+            background-color: #5970ff;
+            color: white;
+          }
+        }
 
-	select{
-		height: 40px;
-		option{
-				font-size: 14px;
-				@include font-main;
-		}
-	}			
+        .note {
+          font-size: 12px;
+          color: #999;
+        }
+      }
+    }
+    img {
+      // width: 400px;
+      margin-top: 25px;
+      margin: 0 auto;
+    }
+  }
 
-	.error_text {
-		color: red;
-		font-size: 12px;
-		margin-top: 4px;
-	}
+  .error {
+    border-color: red;
+    box-shadow: 0 0 5px red;
+  }
+
+  .error_label {
+    color: red;
+  }
+
+  select {
+    height: 40px;
+    option {
+      font-size: 14px;
+      @include font-main;
+    }
+  }
+
+  .error_text {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+  }
 }
 
-@media (min-width: 769px){
-	.search_container{
-		.description{
+@media (min-width: 769px) {
+  .search_container {
+    .description {
+      .images {
+        flex-direction: row;
+        gap: 80px;
+        .folders_img {
+          display: block;
+          width: 100px;
+        }
+      }
+    }
+    .search_block {
+      flex-direction: row;
 
-			.images{
-				flex-direction: row;
-				gap: 80px;
-				.folders_img{
-				display: block;
-				width: 100px;
-				}
-			}
-		}
-		.search_block{
-			flex-direction: row;
+      .form_container {
+        flex-direction: row;
+        padding-bottom: 0;
+        .check_and_submit_container {
+          .checkbox_group {
+            display: flex;
+          }
+        }
+      }
 
-			.form_container{
-				flex-direction: row;
-				padding-bottom: 0;
-				.check_and_submit_container{
-					.checkbox_group{
-						display: flex;
-					}
-				}
-			}
-
-			img{
-				align-self: end;
-				margin-left: 15px;
-			}
-		}
-	}
-}				
-
-
-
-
-
-
+      img {
+        align-self: end;
+        margin-left: 15px;
+      }
+    }
+  }
+}

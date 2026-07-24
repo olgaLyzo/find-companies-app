@@ -1,13 +1,9 @@
 import { fetchDocuments } from './searchThunk';
 import { fetchHistograms } from './histogramThunk';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-type SearchStage =
-  | 'form'
-  | 'histogramsLoading'
-  | 'histogramsReady'
-  | 'documentsReady';
-
+type SearchStage = 'form' | 'histogramsLoading' | 'histogramsReady' | 'documentsReady';
 
 interface SearchState {
   documents: any[];
@@ -31,13 +27,10 @@ const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-		setSearchStage: (
-  state,
-  action: PayloadAction<SearchStage>
-) => {
-  state.searchStage = action.payload;
-},
-	},
+    setSearchStage: (state, action: PayloadAction<SearchStage>) => {
+      state.searchStage = action.payload;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -50,7 +43,7 @@ const searchSlice = createSlice({
       .addCase(fetchDocuments.fulfilled, (state, action) => {
         state.loading = false;
         state.documents = action.payload;
-				state.searchStage = 'documentsReady';
+        state.searchStage = 'documentsReady';
       })
 
       .addCase(fetchDocuments.rejected, (state, action) => {
@@ -58,27 +51,24 @@ const searchSlice = createSlice({
         state.error = action.payload as string;
       })
 
-			.addCase(fetchHistograms.pending, (state) => {
-					state.histogramsLoading = true;
-					state.searchStage = 'histogramsLoading';
-					state.error = null;
-			})
+      .addCase(fetchHistograms.pending, (state) => {
+        state.histogramsLoading = true;
+        state.searchStage = 'histogramsLoading';
+        state.error = null;
+      })
 
-			.addCase(fetchHistograms.fulfilled, (state, action) => {
-					console.log('HISTOGRAMS:', action.payload);
+      .addCase(fetchHistograms.fulfilled, (state, action) => {
+        state.histogramsLoading = false;
+        state.histograms = action.payload.data;
+        state.searchStage = 'histogramsReady';
+      })
 
-					state.histogramsLoading = false;
-					state.histograms = action.payload.data;
-					state.searchStage = 'histogramsReady';
-			})
-
-			.addCase(fetchHistograms.rejected, (state, action) => {
-				state.histogramsLoading = false;
-				state.error = action.payload as string;
-			})
-				},
-			});
+      .addCase(fetchHistograms.rejected, (state, action) => {
+        state.histogramsLoading = false;
+        state.error = action.payload as string;
+      });
+  },
+});
 
 export const { setSearchStage } = searchSlice.actions;
-
 export default searchSlice.reducer;

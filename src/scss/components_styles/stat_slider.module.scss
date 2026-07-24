@@ -2,100 +2,100 @@
 @use '../abstracts/mixins' as *;
 
 .wrapper {
-	display: flex;
-	align-items: center;
-	font-size: 16px;
-	@include font-main;
-	justify-content: space-between;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  @include font-main;
+  justify-content: space-between;
 
-	.forward_arrow, .back_arrow{
-		width: 15px;
-		height: 15px;
-		border: 4px solid rgb(180, 177, 177);
-		border-top: none;
-		border-left: none;
-		cursor: pointer;
-		border-top-right-radius: 6px;
-		border-bottom-left-radius: 6px;
-	}
+  .forward_arrow,
+  .back_arrow {
+    width: 15px;
+    height: 15px;
+    border: 4px solid rgb(180, 177, 177);
+    border-top: none;
+    border-left: none;
+    cursor: pointer;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
 
-	.back_arrow {
-		transform: rotate(134deg);
-	}
+  .back_arrow {
+    transform: rotate(134deg);
+  }
 
-	.forward_arrow{
-		transform: rotate(316deg);
-	}
+  .forward_arrow {
+    transform: rotate(316deg);
+  }
 
-	.table{
-		display: flex;
-		flex-direction: column;
-		flex: 1;
-		overflow: hidden;
-		align-items: normal;
-		border: 1px solid vars.$green;
-		border-radius: 10px;
-		background: #fff;
-		position: relative;
-		justify-content: space-between;
+  .table {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    align-items: normal;
+    border: 1px solid vars.$green;
+    border-radius: 10px;
+    background: #fff;
+    position: relative;
+    justify-content: space-between;
 
-		.main_column{
-					display: flex;
-					justify-content: space-between;
-					padding: 10px;
-					gap: 15px;
-					align-items: center;
-					background-color: vars.$green;
-					padding: 10px;
-					color: white;
-					align-items: flex-start;
-					border-top-left-radius: 8px;
-					align-items: center;
-				}
-		.column_container{
-			display: flex;
-			align-items: stretch;
-			width: -webkit-fill-available;
-			.column {
-				display: flex;
-				flex-direction: row;
-				width: 100%;
-				justify-content: space-between;
-				padding: 10px;
-				align-items: center;
-			}
+    .main_column {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      gap: 15px;
+      align-items: center;
+      background-color: vars.$green;
+      padding: 10px;
+      color: white;
+      align-items: flex-start;
+      border-top-left-radius: 8px;
+      align-items: center;
+    }
+    .column_container {
+      display: flex;
+      align-items: stretch;
+      width: -webkit-fill-available;
+      .column {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        padding: 10px;
+        align-items: center;
+      }
 
-			.separator{
-					display: none;
-					width: 3px; 
-					height: 80%; 
-					background-color: #949494; 
-					align-self: center;
-			}
-		}
-	}
+      .separator {
+        display: none;
+        width: 3px;
+        height: 80%;
+        background-color: #949494;
+        align-self: center;
+      }
+    }
+  }
 }
 
 .loading_container {
-	flex: 1;
-	min-height: 130px;
-	background: white;
+  flex: 1;
+  min-height: 130px;
+  background: white;
 
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-	gap: 12px;
+  gap: 12px;
 
-// 	& p {
-// 	margin: 0;
-// 	font-size: 14px;
-// 	color: #333;
-// 	text-align: center;
-// }
+  // 	& p {
+  // 	margin: 0;
+  // 	font-size: 14px;
+  // 	color: #333;
+  // 	text-align: center;
+  // }
 }
-
 
 // .loader {
 // 	width: 42px;
@@ -174,28 +174,28 @@
 // }
 
 .empty_text {
-	font-size: 20px;
-	color: #949494;
-	text-align: center;
+  font-size: 20px;
+  color: #949494;
+  text-align: center;
 }
 
-@media (min-width: 768px){
-	.wrapper{
-		.table{
-			flex-direction: row;
+@media (min-width: 768px) {
+  .wrapper {
+    .table {
+      flex-direction: row;
 
-			.main_column{
-				flex-direction: column;
-			}
+      .main_column {
+        flex-direction: column;
+      }
 
-			.column_container{
-				.column{
-					flex-direction: column;
-				}
-				.separator{
-					display: block;
-				}
-			}
-		}
-	}
+      .column_container {
+        .column {
+          flex-direction: column;
+        }
+        .separator {
+          display: block;
+        }
+      }
+    }
+  }
 }

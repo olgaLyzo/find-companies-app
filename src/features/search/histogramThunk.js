@@ -6,7 +6,7 @@ export const fetchHistograms = createAsyncThunk('search/fetchHistograms', async 
         return response.data;
     }
     catch (error) {
-        return rejectWithValue(error.response?.data ||
-            'Ошибка загрузки статистики');
+        const axiosError = error;
+        return rejectWithValue(axiosError.response?.data?.message || 'Ошибка загрузки статистики');
     }
 });

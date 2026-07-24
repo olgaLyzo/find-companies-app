@@ -19,4 +19,3 @@ export interface AuthContextValue {
   isAuthenticated: boolean;
   loadUserInfo: () => Promise<void>;
 }
-

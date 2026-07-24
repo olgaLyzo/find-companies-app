@@ -1,73 +1,71 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { createContext, useContext, useEffect, useState, useCallback } from "react";
-import { getAccountInfo } from "../requests/accountAPI"; // если хочешь подгружать статистику
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { getAccountInfo } from '../requests/accountAPI';
 const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({
-        accessToken: localStorage.getItem("accessToken"),
-        expire: localStorage.getItem("tokenExpire"),
-        name: localStorage.getItem("userName") || null,
-        surname: localStorage.getItem("userSurname") || null,
-        avatarUrl: localStorage.getItem("userAvatar") || null,
+        accessToken: localStorage.getItem('accessToken'),
+        expire: localStorage.getItem('tokenExpire'),
+        name: localStorage.getItem('userName') || null,
+        surname: localStorage.getItem('userSurname') || null,
+        avatarUrl: localStorage.getItem('userAvatar') || null,
     });
-    const isAuthenticated = !!auth.accessToken &&
-        !!auth.expire &&
-        new Date(auth.expire) > new Date();
+    const isAuthenticated = !!auth.accessToken && !!auth.expire && new Date(auth.expire) > new Date();
     const login = useCallback((token, expire, name, surname, avatarUrl) => {
-        localStorage.setItem("accessToken", token);
-        localStorage.setItem("tokenExpire", expire);
+        localStorage.setItem('accessToken', token);
+        localStorage.setItem('tokenExpire', expire);
         if (name)
-            localStorage.setItem("userName", name);
+            localStorage.setItem('userName', name);
         if (surname)
-            localStorage.setItem("userSurname", surname);
+            localStorage.setItem('userSurname', surname);
         if (avatarUrl)
-            localStorage.setItem("userAvatar", avatarUrl);
+            localStorage.setItem('userAvatar', avatarUrl);
         setAuth({
             accessToken: token,
             expire,
             name,
             surname,
-            avatarUrl
+            avatarUrl,
         });
     }, []);
     const loadUserInfo = async () => {
         try {
             const data = await getAccountInfo();
-            console.log("ACCOUNT INFO:", data);
+            console.log('ACCOUNT INFO:', data);
             if (!data)
                 return;
             setAuth((prev) => ({
                 ...prev,
                 name: data.name ?? prev.name,
                 surname: data.surname ?? prev.surname,
-                avatarUrl: data.avatarUrl ?? prev.avatarUrl
+                avatarUrl: data.avatarUrl ?? prev.avatarUrl,
             }));
             if (data.name) {
-                localStorage.setItem("userName", data.name);
+                localStorage.setItem('userName', data.name);
             }
             if (data.surname) {
-                localStorage.setItem("userSurname", data.surname);
+                localStorage.setItem('userSurname', data.surname);
             }
             if (data.avatarUrl) {
-                localStorage.setItem("userAvatar", data.avatarUrl);
+                localStorage.setItem('userAvatar', data.avatarUrl);
             }
         }
         catch (e) {
-            console.log("Не удалось получить данные пользователя", e);
+            console.log('Не удалось получить данные пользователя', e);
         }
     };
     const logout = useCallback(() => {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("tokenExpire");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("userSurname");
-        localStorage.removeItem("userAvatar");
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('tokenExpire');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userSurname');
+        localStorage.removeItem('userAvatar');
         setAuth({
             accessToken: null,
             expire: null,
             name: null,
             surname: null,
-            avatarUrl: null
+            avatarUrl: null,
         });
     }, []);
     useEffect(() => {
@@ -86,6 +84,6 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
     const ctx = useContext(AuthContext);
     if (!ctx)
-        throw new Error("useAuth must be used inside AuthProvider");
+        throw new Error('useAuth must be used inside AuthProvider');
     return ctx;
 };

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import css from "../scss/components_styles/card.module.scss";
-import { useAuth } from "../context/AuthContext";
+import { useState } from 'react';
+import css from '../scss/components_styles/card.module.scss';
+import { useAuth } from '../context/AuthContext';
 
 export interface cardProps {
   title: string;
@@ -11,10 +11,9 @@ export interface cardProps {
   description: string;
   tariff: string;
   services: string[];
-	activeCard: string | null;
-	setActiveCard: React.Dispatch<
-  React.SetStateAction<string | null>>;
-	currentTariff?: boolean;
+  activeCard: string | null;
+  setActiveCard: React.Dispatch<React.SetStateAction<string | null>>;
+  currentTariff?: boolean;
 }
 
 const Card: React.FC<cardProps> = ({
@@ -26,83 +25,68 @@ const Card: React.FC<cardProps> = ({
   description,
   tariff,
   services,
-	activeCard,
-	setActiveCard,
-	currentTariff = false,
+  activeCard,
+  setActiveCard,
+  currentTariff = false,
 }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
-	const { isAuthenticated } = useAuth();
-	const handleMouseEnter = () => {
+  const { isAuthenticated } = useAuth();
+  const handleMouseEnter = () => {
     setIsHovered(true);
   };
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-	const handleClick = ()=>{
-		setActiveCard(title);
-	}
-
-	const isActive = activeCard === title;
+  const handleClick = () => {
+    setActiveCard(title);
+  };
+  const isActive = activeCard === title;
+	
   return (
     <div
       className={`${css.card} 
 				 ${
-           isHovered && title === "Beginner"
+           isHovered && title === 'Beginner'
              ? css.beginer
-             : isHovered && title === "Pro"
-             ? css.pro
-             : isHovered && title === "Business"
-             ? css.business
-             : ""
+             : isHovered && title === 'Pro'
+               ? css.pro
+               : isHovered && title === 'Business'
+                 ? css.business
+                 : ''
          }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div
         className={`${css.card_header} ${
-          title === "Pro"
-            ? css.pro
-            : title === "Business"
-            ? css.business
-            : css.beginer
+          title === 'Pro' ? css.pro : title === 'Business' ? css.business : css.beginer
         }`}
       >
         <div className={css.card_title}>
           <h2>{title}</h2>
-          <img src={iconUrl} alt={"icon"} />
+          <img src={iconUrl} alt={'icon'} />
         </div>
         <p className={css.client}>{client}</p>
       </div>
       <div className={css.card_content}>
-				{currentTariff && (
-					<div className={css.active_tariff}>
-						Текущий тариф
-					</div>
-				)}
+        {currentTariff && <div className={css.active_tariff}>Текущий тариф</div>}
         <div className={css.price}>
-          <span className={css.actual_price}>
-            {price.toLocaleString("ru-RU")} ₽
-          </span>
-          <span className={css.previous_price}>
-            {previousPrice.toLocaleString("ru-RU")} ₽
-          </span>
-					<p>{description}</p>
+          <span className={css.actual_price}>{price.toLocaleString('ru-RU')} ₽</span>
+          <span className={css.previous_price}>{previousPrice.toLocaleString('ru-RU')} ₽</span>
+          <p>{description}</p>
         </div>
-       
-				
-					<h3>{tariff}</h3>
-        	<ul className={css.conditions}>
-						{services.map((elem, index) => (
-							<li key={index}>{elem}</li>
-						))}
-					</ul>
-				
-        <button 
-					className={`${css.go_to_account_btn} ${isActive 
-						? css.go_to_account_btn 
-						: css.get_info_btn}`} 
-					onClick = {handleClick}
-				>
+        <h3>{tariff}</h3>
+        <ul className={css.conditions}>
+          {services.map((elem, index) => (
+            <li key={index}>{elem}</li>
+          ))}
+        </ul>
+        <button
+          className={`${css.go_to_account_btn} ${
+            isActive ? css.go_to_account_btn : css.get_info_btn
+          }`}
+          onClick={handleClick}
+        >
           {isAuthenticated && isActive ? 'Перейти в личный кабинет' : 'Подробнее'}
         </button>
       </div>

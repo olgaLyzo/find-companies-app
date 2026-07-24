@@ -1,37 +1,38 @@
 @use '../abstracts/variables' as vars;
 
-.account_container{
-	display: none;
-	border: black;
+.account_container {
+  display: none;
+  border: black;
 
-	.account_info{
-		display: flex;
-		flex-direction: column;
-	}
+  .account_info {
+    display: flex;
+    flex-direction: column;
+  }
 
-	.user_name{
-		font-size: 14px;
-	}
+  .user_name {
+    font-size: 14px;
+  }
 
-	.logout_btn{
-		font-size: 10px;
-		border: none;
-		background-color: vars.$white;
-	}
+  .logout_btn {
+    font-size: 10px;
+    border: none;
+    background-color: vars.$white;
+  }
 
-	.logout_btn, .user_name{
-		color: grey;
-	}
+  .logout_btn,
+  .user_name {
+    color: grey;
+  }
 }
 
-@media (min-width: 769px){
-	.account_container{
-		display: flex;
+@media (min-width: 769px) {
+  .account_container {
+    display: flex;
 
-		.logout_btn,
-		.user_name{
-			padding-right: 10px;
-    	text-align: right;
-		}
-	}
+    .logout_btn,
+    .user_name {
+      padding-right: 10px;
+      text-align: right;
+    }
+  }
 }

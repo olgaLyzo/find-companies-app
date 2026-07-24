@@ -1,9 +1,9 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState, useEffect } from 'react';
-import css from '../scss/components_styles/datapeaker.module.scss';
+import css from '../scss/components_styles/datepicker.module.scss';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-const CustomDatePeaker = ({ startDate, endDate, onChangeStartDate, onChangeEndDate, onErrorChange }) => {
+const CustomDatePicker = ({ startDate, endDate, onChangeStartDate, onChangeEndDate, onErrorChange, }) => {
     const [activeDate, setActiveDate] = useState(null);
     const [dateValidation, setDateValidation] = useState({
         start: {
@@ -15,7 +15,7 @@ const CustomDatePeaker = ({ startDate, endDate, onChangeStartDate, onChangeEndDa
             error: false,
             message: '',
             touched: false,
-        }
+        },
     });
     const convertStrToDate = (dateStr) => {
         const parts = dateStr.split('.');
@@ -36,11 +36,11 @@ const CustomDatePeaker = ({ startDate, endDate, onChangeStartDate, onChangeEndDa
     useEffect(() => {
         let start = {
             error: false,
-            message: ''
+            message: '',
         };
         let end = {
             error: false,
-            message: ''
+            message: '',
         };
         if (dateValidation.start.touched && !selectedStart) {
             start.error = true;
@@ -68,36 +68,29 @@ const CustomDatePeaker = ({ startDate, endDate, onChangeStartDate, onChangeEndDa
                 end.message = 'Дата конца не может быть раньше даты начала';
             }
         }
-        setDateValidation(prev => ({
+        setDateValidation((prev) => ({
             start: {
                 ...prev.start,
                 error: start.error,
-                message: start.message
+                message: start.message,
             },
             end: {
                 ...prev.end,
                 error: end.error,
-                message: end.message
-            }
+                message: end.message,
+            },
         }));
         onErrorChange(start.error || end.error);
-    }, [
-        startDate,
-        endDate,
-        dateValidation.start.touched,
-        dateValidation.end.touched
-    ]);
+    }, [startDate, endDate, dateValidation.start.touched, dateValidation.end.touched]);
     const handleChangeDate = (field, date) => {
-        setDateValidation(prev => ({
+        setDateValidation((prev) => ({
             ...prev,
             [field]: {
                 ...prev[field],
-                touched: true
-            }
+                touched: true,
+            },
         }));
-        const dateStr = date
-            ? date.toLocaleDateString('ru-RU')
-            : '';
+        const dateStr = date ? date.toLocaleDateString('ru-RU') : '';
         if (field === 'start') {
             onChangeStartDate(dateStr);
         }
@@ -110,10 +103,10 @@ const CustomDatePeaker = ({ startDate, endDate, onChangeStartDate, onChangeEndDa
 							${css.date}
 							${activeDate === 'start' ? css.active : ''}
 							${dateValidation.start.error ? css.error : ''}
-						`, onClick: () => setActiveDate(activeDate === 'start' ? null : 'start'), children: [_jsx("span", { className: css.text, children: startDate || 'Дата начала' }), _jsx("img", { className: css.arrow, src: 'images/triangle.svg', alt: '\u0438\u043A\u043E\u043D\u043A\u0430 \u0441\u0442\u0440\u0435\u043B\u043A\u0438' })] }), activeDate === 'start' && (_jsx("div", { className: css.datepicker_wrapper, children: _jsx(DatePicker, { selected: selectedStart, onChange: (date) => handleChangeDate('start', date), dateFormat: "dd.MM.yyyy", inline: true }) }))] }), _jsxs("div", { className: css.date_cell, children: [_jsxs("button", { className: `
+						`, onClick: () => setActiveDate(activeDate === 'start' ? null : 'start'), children: [_jsx("span", { className: css.text, children: startDate || 'Дата начала' }), _jsx("img", { className: css.arrow, src: "images/triangle.svg", alt: "\u0438\u043A\u043E\u043D\u043A\u0430 \u0441\u0442\u0440\u0435\u043B\u043A\u0438" })] }), activeDate === 'start' && (_jsx("div", { className: css.datepicker_wrapper, children: _jsx(DatePicker, { selected: selectedStart, onChange: (date) => handleChangeDate('start', date), dateFormat: "dd.MM.yyyy", inline: true }) }))] }), _jsxs("div", { className: css.date_cell, children: [_jsxs("button", { className: `
 							${css.date}
 							${activeDate === 'end' ? css.active : ''}
 							${dateValidation.end.error ? css.error : ''}
-						`, onClick: () => setActiveDate(activeDate === 'end' ? null : 'end'), children: [_jsx("span", { className: css.text, children: endDate || 'Дата конца' }), _jsx("img", { className: css.arrow, src: 'images/triangle.svg', alt: '\u0438\u043A\u043E\u043D\u043A\u0430 \u0441\u0442\u0440\u0435\u043B\u043A\u0438' })] }), activeDate === 'end' && (_jsx("div", { className: css.datepicker_wrapper, children: _jsx(DatePicker, { selected: selectedEnd, onChange: (date) => handleChangeDate('end', date), dateFormat: "dd.MM.yyyy", inline: true }) }))] })] }), dateValidation.start.touched && dateValidation.start.message && (_jsx("div", { className: css.error_text, children: dateValidation.start.message })), dateValidation.end.touched && dateValidation.end.message && (_jsx("div", { className: css.error_text, children: dateValidation.end.message }))] }));
+						`, onClick: () => setActiveDate(activeDate === 'end' ? null : 'end'), children: [_jsx("span", { className: css.text, children: endDate || 'Дата конца' }), _jsx("img", { className: css.arrow, src: "images/triangle.svg", alt: "\u0438\u043A\u043E\u043D\u043A\u0430 \u0441\u0442\u0440\u0435\u043B\u043A\u0438" })] }), activeDate === 'end' && (_jsx("div", { className: css.datepicker_wrapper, children: _jsx(DatePicker, { selected: selectedEnd, onChange: (date) => handleChangeDate('end', date), dateFormat: "dd.MM.yyyy", inline: true }) }))] })] }), dateValidation.start.touched && dateValidation.start.message && (_jsx("div", { className: css.error_text, children: dateValidation.start.message })), dateValidation.end.touched && dateValidation.end.message && (_jsx("div", { className: css.error_text, children: dateValidation.end.message }))] }));
 };
-export default CustomDatePeaker;
+export default CustomDatePicker;

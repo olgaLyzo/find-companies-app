@@ -6,15 +6,11 @@ export const fetchDocuments = createAsyncThunk(
   async (params: HistogramRequest, { rejectWithValue, dispatch }) => {
     try {
       const searchResult = await searchDocuments(params);
-      const ids = searchResult.items.map(
-        (item: any) => item.encodedId
-      );
+      const ids = searchResult.items.map((item: any) => item.encodedId);
       const documents = await getDocuments(ids);
       return documents;
     } catch (error: any) {
-      return rejectWithValue(
-        error.response?.data || 'Ошибка загрузки данных'
-      );
+      return rejectWithValue(error.response?.data || 'Ошибка загрузки данных');
     }
   }
 );

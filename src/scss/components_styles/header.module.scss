@@ -1,99 +1,96 @@
 @use '../abstracts/variables' as vars;
 @use '../abstracts/mixins' as *;
 
-.header{
-	display:flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 10px;
-	height: 93px;
-	@include font-main;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  height: 93px;
+  @include font-main;
 
-	.logo{
-		background-image: url('images/logo.svg');
-		background-repeat: no-repeat;
-		width: 111px;
-		height: 111px;
-		align-self: baseline;
-		flex-grow: 0.5;
-	}
+  .logo {
+    background-image: url('images/logo.svg');
+    background-repeat: no-repeat;
+    width: 111px;
+    height: 111px;
+    align-self: baseline;
+    flex-grow: 0.5;
+  }
 
-	.menu_items{
-		display: none;
-		justify-content: space-between;
-		align-items: center;
-		width: 245px;
-		height: 17px;
-		color:black;
-		a{
-			text-decoration: none;
-			color: black;
-		}
-	}
-	
+  .menu_items {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 245px;
+    height: 17px;
+    color: black;
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
 
-	.menu{
-		display: none;
-		justify-content: space-between;
-		align-items: center;
-		width: 260px;
-		height: 60px;
-		a{
-			color: black;
-		}
+  .menu {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    width: 260px;
+    height: 60px;
+    a {
+      color: black;
+    }
 
-		.registration_btn{
-			width: 146px;
-			height: 26px;
-			background-color: white;
-			padding: 0;
-			cursor: pointer;
-		}
+    .registration_btn {
+      width: 146px;
+      height: 26px;
+      background-color: white;
+      padding: 0;
+      cursor: pointer;
+    }
 
-		.limiter{
-			border-right: 2px solid vars.$light-green;
-			height: 26px;
-			padding: 0;
-		}
+    .limiter {
+      border-right: 2px solid vars.$light-green;
+      height: 26px;
+      padding: 0;
+    }
 
-		.enter_in_account{
-			background-color: vars.$light-green;
-			border-radius: 5px;
-			width: 65px;
-			height: 26px;
-			padding: 0;
-			margin-left: 11px;
-			cursor: pointer;
-		}
+    .enter_in_account {
+      background-color: vars.$light-green;
+      border-radius: 5px;
+      width: 65px;
+      height: 26px;
+      padding: 0;
+      margin-left: 11px;
+      cursor: pointer;
+    }
 
-		.enter_in_account, .registration_btn{
-			border: none;
-		}	
-	}
+    .enter_in_account,
+    .registration_btn {
+      border: none;
+    }
+  }
 }
 
+@media (min-width: 769px) {
+  .header {
+    .menu_items {
+      display: flex;
+      align-items: center;
+      width: 185px;
+      font-size: 15px;
 
+      a {
+        text-decoration: none;
+        color: black;
+      }
+    }
+    .menu {
+      display: flex;
 
-
-@media (min-width: 769px){
-	.header{
-		.menu_items{
-		display: flex;
-		align-items: center;
-		width: 185px;
-		font-size: 15px;
-		
-		a{
-			text-decoration: none;
-			color: black;
-		}
-	}
-		.menu{
-			display: flex;
-
-			&.disabled{
-				display: none;
-			}
-		}
-	}
+      &.disabled {
+        display: none;
+      }
+    }
+  }
 }

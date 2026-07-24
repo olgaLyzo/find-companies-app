@@ -1,54 +1,54 @@
 @use '../abstracts/variables' as vars;
 @use '../abstracts/mixins' as *;
-	
-	.auth{
-		h1{
-			@include font-h1;
-		}
-		font-size: 35px;
-		display: flex;
-		flex-direction: column;
-		overflow: hidden;
-		padding: 15px;
 
-		.people_with_key{
-    	margin: 0px auto 40px auto;
-			margin-top: 20px;
-		}
-	}
+.auth {
+  h1 {
+    @include font-h1;
+  }
+  font-size: 35px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 15px;
 
-	@media (min-width: 601px){
-		.auth{
-			flex-direction: row;
-			h1{
-				font-size: 29px;
-			}
+  .people_with_key {
+    margin: 0px auto 40px auto;
+    margin-top: 20px;
+  }
+}
 
-			.people_with_key{
-				position: absolute;
-				top: 408px;
-				width: 279px;
-			}
-		}
-	}
+@media (min-width: 601px) {
+  .auth {
+    flex-direction: row;
+    h1 {
+      font-size: 29px;
+    }
 
-	@media (min-width: 769px){
-		.auth{
-			h1{
-				font-size: 35px;
-			}
-			.people_with_key{
-				width: 335px;
-				top: 350px;
-			}
-		}
-	}
+    .people_with_key {
+      position: absolute;
+      top: 408px;
+      width: 279px;
+    }
+  }
+}
 
-	@media (min-width: 1025px){
-		.auth{
-			.people_with_key{
-				width: 380px;
-				top: 320px;
-			}
-		}
-	}
+@media (min-width: 769px) {
+  .auth {
+    h1 {
+      font-size: 35px;
+    }
+    .people_with_key {
+      width: 335px;
+      top: 350px;
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .auth {
+    .people_with_key {
+      width: 380px;
+      top: 320px;
+    }
+  }
+}

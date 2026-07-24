@@ -3,134 +3,128 @@
 @use '../abstracts/mixins' as *;
 @use './slider.module.scss';
 
-.main_block{
-	display: flex;
-	flex-direction: column;
-	width: 90%;
-	margin: 0 auto;
-	flex: 1;
+.main_block {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+  flex: 1;
 
-	.search_block{
-		display: flex;
-		flex-direction: column;
-		
-		.descript_for_search_block{
-			display: flex;
-			flex-direction: column;
+  .search_block {
+    display: flex;
+    flex-direction: column;
 
-			.title{
-				@include font-h1;
-				font-size: 30px;
-			}
+    .descript_for_search_block {
+      display: flex;
+      flex-direction: column;
 
-			p{
-				@include font-main;
-			}
+      .title {
+        @include font-h1;
+        font-size: 30px;
+      }
 
-			.get_info_btn{
-				width: 100%;
-				font-size: 20px;
-				border: none;
-				border-radius: 5px;
-				background-color: vars.$blue;
-				color: vars.$white;
-				height: 59px;
-				margin-bottom: 20px;
-			}
-		}
-		
-		.search_spec{
-			display: flex;
-			margin: 0 auto;
-		}
-	}
+      p {
+        @include font-main;
+      }
 
-	.slider_block{
-		display: flex;
-		flex-direction: column;
+      .get_info_btn {
+        width: 100%;
+        font-size: 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: vars.$blue;
+        color: vars.$white;
+        height: 59px;
+        margin-bottom: 20px;
+      }
+    }
 
-		.title{
-			@include font-h1;
-			font-size: 30px;
-		}
-		.images{
-			display: flex;
-			flex-direction: column;
+    .search_spec {
+      display: flex;
+      margin: 0 auto;
+    }
+  }
 
-			.guy_on_bench{
-				align-self: center;
-			}
+  .slider_block {
+    display: flex;
+    flex-direction: column;
 
-			.drops{
-				display: none;
-			}
-		}
-	}
+    .title {
+      @include font-h1;
+      font-size: 30px;
+    }
+    .images {
+      display: flex;
+      flex-direction: column;
 
-	.tarifs_block{
-		display: flex;
-		flex-direction: column;
+      .guy_on_bench {
+        align-self: center;
+      }
 
-		.title{
-			@include font-h1;
-			font-size: 30px;
-		}
-		.cards_container{
-			display: flex;
-			flex-direction: column;
-		}
-		
-	}
+      .drops {
+        display: none;
+      }
+    }
+  }
+
+  .tarifs_block {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      @include font-h1;
+      font-size: 30px;
+    }
+    .cards_container {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }
 
-
-@media (min-width: 601px){
-	.main_block{
-		width: 85%;
-	}
+@media (min-width: 601px) {
+  .main_block {
+    width: 85%;
+  }
 }
 
+@media (min-width: 769px) {
+  .main_block {
+    .search_block {
+      flex-direction: row;
+      .search_spec {
+        height: 100%;
+        margin-bottom: 0;
+      }
+    }
+    .slider_block {
+      .images {
+        flex-direction: row;
+        justify-content: space-between;
 
+        .drops {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
 
+          .small_drop {
+            align-self: end;
+            width: 145px;
+          }
+          .big_drop {
+            width: 275px;
+          }
+        }
+      }
+    }
 
-@media (min-width: 769px){
-	.main_block{
-		.search_block{
-			flex-direction: row;
-			.search_spec{
-				height: 100%;
-				margin-bottom: 0;
-			}
-		}
-		.slider_block{
-			.images{
-				flex-direction: row;
-				justify-content: space-between;
-
-				.drops{
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-
-					.small_drop{
-						align-self: end;
-    				width: 145px;
-					}
-					.big_drop{
-						width: 275px;
-					}
-				}
-				
-			}
-		}
-
-		.tarifs_block{
-			.cards_container{
-				flex-direction: row;
-				gap: 10px;
-				flex: 1;
-    		align-self: stretch;
-			}
-		}
-	}
+    .tarifs_block {
+      .cards_container {
+        flex-direction: row;
+        gap: 10px;
+        flex: 1;
+        align-self: stretch;
+      }
+    }
+  }
 }

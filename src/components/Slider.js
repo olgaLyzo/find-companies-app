@@ -15,10 +15,10 @@ const Slider = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
     const handlePrev = () => {
-        setCurrentIndex(prev => (prev - 1 + length) % length);
+        setCurrentIndex((prev) => (prev - 1 + length) % length);
     };
     const handleNext = () => {
-        setCurrentIndex(prev => (prev + 1) % length);
+        setCurrentIndex((prev) => (prev + 1) % length);
     };
     const getCards = () => {
         const cards = [];
@@ -28,7 +28,6 @@ const Slider = () => {
         }
         return cards;
     };
-    const cardsToShow = getCards();
     return (_jsxs("div", { className: css.slider_wrapper, children: [_jsx("div", { className: css.back_arrow, onClick: handlePrev }), _jsx(SliderCard, { currentIndex: currentIndex, isMobile: isMobile }), _jsx("div", { className: css.forward_arrow, onClick: handleNext })] }));
 };
 export default Slider;

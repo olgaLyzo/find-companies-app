@@ -4,9 +4,8 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 
-
 import App from './App';
-import Header from './components/Header'; 
+import Header from './components/Header';
 import MainBlock from './components/MainBlock';
 import Footer from './components/Footer';
 import AuthorisationPage from './components/AuthorisationPage';
@@ -19,17 +18,16 @@ if (rootElement) {
   const root = createRoot(rootElement);
   root.render(
     <StrictMode>
-			<Provider store = {store}>
-				<App 
-					headerComponent={<Header />}
-					authorisationComponent={<AuthorisationPage />}
-					mainComponent={<MainBlock />}
-					pageSearchingComponent={<PageSearching />}
-					articlesPageComponent={<ArticlesPage />}
-					footerComponent={<Footer />} 
-				>
-				</App>
-			</Provider>
+      <Provider store={store}>
+        <App
+          headerComponent={<Header />}
+          authorisationComponent={<AuthorisationPage />}
+          mainComponent={<MainBlock />}
+          pageSearchingComponent={<PageSearching />}
+          articlesPageComponent={<ArticlesPage />}
+          footerComponent={<Footer />}
+        ></App>
+      </Provider>
     </StrictMode>
   );
 }

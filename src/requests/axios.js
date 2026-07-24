@@ -1,7 +1,7 @@
-import axios from "axios";
-import { logout, getAccessToken } from "../requests/authHelpers";
+import axios from 'axios';
+import { logout, getAccessToken } from '../requests/authHelpers';
 export const api = axios.create({
-    baseURL: "https://gateway.scan-interfax.ru/api/v1",
+    baseURL: 'https://gateway.scan-interfax.ru/api/v1',
 });
 api.interceptors.request.use((config) => {
     const token = getAccessToken();
@@ -12,7 +12,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use((res) => res, async (error) => {
     if (error.response?.status === 401) {
         logout();
-        window.location.href = "/login"; // redirect
+        window.location.href = '/login';
     }
     return Promise.reject(error);
 });

@@ -17,30 +17,23 @@ export interface HistogramRequest {
 
 export type SearchParams = HistogramRequest;
 
-
 export async function searchDocuments(params: HistogramRequest) {
   const response = await api.post('/objectsearch', params);
   return response.data;
 }
 
 export async function getHistograms(params: HistogramRequest) {
-  const response = await api.post(
-    '/objectsearch/histograms',
-    {
-      ...params,
-      intervalType: 'month',
-      histogramTypes: [
-        'totalDocuments',
-        'riskFactors'
-      ]
-    }
-  );
+  const response = await api.post('/objectsearch/histograms', {
+    ...params,
+    intervalType: 'month',
+    histogramTypes: ['totalDocuments', 'riskFactors'],
+  });
   return response.data;
 }
 
 export async function getDocuments(ids: string[]) {
   const response = await api.post('/documents', {
-    ids
+    ids,
   });
   return response.data;
 }

@@ -1,200 +1,199 @@
 @use '../abstracts/variables' as vars;
 @use '../abstracts/mixins' as *;
 
-	.form_container {
-		color: #C7C7C7;
-		margin-top: 100px;
-		margin-bottom: 50px;
-		display: flex;
-		flex-direction: column;
-		position: relative;
-		padding: 20px;
-		border: none;
-		border-radius: 10px;
-		box-shadow: 0 0 30px rgba(0,0,0,0.2);
+.form_container {
+  color: #c7c7c7;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 
-		.lock_icon{
-			position:absolute;
-			top: -77px;
-			left: 120px;		
-			width: 75,22px;
-			height: 92,06px;
-		}
-		.tabs {
-			display: flex;
-			gap: 35px;			
-			margin-bottom: 20px;
+  .lock_icon {
+    position: absolute;
+    top: -77px;
+    left: 120px;
+    width: 75, 22px;
+    height: 92, 06px;
+  }
+  .tabs {
+    display: flex;
+    gap: 35px;
+    margin-bottom: 20px;
 
-			button {
-				background: none;
-				border: none;
-				font-size: 16px;
-				cursor: pointer;
-				padding: 10px;
+    button {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 10px;
 
-				&.active {
-					width: 120px;
-					color: vars.$green;
-					border-bottom: 2px solid vars.$green;
-				}
+      &.active {
+        width: 120px;
+        color: vars.$green;
+        border-bottom: 2px solid vars.$green;
+      }
 
-				&.sign_in_btn {
-					flex: 1;
-					width: 100%;
-					color: #C7C7C7;
-					border-bottom: 2px solid #C7C7C7;
-				}
-			}
-		}
+      &.sign_in_btn {
+        flex: 1;
+        width: 100%;
+        color: #c7c7c7;
+        border-bottom: 2px solid #c7c7c7;
+      }
+    }
+  }
 
-		form {
-			display: flex;
-			flex-direction: column;
+  form {
+    display: flex;
+    flex-direction: column;
 
-			label {
-				width: 100%;
-				margin-bottom: 15px;
-				font-size: 14px;
+    label {
+      width: 100%;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
 
-			}
+    input[type='text'],
+    input[type='password'] {
+      width: 96%;
+      height: 26px;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      transition: 0.2s;
+    }
 
-			input[type="text"],
-			input[type="password"] {
-				width: 96%;
-				height: 26px;
-				padding: 8px;
-				margin-top: 5px;
-				border-radius: 5px;
-				border: 1px solid #ccc;
-				transition: 0.2s;
-			}
-			
-			.login_btn {
-				height: 59px;
-				color: white;
-				background-color: #b6bffa;
-				border: none;
-				padding: 10px;
-				font-size: 20px;
-				border-radius: 5px;
-				cursor: pointer;
-				margin-top: 10px;
-				margin-bottom: 10px;
-				width: 100%;
+    .login_btn {
+      height: 59px;
+      color: white;
+      background-color: #b6bffa;
+      border: none;
+      padding: 10px;
+      font-size: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 100%;
 
-				&.active{
-					background-color: vars.$blue;
-				}
-			}
-		}
+      &.active {
+        background-color: vars.$blue;
+      }
+    }
+  }
 
-		.input_error {
-					border: 1px solid red;
-					outline: none;
-					box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
-				}
+  .input_error {
+    border: 1px solid red;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
+  }
 
-		.error_text {
-				color: red;
-				font-size: 12px;
-				margin-top: 6px;
-				text-align: center;
-			}
+  .error_text {
+    color: red;
+    font-size: 12px;
+    margin-top: 6px;
+    text-align: center;
+  }
 
-		.forgot_password {
-			display: block;
-			width: 160px;
-    	height: 20px;
-			margin: 0 auto;
-			text-align: center;
-			font-size: 14px;
-			color: #b1acf5;
-			text-decoration: none;
-			border-bottom: 2px solid #b1acf5;
-		}
+  .forgot_password {
+    display: block;
+    width: 160px;
+    height: 20px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+    color: #b1acf5;
+    text-decoration: none;
+    border-bottom: 2px solid #b1acf5;
+  }
 
-		.login_via {
-			width: 100%;
-			display: flex;
-			align-items: baseline;
-			flex-direction: column;
-			text-align: center;
-			margin-top: 20px;
+  .login_via {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 20px;
 
-			p{
-				@include font-main;
-				font-size: 14px;
-			}
+    p {
+      @include font-main;
+      font-size: 14px;
+    }
 
-			.social_buttons {
-				display: flex;
-				justify-content: center;
-				gap: 10px;
-				margin-top: 10px;
-				height: 31px;
-				width: 100%;
+    .social_buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+      height: 31px;
+      width: 100%;
 
-				img{
-					width: 75%;
-    			height: 130%;
-						}
+      img {
+        width: 75%;
+        height: 130%;
+      }
 
-				& button {
-					border: 1px solid #b1acf5;
-					padding: 10px;
-					height: 40px;
-					cursor: pointer;
-					border-radius: 5px;
-					width: 170px;
-					background-color: white;
-				}
-			}
-		}
-	}
-
-@media (min-width: 601px){
-	.form_container {
-		width: 40%;
-
-		.tabs{
-			button{
-				&.sign_in_btn{
-					font-size: 11px;
-				}
-				&.active{
-					font-size: 11px;
-				}
-			}
-		}
-	}
+      & button {
+        border: 1px solid #b1acf5;
+        padding: 10px;
+        height: 40px;
+        cursor: pointer;
+        border-radius: 5px;
+        width: 170px;
+        background-color: white;
+      }
+    }
+  }
 }
 
-@media (min-width: 769px){
-	.form_container {
-		.tabs{
-			button{
-				&.sign_in_btn{
-					font-size: 14px;
-				}
-				&.active{
-					font-size: 14px;
-				}
-			}
-		}
-	}
+@media (min-width: 601px) {
+  .form_container {
+    width: 40%;
+
+    .tabs {
+      button {
+        &.sign_in_btn {
+          font-size: 11px;
+        }
+        &.active {
+          font-size: 11px;
+        }
+      }
+    }
+  }
 }
 
-@media (min-width: 1025px){
-	.form_container {
-		.tabs{
-			button{
-				&.sign_in_btn{
-					font-size: 17px;
-				}
-				&.active{
-					font-size: 17px;
-				}
-			}
-		}
-	}
+@media (min-width: 769px) {
+  .form_container {
+    .tabs {
+      button {
+        &.sign_in_btn {
+          font-size: 14px;
+        }
+        &.active {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1025px) {
+  .form_container {
+    .tabs {
+      button {
+        &.sign_in_btn {
+          font-size: 17px;
+        }
+        &.active {
+          font-size: 17px;
+        }
+      }
+    }
+  }
 }
