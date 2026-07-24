@@ -1,7 +1,7 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
 import css from '../scss/components_styles/card.module.scss';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 const Card = ({ title, client, iconUrl, price, previousPrice, description, tariff, services, activeCard, setActiveCard, currentTariff = false, }) => {
     const [isHovered, setIsHovered] = useState(false);
     const { isAuthenticated } = useAuth();

@@ -7,7 +7,7 @@ import type { AppDispatch } from '../store/store';
 import { runSearch } from '../features/search/searchService';
 import { formatInn, validateField } from '../utils/searchUtils';
 import type { SearchField, SearchFormData, SearchFormErrors  } from '../types/search';
-import { dataInit, errorsInit } from '../constants/searchFormConstants';
+import { dataInit, errorsInit } from '../constants/searchFormConsts';
 
 
 const SearchForm: React.FC = () => {

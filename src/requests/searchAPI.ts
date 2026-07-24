@@ -5,8 +5,8 @@ export interface HistogramRequest {
     startDate: string;
     endDate: string;
   };
-  searchContext: any;
-  attributeFilters: any;
+  searchContext: Record<string, unknown>;
+	attributeFilters: Record<string, unknown>;
   similarMode: string;
   limit: number;
   sortType: string;
@@ -17,7 +17,17 @@ export interface HistogramRequest {
 
 export type SearchParams = HistogramRequest;
 
-export async function searchDocuments(params: HistogramRequest) {
+export interface SearchDocumentItem {
+  encodedId: string;
+}
+
+export interface SearchDocumentsResponse {
+  items: SearchDocumentItem[];
+}
+
+export async function searchDocuments(
+  params: HistogramRequest
+): Promise<SearchDocumentsResponse> {
   const response = await api.post('/objectsearch', params);
   return response.data;
 }

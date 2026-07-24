@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import css from '../scss/components_styles/authorisation_form.module.scss';
 import { useNavigate } from 'react-router';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 import { loginRequest } from '../requests/authAPI';
 import { decodeToken } from '../utils/decodeToken';
 

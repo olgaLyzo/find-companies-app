@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import css from '../scss/components_styles/main.module.scss';
 import Card from './Card';
 import { tariffRequest } from './tariffRequest';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 const Tariffs = () => {
     const { isAuthenticated } = useAuth();
     const [activeCard, setActiveCard] = useState(isAuthenticated ? tariffRequest[0].title : null);

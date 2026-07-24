@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import css from '../scss/components_styles/card.module.scss';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 
 export interface cardProps {
   title: string;

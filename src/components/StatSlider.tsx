@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import css from '../scss/components_styles/stat_slider.module.scss';
 import Loader from './statLoader';
-
-export const parameters = ['Период', 'Всего', 'Риски'];
+import { parameters } from '../constants/statSliderConsts';
+import type { HistogramItem } from '../types/search';
 interface StatSliderProps {
   loading?: boolean;
   empty?: boolean;
-  histograms: any[];
+  histograms: HistogramItem[];
 }
 
 const StatSlider: React.FC<StatSliderProps> = ({ loading = false, empty = false, histograms }) => {
@@ -28,7 +28,7 @@ const StatSlider: React.FC<StatSliderProps> = ({ loading = false, empty = false,
     if (!totalDocuments) {
       return [];
     }
-    return totalDocuments.data.map((item: any, index: number) => ({
+    return totalDocuments.data.map((item, index: number) => ({
       period: new Date(item.date).toLocaleDateString('ru-RU'),
       total: item.value,
       risks: riskFactors?.data[index]?.value ?? 0,

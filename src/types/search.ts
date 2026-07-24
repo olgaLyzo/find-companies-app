@@ -15,3 +15,11 @@ export interface SearchFormErrors {
 }
 
 export type SearchField = keyof SearchFormData;
+
+export interface HistogramItem {
+  histogramType: string;
+  data: {
+    date: string;
+    value: number;
+  }[];
+}

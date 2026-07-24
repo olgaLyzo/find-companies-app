@@ -10,10 +10,10 @@ export const fetchHistograms = createAsyncThunk(
       const response = await api.post('/objectsearch/histograms', params);
       return response.data;
     } catch (error) {
-			const axiosError = error as AxiosError<{ message?: string }>;
-			return rejectWithValue(
-				axiosError.response?.data?.message || 'Ошибка загрузки статистики'
-			);
-		}
+      const axiosError = error as AxiosError<{ message?: string }>;
+      return rejectWithValue(
+        axiosError.response?.data?.message || 'Ошибка загрузки статистики'
+      );
+    }
   }
 );

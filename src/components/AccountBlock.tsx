@@ -1,6 +1,6 @@
 import React from 'react';
 import css from '../scss/components_styles/account.module.scss';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 
 const AccountBlock: React.FC = () => {
   const { auth, logout } = useAuth();

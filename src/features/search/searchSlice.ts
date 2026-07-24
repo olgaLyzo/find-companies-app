@@ -2,12 +2,13 @@ import { fetchDocuments } from './searchThunk';
 import { fetchHistograms } from './histogramThunk';
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import type { HistogramItem } from '../../types/search';
 
 type SearchStage = 'form' | 'histogramsLoading' | 'histogramsReady' | 'documentsReady';
 
 interface SearchState {
-  documents: any[];
-  histograms: any[];
+  documents: unknown[];
+  histograms: HistogramItem[];
   loading: boolean;
   histogramsLoading: boolean;
   searchStage: SearchStage;

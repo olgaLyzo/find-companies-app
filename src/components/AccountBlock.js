@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import css from '../scss/components_styles/account.module.scss';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 const AccountBlock = () => {
     const { auth, logout } = useAuth();
     const fullName = auth.name || 'Пользователь';

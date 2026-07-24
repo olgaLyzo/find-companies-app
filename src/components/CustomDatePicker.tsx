@@ -1,15 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import css from '../scss/components_styles/datepicker.module.scss';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-
 interface CustomDatePickerProps {
   startDate: string;
   endDate: string;
   onChangeStartDate: (dateStr: string) => void;
   onChangeEndDate: (dateStr: string) => void;
   onErrorChange: (hasError: boolean) => void;
+}interface DateFieldValidation {
+  error: boolean;
+  message: string;
+  touched: boolean;
 }
+
+interface DateValidation {
+  start: DateFieldValidation;
+  end: DateFieldValidation;
+}
+
+const clearTime = (date: Date) => {
+		return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+};
+
+
+const convertStrToDate = (dateStr: string): Date | null => {
+    const parts = dateStr.split('.');
+    if (parts.length !== 3) return null;
+    const [day, month, year] = parts;
+    const isoString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    const date = new Date(isoString);
+    return isNaN(date.getTime()) ? null : date;
+};
 
 const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   startDate,
@@ -19,53 +41,33 @@ const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   onErrorChange,
 }) => {
   const [activeDate, setActiveDate] = useState<'start' | 'end' | null>(null);
-  const [dateValidation, setDateValidation] = useState<{
-    start: {
-      error: boolean;
-      message: string;
-      touched: boolean;
-    };
-    end: {
-      error: boolean;
-      message: string;
-      touched: boolean;
-    };
-  }>({
-    start: {
-      error: false,
-      message: '',
-      touched: false,
-    },
-    end: {
-      error: false,
-      message: '',
-      touched: false,
-    },
-  });
+  const [dateValidation, setDateValidation] = useState<DateValidation>({
+		start: {
+			error: false,
+			message: '',
+			touched: false,
+		},
+		end: {
+			error: false,
+			message: '',
+			touched: false,
+		},
+	});
 
-  const convertStrToDate = (dateStr: string): Date | null => {
-    const parts = dateStr.split('.');
-    if (parts.length !== 3) return null;
-    const [day, month, year] = parts;
-    const isoString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    const date = new Date(isoString);
-    return isNaN(date.getTime()) ? null : date;
-  };
-
-  const clearTime = (date: Date) => {
-		return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  };
   const selectedStart = startDate ? convertStrToDate(startDate) : null;
   const selectedEnd = endDate ? convertStrToDate(endDate) : null;
-  const today = clearTime(new Date());
-  today.setHours(0, 0, 0, 0);
+  const today = useMemo(() => {
+  const date = clearTime(new Date());
+		date.setHours(0, 0, 0, 0);
+		return date;
+	}, []);
 
   useEffect(() => {
-    let start = {
+    const start = {
       error: false,
       message: '',
     };
-    let end = {
+    const end = {
       error: false,
       message: '',
     };
@@ -110,7 +112,16 @@ const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
     }));
 
     onErrorChange(start.error || end.error);
-  }, [startDate, endDate, dateValidation.start.touched, dateValidation.end.touched]);
+  }, [
+			startDate,
+			endDate,
+			dateValidation.start.touched,
+			dateValidation.end.touched,
+			selectedStart,
+			selectedEnd,
+			today,
+			onErrorChange,
+		]);
 
   const handleChangeDate = (field: 'start' | 'end', date: Date | null) => {
     setDateValidation((prev) => ({
@@ -136,6 +147,7 @@ const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
       <div className={css.date_cell_container}>
         <div className={css.date_cell}>
           <button
+						type='button'
             className={`
 							${css.date}
 							${activeDate === 'start' ? css.active : ''}
@@ -159,6 +171,7 @@ const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         </div>
         <div className={css.date_cell}>
           <button
+						type='button'
             className={`
 							${css.date}
 							${activeDate === 'end' ? css.active : ''}

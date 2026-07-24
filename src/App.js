@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import css from './scss/app.module.scss';
 import { AuthProvider } from './context/AuthContext';
-import { useAuth } from './context/AuthContext';
+import { useAuth } from './context/useAuth';
 import ScrollToHash from './components/ScrollToHash';
 export function PrivateRoute() {
     const { isAuthenticated } = useAuth();

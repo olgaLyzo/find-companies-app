@@ -26,7 +26,7 @@ const ArticlesPage = () => {
     };
     const formattedArticles = documents
         .filter((doc) => doc.ok)
-        .map((doc, index) => {
+        .map((doc) => {
         return {
             date: new Date(doc.ok.issueDate).toLocaleDateString('ru-RU'),
             source: doc.ok.source.name,

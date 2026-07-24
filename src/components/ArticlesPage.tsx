@@ -4,6 +4,7 @@ import ArticleCards from './ArticleCards';
 import StatSlider from './StatSlider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
+import type { DocumentItem } from '../types/document';
 
 const ArticlesPage: React.FC = () => {
   const [visibleCount, setVisibleCount] = useState(3);
@@ -29,8 +30,8 @@ const ArticlesPage: React.FC = () => {
   };
 
   const formattedArticles = documents
-    .filter((doc: any) => doc.ok)
-    .map((doc: any, index) => {
+    .filter((doc: DocumentItem) => doc.ok)
+    .map((doc: DocumentItem) => {
       return {
         date: new Date(doc.ok.issueDate).toLocaleDateString('ru-RU'),
         source: doc.ok.source.name,

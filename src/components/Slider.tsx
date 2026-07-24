@@ -24,15 +24,6 @@ const Slider: React.FC = () => {
     setCurrentIndex((prev) => (prev + 1) % length);
   };
 
-  const getCards = () => {
-    const cards = [];
-    for (let i = 0; i < (isMobile ? 1 : 3); i++) {
-      const index = (currentIndex + i) % length;
-      cards.push(sliderInfo[index]);
-    }
-    return cards;
-  };
-
   return (
     <div className={css.slider_wrapper}>
       <div className={css.back_arrow} onClick={handlePrev}></div>

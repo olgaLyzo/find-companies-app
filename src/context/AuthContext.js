@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { getAccountInfo } from '../requests/accountAPI';
-const AuthContext = createContext(null);
+import { AuthContext } from './authContextValue';
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({
         accessToken: localStorage.getItem('accessToken'),
@@ -80,10 +80,4 @@ export const AuthProvider = ({ children }) => {
         return () => clearTimeout(t);
     }, [auth.expire, logout]);
     return (_jsx(AuthContext.Provider, { value: { auth, login, logout, isAuthenticated, loadUserInfo }, children: children }));
-};
-export const useAuth = () => {
-    const ctx = useContext(AuthContext);
-    if (!ctx)
-        throw new Error('useAuth must be used inside AuthProvider');
-    return ctx;
 };

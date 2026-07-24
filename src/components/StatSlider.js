@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import React, { useEffect, useState } from 'react';
 import css from '../scss/components_styles/stat_slider.module.scss';
 import Loader from './statLoader';
-export const parameters = ['Период', 'Всего', 'Риски'];
+import { parameters } from '../constants/statSliderConsts';
 const StatSlider = ({ loading = false, empty = false, histograms }) => {
     const [start, setStart] = useState(0);
     const [windowSize, setWindowSize] = useState(5);

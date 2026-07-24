@@ -20,14 +20,6 @@ const Slider = () => {
     const handleNext = () => {
         setCurrentIndex((prev) => (prev + 1) % length);
     };
-    const getCards = () => {
-        const cards = [];
-        for (let i = 0; i < (isMobile ? 1 : 3); i++) {
-            const index = (currentIndex + i) % length;
-            cards.push(sliderInfo[index]);
-        }
-        return cards;
-    };
     return (_jsxs("div", { className: css.slider_wrapper, children: [_jsx("div", { className: css.back_arrow, onClick: handlePrev }), _jsx(SliderCard, { currentIndex: currentIndex, isMobile: isMobile }), _jsx("div", { className: css.forward_arrow, onClick: handleNext })] }));
 };
 export default Slider;

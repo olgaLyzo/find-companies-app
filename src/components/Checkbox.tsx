@@ -1,21 +1,7 @@
 import React, { useState } from 'react';
 import css from '../scss/components_styles/searching.module.scss';
-
-type CheckKey =
-  'maxFullness' | 'businessMention' | 'mainRole' | 'includeCalendars' | 'includeSummaries';
-
-interface CheckState {
-  key: CheckKey;
-  label: string;
-}
-
-export const checkStates: CheckState[] = [
-  { key: 'maxFullness', label: 'Признак максимальной полноты' },
-  { key: 'businessMention', label: 'Упоминания в бизнес-контексте' },
-  { key: 'mainRole', label: 'Главная роль в публикации' },
-  { key: 'includeCalendars', label: 'Включать анонсы и календари' },
-  { key: 'includeSummaries', label: 'Включать сводки новостей' },
-];
+import { checkStates } from '../constants/checkStates';
+import type { CheckKey } from '../constants/checkStates';
 
 const Checkbox: React.FC = () => {
   const [checks, setChecks] = useState<Record<CheckKey, boolean>>({
@@ -32,11 +18,11 @@ const Checkbox: React.FC = () => {
 
   return (
     <div className={css.checkbox_group}>
-      {checkStates.map((item, index) => (
-        <label className={css.checkbox} htmlFor={`${index}`} key={index}>
+      {checkStates.map((item) => (
+        <label className={css.checkbox} htmlFor={item.key} key={item.key}>
           <input
             type="checkbox"
-            id={`${index}`}
+            id={item.key}
             checked={checks[item.key]}
             onChange={() => toggleCheck(item.key)}
           />

@@ -6,7 +6,7 @@ import CustomDatePicker from './CustomDatePicker';
 import { useDispatch } from 'react-redux';
 import { runSearch } from '../features/search/searchService';
 import { formatInn, validateField } from '../utils/searchUtils';
-import { dataInit, errorsInit } from '../constants/searchFormConstants';
+import { dataInit, errorsInit } from '../constants/searchFormConsts';
 const SearchForm = () => {
     const dispatch = useDispatch();
     const [data, setData] = useState(dataInit);

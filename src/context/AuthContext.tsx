@@ -1,8 +1,7 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { AuthState, AuthContextValue } from '../utils/auth';
-import { getAccountInfo } from '../requests/accountAPI'; 
-
-const AuthContext = createContext<AuthContextValue | null>(null);
+import React, { useEffect, useState, useCallback } from 'react';
+import type { AuthState } from '../utils/auth';
+import { getAccountInfo } from '../requests/accountAPI';
+import { AuthContext } from './authContextValue';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [auth, setAuth] = useState<AuthState>({
@@ -97,8 +96,3 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-export const useAuth = (): AuthContextValue => {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used inside AuthProvider');
-  return ctx;
-};

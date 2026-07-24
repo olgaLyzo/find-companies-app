@@ -1,0 +1,1 @@
+export const parameters = ['Период', 'Всего', 'Риски'];

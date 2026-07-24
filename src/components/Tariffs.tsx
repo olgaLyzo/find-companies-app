@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import css from '../scss/components_styles/main.module.scss';
 import Card from './Card';
 import { tariffRequest } from './tariffRequest';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 
 const Tariffs: React.FC = () => {
   const { isAuthenticated } = useAuth();

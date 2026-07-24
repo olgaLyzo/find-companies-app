@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 import css from './scss/app.module.scss';
 import { AuthProvider } from './context/AuthContext';
-import { useAuth } from './context/AuthContext';
+import { useAuth } from './context/useAuth';
 import ScrollToHash from './components/ScrollToHash';
 
 export function PrivateRoute() {
