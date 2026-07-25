@@ -3,6 +3,18 @@ import { useState, useEffect, useMemo } from 'react';
 import css from '../scss/components_styles/datepicker.module.scss';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+const clearTime = (date) => {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+};
+const convertStrToDate = (dateStr) => {
+    const parts = dateStr.split('.');
+    if (parts.length !== 3)
+        return null;
+    const [day, month, year] = parts;
+    const isoString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+    const date = new Date(isoString);
+    return isNaN(date.getTime()) ? null : date;
+};
 const CustomDatePicker = ({ startDate, endDate, onChangeStartDate, onChangeEndDate, onErrorChange, }) => {
     const [activeDate, setActiveDate] = useState(null);
     const [dateValidation, setDateValidation] = useState({
@@ -17,18 +29,6 @@ const CustomDatePicker = ({ startDate, endDate, onChangeStartDate, onChangeEndDa
             touched: false,
         },
     });
-    const convertStrToDate = (dateStr) => {
-        const parts = dateStr.split('.');
-        if (parts.length !== 3)
-            return null;
-        const [day, month, year] = parts;
-        const isoString = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-        const date = new Date(isoString);
-        return isNaN(date.getTime()) ? null : date;
-    };
-    const clearTime = (date) => {
-        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    };
     const selectedStart = startDate ? convertStrToDate(startDate) : null;
     const selectedEnd = endDate ? convertStrToDate(endDate) : null;
     const today = useMemo(() => {
